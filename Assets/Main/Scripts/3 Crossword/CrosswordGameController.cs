@@ -658,6 +658,23 @@ public class CrosswordGameController : MonoBehaviour
             SetText(row.transform.Find("Word"), entry.answer);
             SetText(row.transform.Find("Meaning"), ShortMeaning(entry.clue));
 
+            // Tap to hear: the speaker beside the star plays the recording of the word
+            Transform speaker = row.transform.Find("Speaker");
+            Button speakerButton = speaker != null ? speaker.GetComponent<Button>() : null;
+            if (speakerButton != null)
+            {
+                if (WordAudio.Enabled)
+                {
+                    speaker.gameObject.SetActive(true);
+                    string spoken = entry.answer;
+                    speakerButton.onClick.AddListener(delegate { WordAudio.Play(LanguageIndex, spoken); });
+                }
+                else
+                {
+                    speaker.gameObject.SetActive(false);
+                }
+            }
+
             Transform star = row.transform.Find("Star");
             if (star != null)
             {

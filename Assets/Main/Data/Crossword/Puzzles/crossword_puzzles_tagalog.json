@@ -437,40 +437,40 @@
        "answer": "MATA",
        "clue": "Eye; sight; view; core; center.",
        "row": 0,
-       "col": 6,
-       "across": false,
+       "col": 2,
+       "across": true,
        "number": 1
       },
       {
-       "answer": "TAINGA",
+       "answer": "TENGA",
        "clue": "This word means ear.",
-       "row": 1,
-       "col": 1,
-       "across": true,
+       "row": 0,
+       "col": 4,
+       "across": false,
        "number": 2
       },
       {
-       "answer": "ILONG",
-       "clue": "This word means the nose.",
-       "row": 1,
-       "col": 3,
-       "across": false,
+       "answer": "BIBIG",
+       "clue": "Mouth; mouthpiece (person, newspaper, etc.; that speaks for others).",
+       "row": 3,
+       "col": 0,
+       "across": true,
        "number": 3
       },
       {
        "answer": "BUHOK",
        "clue": "This word means hair.",
        "row": 3,
-       "col": 0,
-       "across": true,
+       "col": 2,
+       "across": false,
        "number": 4
       },
       {
-       "answer": "ULO",
-       "clue": "The head; also a chief, a top, or a heading.",
-       "row": 3,
-       "col": 1,
-       "across": false,
+       "answer": "ILONG",
+       "clue": "This word means the nose.",
+       "row": 6,
+       "col": 0,
+       "across": true,
        "number": 5
       }
      ]
@@ -479,51 +479,59 @@
      "size": "Medium",
      "words": [
       {
-       "answer": "BUHOK",
-       "clue": "This word means hair.",
+       "answer": "MATA",
+       "clue": "Eye; sight; view; core; center.",
        "row": 0,
-       "col": 4,
+       "col": 0,
        "across": true,
        "number": 1
       },
       {
-       "answer": "KAMAY",
-       "clue": "This word means the hand.",
+       "answer": "TENGA",
+       "clue": "This word means ear.",
        "row": 0,
-       "col": 8,
+       "col": 2,
        "across": false,
        "number": 2
       },
       {
-       "answer": "MATA",
-       "clue": "Eye; sight; view; core; center.",
-       "row": 1,
-       "col": 3,
-       "across": false,
-       "number": 3
-      },
-      {
        "answer": "DILA",
        "clue": "This word means the tongue.",
-       "row": 2,
-       "col": 0,
+       "row": 0,
+       "col": 6,
        "across": true,
-       "number": 4
-      },
-      {
-       "answer": "TAINGA",
-       "clue": "This word means ear.",
-       "row": 3,
-       "col": 3,
-       "across": true,
-       "number": 5
+       "number": 3
       },
       {
        "answer": "ILONG",
        "clue": "This word means the nose.",
-       "row": 3,
-       "col": 5,
+       "row": 0,
+       "col": 7,
        "across": false,
+       "number": 4
+      },
+      {
+       "answer": "BUHOK",
+       "clue": "This word means hair.",
+       "row": 2,
+       "col": 4,
+       "across": true,
+       "number": 5
+      },
+      {
+       "answer": "BRASO",
+       "clue": "This word means arm; force (fig. sense).",
+       "row": 2,
+       "col": 4,
+       "across": false,
+       "number": 5
+      },
+      {
+       "answer": "KAMAY",
+       "clue": "This word means the hand.",
+       "row": 4,
+       "col": 1,
+       "across": true,
        "number": 6
       },
       {
@@ -531,16 +539,8 @@
        "clue": "The head; also a chief, a top, or a heading.",
        "row": 6,
        "col": 2,
-       "across": false,
-       "number": 7
-      },
-      {
-       "answer": "LEEG",
-       "clue": "This word means neck.",
-       "row": 7,
-       "col": 2,
        "across": true,
-       "number": 8
+       "number": 7
       }
      ]
     },
@@ -548,89 +548,89 @@
      "size": "Large",
      "words": [
       {
-       "answer": "BUYON",
-       "clue": "This word means belly; paunch.",
+       "answer": "ILONG",
+       "clue": "This word means the nose.",
        "row": 0,
-       "col": 4,
-       "across": true,
-       "number": 1
-      },
-      {
-       "answer": "BUHOK",
-       "clue": "This word means hair.",
-       "row": 0,
-       "col": 4,
+       "col": 8,
        "across": false,
        "number": 1
       },
       {
-       "answer": "ILONG",
-       "clue": "This word means the nose.",
-       "row": 3,
+       "answer": "DUGO",
+       "clue": "This word means blood.",
+       "row": 1,
+       "col": 2,
+       "across": true,
+       "number": 2
+      },
+      {
+       "answer": "DILA",
+       "clue": "This word means the tongue.",
+       "row": 1,
        "col": 2,
        "across": false,
        "number": 2
       },
       {
-       "answer": "TAINGA",
-       "clue": "This word means ear.",
-       "row": 3,
-       "col": 7,
-       "across": false,
+       "answer": "LEEG",
+       "clue": "This word means neck.",
+       "row": 1,
+       "col": 8,
+       "across": true,
        "number": 3
       },
       {
        "answer": "LIKURAN",
        "clue": "Back; other side; background.",
-       "row": 4,
+       "row": 3,
        "col": 2,
        "across": true,
        "number": 4
       },
       {
-       "answer": "ULO",
-       "clue": "The head; also a chief, a top, or a heading.",
-       "row": 5,
-       "col": 0,
-       "across": true,
-       "number": 5
-      },
-      {
-       "answer": "DUGO",
-       "clue": "This word means blood.",
-       "row": 7,
-       "col": 0,
-       "across": true,
-       "number": 6
-      },
-      {
-       "answer": "DILA",
-       "clue": "This word means the tongue.",
-       "row": 7,
-       "col": 0,
+       "answer": "KAMAY",
+       "clue": "This word means the hand.",
+       "row": 3,
+       "col": 4,
        "across": false,
-       "number": 6
+       "number": 5
       },
       {
        "answer": "MATA",
        "clue": "Eye; sight; view; core; center.",
-       "row": 7,
-       "col": 5,
+       "row": 5,
+       "col": 4,
+       "across": true,
+       "number": 6
+      },
+      {
+       "answer": "TENGA",
+       "clue": "This word means ear.",
+       "row": 5,
+       "col": 6,
        "across": false,
        "number": 7
       },
       {
-       "answer": "KAMAY",
-       "clue": "This word means the hand.",
-       "row": 8,
-       "col": 4,
+       "answer": "BUYON",
+       "clue": "This word means belly; paunch.",
+       "row": 7,
+       "col": 2,
        "across": true,
        "number": 8
       },
       {
-       "answer": "LEEG",
-       "clue": "This word means neck.",
-       "row": 9,
+       "answer": "BUHOK",
+       "clue": "This word means hair.",
+       "row": 7,
+       "col": 2,
+       "across": false,
+       "number": 8
+      },
+      {
+       "answer": "ULO",
+       "clue": "The head; also a chief, a top, or a heading.",
+       "row": 10,
        "col": 0,
        "across": true,
        "number": 9
@@ -646,41 +646,41 @@
      "size": "Small",
      "words": [
       {
-       "answer": "ABUWELO",
-       "clue": "This word means grandfather.",
-       "row": 0,
-       "col": 2,
-       "across": false,
-       "number": 1
-      },
-      {
        "answer": "INA",
        "clue": "This word means a mother.",
        "row": 0,
-       "col": 4,
-       "across": true,
-       "number": 2
-      },
-      {
-       "answer": "AMA",
-       "clue": "A father; also a founder or senior.",
-       "row": 0,
-       "col": 6,
+       "col": 3,
        "across": false,
-       "number": 3
+       "number": 1
       },
       {
        "answer": "BATA",
        "clue": "A baby or child; also used to mean young.",
        "row": 1,
-       "col": 0,
+       "col": 1,
        "across": false,
+       "number": 2
+      },
+      {
+       "answer": "LOLO",
+       "clue": "This word means a grandfather.",
+       "row": 1,
+       "col": 5,
+       "across": false,
+       "number": 3
+      },
+      {
+       "answer": "AMA",
+       "clue": "A father; also a founder or senior.",
+       "row": 2,
+       "col": 1,
+       "across": true,
        "number": 4
       },
       {
-       "answer": "ABUWELA",
-       "clue": "This word means grandmother.",
-       "row": 2,
+       "answer": "SANGGOL",
+       "clue": "Baby; babe; infant; very young (child).",
+       "row": 4,
        "col": 0,
        "across": true,
        "number": 5
@@ -691,66 +691,66 @@
      "size": "Medium",
      "words": [
       {
-       "answer": "AMAIN",
-       "clue": "This word means uncle.",
+       "answer": "TIA",
+       "clue": "This word means aunt.",
        "row": 0,
        "col": 2,
        "across": true,
        "number": 1
       },
       {
-       "answer": "ABUWELO",
-       "clue": "This word means grandfather.",
+       "answer": "INA",
+       "clue": "This word means a mother.",
        "row": 0,
-       "col": 4,
+       "col": 3,
        "across": false,
        "number": 2
       },
       {
-       "answer": "INA",
-       "clue": "This word means a mother.",
+       "answer": "BANA",
+       "clue": "Husband; marsh; lowland covered with water.",
        "row": 1,
        "col": 1,
        "across": false,
        "number": 3
       },
       {
-       "answer": "BANA",
-       "clue": "Husband; marsh; lowland covered with water.",
-       "row": 2,
-       "col": 7,
+       "answer": "IMPO",
+       "clue": "This word means grandmother.",
+       "row": 1,
+       "col": 5,
        "across": false,
        "number": 4
       },
       {
-       "answer": "ABUWELA",
-       "clue": "This word means grandmother.",
-       "row": 3,
-       "col": 1,
+       "answer": "BATA",
+       "clue": "A baby or child; also used to mean young.",
+       "row": 2,
+       "col": 0,
        "across": true,
        "number": 5
       },
       {
-       "answer": "BATA",
-       "clue": "A baby or child; also used to mean young.",
-       "row": 3,
-       "col": 2,
-       "across": false,
+       "answer": "SANGGOL",
+       "clue": "Baby; babe; infant; very young (child).",
+       "row": 4,
+       "col": 0,
+       "across": true,
        "number": 6
       },
       {
-       "answer": "TIA",
-       "clue": "This word means aunt.",
+       "answer": "LOLO",
+       "clue": "This word means a grandfather.",
        "row": 4,
-       "col": 0,
+       "col": 6,
        "across": false,
        "number": 7
       },
       {
-       "answer": "AMA",
-       "clue": "A father; also a founder or senior.",
-       "row": 6,
-       "col": 0,
+       "answer": "TIO",
+       "clue": "This word means uncle.",
+       "row": 7,
+       "col": 4,
        "across": true,
        "number": 8
       }
@@ -760,92 +760,92 @@
      "size": "Large",
      "words": [
       {
-       "answer": "TIA",
-       "clue": "This word means aunt.",
+       "answer": "TIO",
+       "clue": "This word means uncle.",
        "row": 0,
        "col": 2,
-       "across": false,
+       "across": true,
        "number": 1
       },
       {
-       "answer": "IHA",
-       "clue": "Daughter; appellation by elder to young girl.",
-       "row": 1,
-       "col": 2,
-       "across": true,
+       "answer": "IMPO",
+       "clue": "This word means grandmother.",
+       "row": 0,
+       "col": 3,
+       "across": false,
        "number": 2
       },
       {
-       "answer": "AMA",
-       "clue": "A father; also a founder or senior.",
+       "answer": "AMANG",
+       "clue": "Boy; elderly man; term for father.",
        "row": 1,
-       "col": 4,
+       "col": 6,
        "across": false,
        "number": 3
       },
       {
-       "answer": "BANA",
-       "clue": "Husband; marsh; lowland covered with water.",
-       "row": 3,
+       "answer": "PRIMA",
+       "clue": "Cousin; premium (money paid for insurance).",
+       "row": 2,
        "col": 3,
        "across": true,
        "number": 4
       },
       {
-       "answer": "ABUWELO",
-       "clue": "This word means grandfather.",
+       "answer": "LOLO",
+       "clue": "This word means a grandfather.",
        "row": 3,
-       "col": 6,
-       "across": false,
+       "col": 0,
+       "across": true,
        "number": 5
       },
       {
-       "answer": "PINSAN",
-       "clue": "This word means a cousin.",
-       "row": 3,
-       "col": 8,
-       "across": false,
+       "answer": "BANA",
+       "clue": "Husband; marsh; lowland covered with water.",
+       "row": 4,
+       "col": 4,
+       "across": true,
        "number": 6
       },
       {
        "answer": "BATA",
        "clue": "A baby or child; also used to mean young.",
        "row": 4,
-       "col": 0,
+       "col": 4,
+       "across": false,
+       "number": 6
+      },
+      {
+       "answer": "IHA",
+       "clue": "Daughter; appellation by elder to young girl.",
+       "row": 5,
+       "col": 2,
+       "across": true,
+       "number": 7
+      },
+      {
+       "answer": "INA",
+       "clue": "This word means a mother.",
+       "row": 5,
+       "col": 2,
        "across": false,
        "number": 7
       },
       {
-       "answer": "AMANG",
-       "clue": "Boy; elderly man; term for father.",
-       "row": 5,
+       "answer": "TIA",
+       "clue": "This word means aunt.",
+       "row": 7,
        "col": 0,
        "across": true,
        "number": 8
       },
       {
-       "answer": "AMAIN",
-       "clue": "This word means uncle.",
-       "row": 5,
-       "col": 2,
-       "across": false,
-       "number": 9
-      },
-      {
-       "answer": "ABUWELA",
-       "clue": "This word means grandmother.",
+       "answer": "AMA",
+       "clue": "A father; also a founder or senior.",
        "row": 7,
-       "col": 2,
+       "col": 4,
        "across": true,
-       "number": 10
-      },
-      {
-       "answer": "INA",
-       "clue": "This word means a mother.",
-       "row": 9,
-       "col": 1,
-       "across": true,
-       "number": 11
+       "number": 9
       }
      ]
     }
@@ -972,89 +972,89 @@
      "size": "Large",
      "words": [
       {
-       "answer": "BUBONG",
-       "clue": "This word means roof.",
+       "answer": "WALIS",
+       "clue": "This word means broom.",
        "row": 0,
-       "col": 6,
-       "across": true,
-       "number": 1
-      },
-      {
-       "answer": "BINTANA",
-       "clue": "This word means a window.",
-       "row": 0,
-       "col": 8,
+       "col": 1,
        "across": false,
-       "number": 2
+       "number": 1
       },
       {
        "answer": "BAHAY",
        "clue": "A house, dwelling, or home.",
        "row": 1,
-       "col": 1,
+       "col": 0,
+       "across": true,
+       "number": 2
+      },
+      {
+       "answer": "BUBONG",
+       "clue": "This word means roof.",
+       "row": 1,
+       "col": 8,
        "across": false,
        "number": 3
       },
       {
-       "answer": "KUTSARA",
-       "clue": "This word means spoon; tablespoon; trowel.",
-       "row": 1,
-       "col": 4,
-       "across": false,
-       "number": 4
-      },
-      {
-       "answer": "PINTO",
-       "clue": "This word means door.",
-       "row": 2,
-       "col": 6,
-       "across": true,
-       "number": 5
-      },
-      {
-       "answer": "WALIS",
-       "clue": "This word means broom.",
-       "row": 4,
+       "answer": "SILOK",
+       "clue": "This word means spoon; ladle.",
+       "row": 3,
        "col": 0,
        "across": true,
-       "number": 6
-      },
-      {
-       "answer": "HAPAG",
-       "clue": "Table; low table made of bamboo.",
-       "row": 4,
-       "col": 7,
-       "across": true,
-       "number": 7
+       "number": 4
       },
       {
        "answer": "KRISTAL",
        "clue": "Glass; made of glass; crystal; glass cover on a watch.",
-       "row": 6,
+       "row": 3,
+       "col": 4,
+       "across": false,
+       "number": 5
+      },
+      {
+       "answer": "BINTANA",
+       "clue": "This word means a window.",
+       "row": 5,
        "col": 3,
        "across": true,
+       "number": 6
+      },
+      {
+       "answer": "PINTO",
+       "clue": "This word means door.",
+       "row": 7,
+       "col": 1,
+       "across": true,
+       "number": 7
+      },
+      {
+       "answer": "HAPAG",
+       "clue": "Table; low table made of bamboo.",
+       "row": 8,
+       "col": 6,
+       "across": false,
        "number": 8
       },
       {
        "answer": "SILYA",
        "clue": "This word means chair; left turn.",
-       "row": 6,
-       "col": 6,
-       "across": false,
+       "row": 9,
+       "col": 2,
+       "across": true,
        "number": 9
       },
       {
        "answer": "ILAW",
        "clue": "Light, a lamp, or illumination.",
-       "row": 8,
-       "col": 5,
-       "across": true,
+       "row": 9,
+       "col": 3,
+       "across": false,
        "number": 10
       },
       {
        "answer": "KATRE",
        "clue": "This word means bed.",
-       "row": 10,
+       "row": 11,
        "col": 5,
        "across": true,
        "number": 11
@@ -1078,33 +1078,33 @@
        "number": 1
       },
       {
-       "answer": "BITUIN",
-       "clue": "Star; star in movies, drama etc.",
-       "row": 0,
+       "answer": "DAGAT",
+       "clue": "The sea, ocean, bay, or gulf.",
+       "row": 1,
        "col": 2,
        "across": false,
        "number": 2
       },
       {
-       "answer": "DAGAT",
-       "clue": "The sea, ocean, bay, or gulf.",
-       "row": 0,
-       "col": 4,
-       "across": false,
+       "answer": "ARAW",
+       "clue": "The sun; also a day or the daytime.",
+       "row": 2,
+       "col": 0,
+       "across": true,
        "number": 3
       },
       {
-       "answer": "ADLAW",
-       "clue": "This word means sun.",
-       "row": 0,
-       "col": 6,
+       "answer": "ULAN",
+       "clue": "This word means rain or rainfall.",
+       "row": 2,
+       "col": 5,
        "across": false,
        "number": 4
       },
       {
-       "answer": "PAULANAN",
-       "clue": "Rain ; shower; pour down ; pepper.",
-       "row": 3,
+       "answer": "BITUIN",
+       "clue": "Star; star in movies, drama etc.",
+       "row": 5,
        "col": 0,
        "across": true,
        "number": 5
@@ -1115,66 +1115,66 @@
      "size": "Medium",
      "words": [
       {
-       "answer": "PULO",
-       "clue": "This word means island; isolated place.",
+       "answer": "DAGAT",
+       "clue": "The sea, ocean, bay, or gulf.",
        "row": 0,
-       "col": 2,
-       "across": true,
+       "col": 4,
+       "across": false,
        "number": 1
       },
       {
-       "answer": "ULAP",
-       "clue": "This word means cloud; fog; mist.",
-       "row": 0,
-       "col": 3,
-       "across": false,
+       "answer": "ARAW",
+       "clue": "The sun; also a day or the daytime.",
+       "row": 1,
+       "col": 2,
+       "across": true,
        "number": 2
       },
       {
-       "answer": "BITUIN",
-       "clue": "Star; star in movies, drama etc.",
-       "row": 0,
+       "answer": "BUNDOK",
+       "clue": "A mountain, mount, or high hill.",
+       "row": 2,
        "col": 7,
        "across": false,
        "number": 3
       },
       {
-       "answer": "DAGAT",
-       "clue": "The sea, ocean, bay, or gulf.",
-       "row": 2,
+       "answer": "ULAP",
+       "clue": "This word means cloud; fog; mist.",
+       "row": 3,
        "col": 0,
-       "across": true,
+       "across": false,
        "number": 4
       },
       {
-       "answer": "ADLAW",
-       "clue": "This word means sun.",
-       "row": 2,
-       "col": 1,
-       "across": false,
-       "number": 5
-      },
-      {
-       "answer": "BUNDOK",
-       "clue": "A mountain, mount, or high hill.",
-       "row": 3,
-       "col": 5,
-       "across": false,
-       "number": 6
-      },
-      {
-       "answer": "PAULANAN",
-       "clue": "Rain ; shower; pour down ; pepper.",
-       "row": 5,
-       "col": 0,
+       "answer": "BITUIN",
+       "clue": "Star; star in movies, drama etc.",
+       "row": 4,
+       "col": 2,
        "across": true,
-       "number": 7
+       "number": 5
       },
       {
        "answer": "ILOG",
        "clue": "This word means river.",
-       "row": 7,
+       "row": 4,
        "col": 3,
+       "across": false,
+       "number": 6
+      },
+      {
+       "answer": "ULAN",
+       "clue": "This word means rain or rainfall.",
+       "row": 4,
+       "col": 5,
+       "across": false,
+       "number": 7
+      },
+      {
+       "answer": "PULO",
+       "clue": "This word means island; isolated place.",
+       "row": 6,
+       "col": 0,
        "across": true,
        "number": 8
       }
@@ -1184,92 +1184,92 @@
      "size": "Large",
      "words": [
       {
-       "answer": "APOY",
-       "clue": "This word means fire.",
+       "answer": "BITUIN",
+       "clue": "Star; star in movies, drama etc.",
        "row": 0,
-       "col": 10,
+       "col": 3,
        "across": false,
        "number": 1
       },
       {
-       "answer": "PULO",
-       "clue": "This word means island; isolated place.",
-       "row": 1,
-       "col": 0,
-       "across": true,
+       "answer": "DAGAT",
+       "clue": "The sea, ocean, bay, or gulf.",
+       "row": 0,
+       "col": 5,
+       "across": false,
        "number": 2
       },
       {
-       "answer": "ULAP",
-       "clue": "This word means cloud; fog; mist.",
-       "row": 1,
-       "col": 1,
+       "answer": "ILOG",
+       "clue": "This word means river.",
+       "row": 0,
+       "col": 7,
        "across": false,
        "number": 3
       },
       {
-       "answer": "BATO",
-       "clue": "Stone; made of stone; stone; kidney stone; gallstone gem; jewel; knot in wood; the chief piece in a game of native quoits.",
-       "row": 2,
-       "col": 7,
-       "across": true,
+       "answer": "BUNDOK",
+       "clue": "A mountain, mount, or high hill.",
+       "row": 1,
+       "col": 9,
+       "across": false,
        "number": 4
       },
       {
        "answer": "BUHANGIN",
        "clue": "This word means sand.",
-       "row": 2,
-       "col": 7,
-       "across": false,
-       "number": 4
-      },
-      {
-       "answer": "DAGAT",
-       "clue": "The sea, ocean, bay, or gulf.",
        "row": 3,
-       "col": 0,
+       "col": 2,
        "across": true,
        "number": 5
       },
       {
-       "answer": "ADLAW",
-       "clue": "This word means sun.",
-       "row": 3,
-       "col": 3,
+       "answer": "PULO",
+       "clue": "This word means island; isolated place.",
+       "row": 4,
+       "col": 0,
        "across": false,
        "number": 6
       },
       {
-       "answer": "BUNDOK",
-       "clue": "A mountain, mount, or high hill.",
-       "row": 4,
-       "col": 9,
-       "across": false,
+       "answer": "ULAN",
+       "clue": "This word means rain or rainfall.",
+       "row": 5,
+       "col": 0,
+       "across": true,
        "number": 7
       },
       {
-       "answer": "PAULANAN",
-       "clue": "Rain ; shower; pour down ; pepper.",
-       "row": 6,
+       "answer": "APOY",
+       "clue": "This word means fire.",
+       "row": 5,
        "col": 2,
-       "across": true,
+       "across": false,
        "number": 8
       },
       {
-       "answer": "ILOG",
-       "clue": "This word means river.",
-       "row": 8,
-       "col": 7,
+       "answer": "BATO",
+       "clue": "Stone; made of stone; stone; kidney stone; gallstone gem; jewel; knot in wood; the chief piece in a game of native quoits.",
+       "row": 5,
+       "col": 6,
        "across": true,
        "number": 9
       },
       {
-       "answer": "BITUIN",
-       "clue": "Star; star in movies, drama etc.",
-       "row": 9,
-       "col": 2,
-       "across": true,
+       "answer": "ARAW",
+       "clue": "The sun; also a day or the daytime.",
+       "row": 5,
+       "col": 7,
+       "across": false,
        "number": 10
+      },
+      {
+       "answer": "ULAP",
+       "clue": "This word means cloud; fog; mist.",
+       "row": 7,
+       "col": 5,
+       "across": true,
+       "number": 11
       }
      ]
     }
@@ -1282,40 +1282,40 @@
      "size": "Small",
      "words": [
       {
-       "answer": "TATLO",
-       "clue": "This word means three.",
+       "answer": "ANIM",
+       "clue": "This word means the number six.",
        "row": 0,
        "col": 1,
        "across": false,
        "number": 1
       },
       {
-       "answer": "DALAWA",
-       "clue": "Two; couple; dual; twofold.",
-       "row": 1,
-       "col": 0,
-       "across": true,
+       "answer": "APAT",
+       "clue": "This word means the number four.",
+       "row": 0,
+       "col": 3,
+       "across": false,
        "number": 2
       },
       {
-       "answer": "ANIM",
-       "clue": "This word means the number six.",
+       "answer": "DOS",
+       "clue": "This word means two (2).",
        "row": 1,
-       "col": 3,
+       "col": 6,
        "across": false,
        "number": 3
       },
       {
-       "answer": "APAT",
-       "clue": "This word means the number four.",
-       "row": 1,
-       "col": 5,
-       "across": false,
+       "answer": "LIMA",
+       "clue": "This word means five (5).",
+       "row": 2,
+       "col": 0,
+       "across": true,
        "number": 4
       },
       {
-       "answer": "ISA",
-       "clue": "This word means the number one.",
+       "answer": "TRES",
+       "clue": "This word means three.",
        "row": 3,
        "col": 3,
        "across": true,
@@ -1327,68 +1327,68 @@
      "size": "Medium",
      "words": [
       {
-       "answer": "ANIM",
-       "clue": "This word means the number six.",
+       "answer": "LIMA",
+       "clue": "This word means five (5).",
        "row": 0,
-       "col": 0,
-       "across": true,
-       "number": 1
-      },
-      {
-       "answer": "APAT",
-       "clue": "This word means the number four.",
-       "row": 0,
-       "col": 0,
-       "across": false,
-       "number": 1
-      },
-      {
-       "answer": "MUNA",
-       "clue": "First; beforehand; ahead of time.",
-       "row": 0,
-       "col": 3,
-       "across": false,
-       "number": 2
-      },
-      {
-       "answer": "WALO",
-       "clue": "This word means the number eight.",
-       "row": 2,
-       "col": 5,
-       "across": false,
-       "number": 3
-      },
-      {
-       "answer": "TATLO",
-       "clue": "This word means three.",
-       "row": 2,
-       "col": 7,
-       "across": false,
-       "number": 4
-      },
-      {
-       "answer": "DALAWA",
-       "clue": "Two; couple; dual; twofold.",
-       "row": 3,
        "col": 2,
-       "across": true,
-       "number": 5
+       "across": false,
+       "number": 1
       },
       {
        "answer": "PITO",
        "clue": "This word means the number seven.",
-       "row": 5,
+       "row": 2,
+       "col": 4,
+       "across": false,
+       "number": 2
+      },
+      {
+       "answer": "ANIM",
+       "clue": "This word means the number six.",
+       "row": 3,
        "col": 2,
        "across": true,
+       "number": 3
+      },
+      {
+       "answer": "WALO",
+       "clue": "This word means the number eight.",
+       "row": 5,
+       "col": 1,
+       "across": true,
+       "number": 4
+      },
+      {
+       "answer": "APAT",
+       "clue": "This word means the number four.",
+       "row": 5,
+       "col": 2,
+       "across": false,
+       "number": 5
+      },
+      {
+       "answer": "DOS",
+       "clue": "This word means two (2).",
+       "row": 6,
+       "col": 5,
+       "across": false,
        "number": 6
       },
       {
-       "answer": "ISA",
-       "clue": "This word means the number one.",
-       "row": 5,
-       "col": 3,
-       "across": false,
+       "answer": "UNA",
+       "clue": "First, foremost, or earliest; at the beginning.",
+       "row": 7,
+       "col": 0,
+       "across": true,
        "number": 7
+      },
+      {
+       "answer": "TRES",
+       "clue": "This word means three.",
+       "row": 8,
+       "col": 2,
+       "across": true,
+       "number": 8
       }
      ]
     },
@@ -1396,90 +1396,90 @@
      "size": "Large",
      "words": [
       {
-       "answer": "MUNA",
-       "clue": "First; beforehand; ahead of time.",
+       "answer": "IKATLO",
+       "clue": "This word means third (3rd).",
        "row": 0,
-       "col": 4,
+       "col": 3,
        "across": false,
        "number": 1
       },
       {
-       "answer": "IKALAWA",
-       "clue": "This word means second; latter.",
+       "answer": "ULTIMA",
+       "clue": "This word means last.",
        "row": 0,
-       "col": 6,
+       "col": 5,
        "across": false,
        "number": 2
       },
       {
-       "answer": "ISA",
-       "clue": "This word means the number one.",
-       "row": 1,
-       "col": 0,
-       "across": true,
+       "answer": "WALO",
+       "clue": "This word means the number eight.",
+       "row": 0,
+       "col": 8,
+       "across": false,
        "number": 3
       },
       {
-       "answer": "APAT",
-       "clue": "This word means the number four.",
+       "answer": "UNA",
+       "clue": "First, foremost, or earliest; at the beginning.",
        "row": 1,
-       "col": 2,
+       "col": 0,
        "across": false,
        "number": 4
       },
       {
-       "answer": "ULTIMA",
-       "clue": "This word means last.",
+       "answer": "IKALAWA",
+       "clue": "This word means second; latter.",
        "row": 1,
-       "col": 8,
-       "across": false,
+       "col": 2,
+       "across": true,
        "number": 5
       },
       {
-       "answer": "PANGATLO",
-       "clue": "This word means third.",
-       "row": 2,
-       "col": 2,
+       "answer": "APAT",
+       "clue": "This word means the number four.",
+       "row": 3,
+       "col": 0,
        "across": true,
        "number": 6
       },
       {
        "answer": "PITO",
        "clue": "This word means the number seven.",
-       "row": 4,
+       "row": 5,
        "col": 0,
        "across": true,
        "number": 7
       },
       {
-       "answer": "ANIM",
-       "clue": "This word means the number six.",
-       "row": 4,
-       "col": 6,
-       "across": true,
+       "answer": "TRES",
+       "clue": "This word means three.",
+       "row": 5,
+       "col": 2,
+       "across": false,
        "number": 8
       },
       {
-       "answer": "TATLO",
-       "clue": "This word means three.",
+       "answer": "ANIM",
+       "clue": "This word means the number six.",
        "row": 5,
-       "col": 4,
-       "across": false,
+       "col": 5,
+       "across": true,
        "number": 9
       },
       {
-       "answer": "DALAWA",
-       "clue": "Two; couple; dual; twofold.",
-       "row": 6,
-       "col": 3,
-       "across": true,
+       "answer": "ISA",
+       "clue": "This word means the number one.",
+       "row": 5,
+       "col": 7,
+       "across": false,
        "number": 10
       },
       {
-       "answer": "WALO",
-       "clue": "This word means the number eight.",
+       "answer": "DOS",
+       "clue": "This word means two (2).",
        "row": 8,
-       "col": 2,
+       "col": 0,
        "across": true,
        "number": 11
       }

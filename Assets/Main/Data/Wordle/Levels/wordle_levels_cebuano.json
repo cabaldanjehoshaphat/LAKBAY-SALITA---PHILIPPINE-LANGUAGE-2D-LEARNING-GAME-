@@ -17,14 +17,14 @@
      "clue": "Duck."
     },
     {
+     "word": "BAKI",
+     "meaning": "frog",
+     "clue": "Frog; toad."
+    },
+    {
      "word": "MANOK",
      "meaning": "chicken",
      "clue": "A chicken, rooster, or fowl."
-    },
-    {
-     "word": "BAKIT",
-     "meaning": "frog",
-     "clue": "Frog."
     },
     {
      "word": "KABAYO",
@@ -67,9 +67,9 @@
      "clue": "Sugar."
     },
     {
-     "word": "TINAPAY",
-     "meaning": "bread",
-     "clue": "Bread; also baked pastry."
+     "word": "SIBUYAS",
+     "meaning": "onion",
+     "clue": "The onion."
     }
    ]
   },
@@ -87,6 +87,11 @@
      "clue": "Mouth."
     },
     {
+     "word": "DILA",
+     "meaning": "tongue",
+     "clue": "The tongue."
+    },
+    {
      "word": "BUHOK",
      "meaning": "hair",
      "clue": "The hair on a person's head."
@@ -95,11 +100,6 @@
      "word": "ILONG",
      "meaning": "nose",
      "clue": "The nose."
-    },
-    {
-     "word": "PUNOAN",
-     "meaning": "head",
-     "clue": "Head; leader; official; central; grand; main; origin; primary; tree."
     },
     {
      "word": "DUNGGAN",
@@ -122,24 +122,24 @@
      "clue": "Child; offspring; son, daughter."
     },
     {
+     "word": "LOLA",
+     "meaning": "grandmother",
+     "clue": "Grandmother."
+    },
+    {
+     "word": "BIBI",
+     "meaning": "baby",
+     "clue": "Baby; nickname for a girl; v. nickname a child 'baby'; kind of lucine clam; small duck with colored feathers; v. raise ducks."
+    },
+    {
      "word": "NANAY",
      "meaning": "mother",
      "clue": "Mother; mama; mommy."
     },
     {
-     "word": "UYANG",
-     "meaning": "grandmother",
-     "clue": "Grandmother."
-    },
-    {
-     "word": "MASUSO",
-     "meaning": "baby",
-     "clue": "Baby; infant; suckling; child."
-    },
-    {
-     "word": "SATIGGA",
+     "word": "AMIGA",
      "meaning": "friend",
-     "clue": "Friend."
+     "clue": "Friend; girlfriend."
     }
    ]
   },
@@ -167,9 +167,9 @@
      "clue": "Door."
     },
     {
-     "word": "LAMESA",
+     "word": "TALAD",
      "meaning": "table",
-     "clue": "A table for eating or working."
+     "clue": "Table."
     },
     {
      "word": "BENTANA",
@@ -207,7 +207,7 @@
      "clue": "Star; start."
     },
     {
-     "word": "HABAGAT",
+     "word": "AMIHAN",
      "meaning": "wind",
      "clue": "Wind."
     }
@@ -217,9 +217,9 @@
    "name": "Numbers",
    "levels": [
     {
-     "word": "DUHA",
-     "meaning": "two",
-     "clue": "The number two."
+     "word": "LIMA",
+     "meaning": "five",
+     "clue": "The number five."
     },
     {
      "word": "TRES",
@@ -227,24 +227,24 @@
      "clue": "Three."
     },
     {
-     "word": "SAYES",
+     "word": "SEIS",
      "meaning": "six",
      "clue": "Six."
     },
     {
-     "word": "SIETE",
+     "word": "PITA",
      "meaning": "seven",
      "clue": "Seven."
     },
     {
-     "word": "KUATRO",
+     "word": "UPAT",
      "meaning": "four",
-     "clue": "Four."
+     "clue": "The number four."
     },
     {
-     "word": "NAHAUNA",
-     "meaning": "first",
-     "clue": "First; prime."
+     "word": "OTSO",
+     "meaning": "eight",
+     "clue": "Eight."
     }
    ]
   }

@@ -493,6 +493,23 @@ public class WordSearchGameController : MonoBehaviour
             SetText(row.transform.Find("Word"), p.word);
             SetText(row.transform.Find("Meaning"), p.meaning);
 
+            // Tap to hear: the speaker beside the star plays the recording of the word
+            Transform speaker = row.transform.Find("Speaker");
+            Button speakerButton = speaker != null ? speaker.GetComponent<Button>() : null;
+            if (speakerButton != null)
+            {
+                if (WordAudio.Enabled)
+                {
+                    speaker.gameObject.SetActive(true);
+                    string spoken = p.word;
+                    speakerButton.onClick.AddListener(delegate { WordAudio.Play(language, spoken); });
+                }
+                else
+                {
+                    speaker.gameObject.SetActive(false);
+                }
+            }
+
             Transform star = row.transform.Find("Star");
             if (star != null)
             {

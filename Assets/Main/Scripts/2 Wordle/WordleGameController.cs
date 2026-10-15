@@ -60,6 +60,8 @@ public class WordleGameController : MonoBehaviour
     [SerializeField] private Button hintButton;
     [SerializeField] private TMP_Text hintButtonLabel;
     [SerializeField] private WordleKeyButton[] keys;
+    [Tooltip("Off (default): the on-screen keypad stays plain after a guess. On: keys turn green / yellow / gray like the tiles.")]
+    [SerializeField] private bool colorKeyboardKeys = false;
     [SerializeField] private HubToast toast;
 
     [Header("Pause window")]
@@ -78,6 +80,13 @@ public class WordleGameController : MonoBehaviour
     [SerializeField] private WordleTileView resultTileTemplate;
     [SerializeField] private TMP_Text resultDefinition;
     [SerializeField] private TMP_Text resultMeaning;
+    [Tooltip("Star beside the meaning: saves the answer word to the Library favorites (same list as the stars on the Crossword and Word Search result cards).")]
+    [SerializeField] private Button resultSaveButton;
+    [SerializeField] private Image resultSaveStar;
+    [Tooltip("Speaker beside the meaning: plays the recording of the answer word (WordAudio).")]
+    [SerializeField] private Button resultSpeakButton;
+    [SerializeField] private Color saveStarOnColor = new Color32(232, 185, 35, 255);
+    [SerializeField] private Color saveStarOffColor = new Color32(185, 183, 172, 255);
     [SerializeField] private GameObject statsRoot;
     [SerializeField] private TMP_Text statTime;
     [SerializeField] private TMP_Text statTries;
@@ -105,6 +114,8 @@ public class WordleGameController : MonoBehaviour
     private readonly List<string> hintTexts = new List<string>();
     private bool subscribed;
     private bool inputLocked;
+    private int saveLanguageIndex;
+    private string saveWord = string.Empty;
     private bool leadInShown;
 
     // category mode (scene "Wordle - Play"): the word is one level of a category, set up by WordleCategoryBootstrap
@@ -136,6 +147,9 @@ public class WordleGameController : MonoBehaviour
         Hook(resultNextButton, NextWord);
         Hook(resultLibraryButton, OpenLibrary);
         Hook(resultBackButton, BackToGames);
+        Hook(resultSaveButton, ToggleSaveWord);
+        Hook(resultSpeakButton, SpeakWord);
+        if (resultSpeakButton != null && Application.isPlaying) resultSpeakButton.gameObject.SetActive(WordAudio.Enabled);
 
         if (keys != null)
         {
@@ -365,7 +379,8 @@ public class WordleGameController : MonoBehaviour
         float wait = verifier != null ? verifier.RevealDuration : 0f;
         yield return new WaitForSecondsRealtime(wait);
 
-        if (states != null)
+        // keyboard colouring is switched off by default so players cannot read which letters are right or wrong from the keypad
+        if (colorKeyboardKeys && states != null)
         {
             for (int i = 0; i < letters.Length && i < states.Length; i++)
             {
@@ -551,10 +566,11 @@ public class WordleGameController : MonoBehaviour
 
         hintedPositions.Add(position);
         hintsLeft--;
-        hintTexts.Add("letter " + (position + 1) + " is " + word[position]);
+        // wording: the letter first, then the column it belongs in (columns count from 1, left to right)
+        hintTexts.Add("letter " + word[position] + " is in column " + (position + 1));
         if (clueLabel != null) clueLabel.text = "Clue · " + string.Join(" · ", hintTexts.ToArray());
         RefreshHintLabel();
-        ShowToast("Letter " + (position + 1) + " is " + word[position]);
+        ShowToast("Hint - Letter " + word[position] + " is in column " + (position + 1));
     }
 
     private void RefreshHintLabel()
@@ -611,9 +627,13 @@ public class WordleGameController : MonoBehaviour
         if (resultDefinition != null && verifier != null) resultDefinition.text = verifier.Definition;
         if (resultMeaning != null)
         {
+            // the English meaning on its own, big and green, so the player learns what the word means
             string meaning = verifier != null ? verifier.Translation : string.Empty;
-            resultMeaning.text = string.IsNullOrEmpty(meaning) ? string.Empty : "Means: " + meaning;
+            resultMeaning.text = meaning;
         }
+        saveLanguageIndex = cebuano ? 0 : (tagalog ? 2 : 1);
+        saveWord = word;
+        RefreshSaveStar();
 
         BuildResultTiles(word);
 
@@ -648,6 +668,35 @@ public class WordleGameController : MonoBehaviour
             resultPanel.SetActive(true);
             StartCoroutine(PopIn(resultCard));
         }
+    }
+
+    /// <summary>Tap to hear: plays the recording of the answer word.</summary>
+    private void SpeakWord()
+    {
+        if (!string.IsNullOrEmpty(saveWord))
+        {
+            WordAudio.Play(saveLanguageIndex, saveWord);
+        }
+    }
+
+    private void RefreshSaveStar()
+    {
+        if (resultSaveStar != null)
+        {
+            bool saved = !string.IsNullOrEmpty(saveWord) && LibraryFavoritesStore.IsFavorite(saveLanguageIndex, saveWord);
+            resultSaveStar.color = saved ? saveStarOnColor : saveStarOffColor;
+        }
+    }
+
+    /// <summary>Star pressed: adds the answer word to the Library favorites, or removes it.</summary>
+    private void ToggleSaveWord()
+    {
+        if (string.IsNullOrEmpty(saveWord))
+        {
+            return;
+        }
+        LibraryFavoritesStore.Toggle(saveLanguageIndex, saveWord);
+        RefreshSaveStar();
     }
 
     private void BuildResultTiles(string word)

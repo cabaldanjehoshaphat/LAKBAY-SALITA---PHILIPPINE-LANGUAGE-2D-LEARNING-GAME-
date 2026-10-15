@@ -17,6 +17,11 @@
      "clue": "A bird."
     },
     {
+     "word": "TUPA",
+     "meaning": "sheep",
+     "clue": "Sheep; pressing the keys of a piano, typewriter, etc."
+    },
+    {
      "word": "MANOK",
      "meaning": "chicken",
      "clue": "A chicken or fowl."
@@ -30,11 +35,6 @@
      "word": "PALAKA",
      "meaning": "frog",
      "clue": "Frog."
-    },
-    {
-     "word": "KARNERO",
-     "meaning": "sheep",
-     "clue": "Sheep."
     }
    ]
   },
@@ -97,9 +97,9 @@
      "clue": "Ear."
     },
     {
-     "word": "KAYUYO",
+     "word": "BUYON",
      "meaning": "belly",
-     "clue": "Belly; paunch; abdomen."
+     "clue": "Belly; paunch."
     },
     {
      "word": "LIKURAN",
@@ -122,24 +122,24 @@
      "clue": "Grandmother."
     },
     {
-     "word": "NANAY",
-     "meaning": "mother",
-     "clue": "Mother or mom."
+     "word": "BANA",
+     "meaning": "husband",
+     "clue": "Husband; marsh; lowland covered with water."
     },
     {
-     "word": "TATAY",
-     "meaning": "father",
-     "clue": "Dad, daddy, or papa."
-    },
-    {
-     "word": "TIYONG",
-     "meaning": "uncle",
-     "clue": "Uncle; stepfather."
-    },
-    {
-     "word": "ABUWELO",
+     "word": "LOLO",
      "meaning": "grandfather",
-     "clue": "Grandfather."
+     "clue": "A grandfather."
+    },
+    {
+     "word": "AMANG",
+     "meaning": "boy",
+     "clue": "Boy; elderly man; term for father."
+    },
+    {
+     "word": "SANGGOL",
+     "meaning": "baby",
+     "clue": "Baby; babe; infant; very young (child)"
     }
    ]
   },
@@ -192,9 +192,14 @@
      "clue": "Rain or rainfall."
     },
     {
-     "word": "ADLAW",
+     "word": "ARAW",
      "meaning": "sun",
-     "clue": "Sun."
+     "clue": "The sun; also a day or the daytime."
+    },
+    {
+     "word": "BAHA",
+     "meaning": "flood",
+     "clue": "Flood."
     },
     {
      "word": "DAGAT",
@@ -205,11 +210,6 @@
      "word": "BITUIN",
      "meaning": "star",
      "clue": "Star; star in movies, drama etc."
-    },
-    {
-     "word": "PAGBAHA",
-     "meaning": "flood",
-     "clue": "Flood; floods; an overflowing."
     }
    ]
   },
@@ -227,9 +227,14 @@
      "clue": "The number four."
     },
     {
-     "word": "DALWA",
-     "meaning": "two",
-     "clue": "Two; couple; dual; twofold."
+     "word": "LIMA",
+     "meaning": "five",
+     "clue": "Five (5)"
+    },
+    {
+     "word": "ANIM",
+     "meaning": "six",
+     "clue": "The number six."
     },
     {
      "word": "MEDYO",
@@ -240,11 +245,6 @@
      "word": "ULTIMA",
      "meaning": "last",
      "clue": "Last."
-    },
-    {
-     "word": "PRIMERA",
-     "meaning": "first",
-     "clue": "First; firsthand; new."
     }
    ]
   }

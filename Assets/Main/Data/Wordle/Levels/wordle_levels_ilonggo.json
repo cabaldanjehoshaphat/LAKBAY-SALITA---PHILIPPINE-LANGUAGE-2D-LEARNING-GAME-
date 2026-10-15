@@ -7,14 +7,19 @@
    "name": "Animals",
    "levels": [
     {
-     "word": "AYAM",
-     "meaning": "dog",
-     "clue": "Dog; to send a dog after, pursue with a dog."
+     "word": "PISO",
+     "meaning": "chicken",
+     "clue": "Chicken, chick, chickling; to make a swift movement, etc."
     },
     {
      "word": "ISDA",
      "meaning": "fish",
      "clue": "Fish."
+    },
+    {
+     "word": "KUTI",
+     "meaning": "cat",
+     "clue": "Cat, puss, pussy, kitten, mouser; bustle, hustle; to bustle, hustle, be active (in performing the duties of a household)"
     },
     {
      "word": "KABRA",
@@ -25,11 +30,6 @@
      "word": "BAGIS",
      "meaning": "shark",
      "clue": "A shark; a greedy, artful fellow, a sharper, shark, cheat, crook."
-    },
-    {
-     "word": "KUDING",
-     "meaning": "cat",
-     "clue": "Cat."
     },
     {
      "word": "KARNERO",
@@ -52,9 +52,9 @@
      "clue": "Garlic; leek; to tease, to stroke or caress a child against its will, to pat or fondle a child averse to such handling till it cries, gets angry or runs away."
     },
     {
-     "word": "TUBIG",
+     "word": "AGWA",
      "meaning": "water",
-     "clue": "Water or watery liquid."
+     "clue": "Water; perfume, scented water, scent."
     },
     {
      "word": "ITLOG",
@@ -67,9 +67,9 @@
      "clue": "Sugar; to make sugar including all the operations in the final stage of the process of sugar-milling, transferring the pulút."
     },
     {
-     "word": "TINAPAY",
-     "meaning": "bread",
-     "clue": "Bread."
+     "word": "BOMBAY",
+     "meaning": "onion",
+     "clue": "Onion; A man from Bombay, India; an Indian."
     }
    ]
   },
@@ -87,19 +87,19 @@
      "clue": "The tongue; to lick with the tongue."
     },
     {
-     "word": "BOHOK",
+     "word": "PILO",
      "meaning": "hair",
-     "clue": "Hair or tresses."
+     "clue": "Hair, fibre, filament; double, twofold, duplicate, folded; to double, duplicate, fold."
+    },
+    {
+     "word": "ONTO",
+     "meaning": "tooth",
+     "clue": "Tooth."
     },
     {
      "word": "ILONG",
      "meaning": "nose",
      "clue": "The nose."
-    },
-    {
-     "word": "KABESA",
-     "meaning": "head",
-     "clue": "Head; chief, lieutenant; intellect, understanding."
     },
     {
      "word": "TALINGA",
@@ -122,24 +122,24 @@
      "clue": "A father; to call someone father."
     },
     {
-     "word": "BUYLA",
+     "word": "BAYI",
      "meaning": "grandmother",
-     "clue": "Grandmother; to pull, drag, push, etc."
+     "clue": "Grandmother."
+    },
+    {
+     "word": "BANA",
+     "meaning": "husband",
+     "clue": "Husband, a married man, whose wife is alive; to take a husband, to join a man in wedlock; opinion, guess, surmise, thought; to think, guess, opine, surmise."
+    },
+    {
+     "word": "BATA",
+     "meaning": "child",
+     "clue": "A child, baby, boy, or girl; the same spelling also means uncle."
     },
     {
      "word": "UYONG",
      "meaning": "grandfather",
      "clue": "Grandfather."
-    },
-    {
-     "word": "MARIDO",
-     "meaning": "husband",
-     "clue": "Husband."
-    },
-    {
-     "word": "MANDING",
-     "meaning": "aunt",
-     "clue": "Aunt; stepmother, foster-mother; dear old woman."
     }
    ]
   },
@@ -157,9 +157,9 @@
      "clue": "Key; to lock with a key; to pout, etc."
     },
     {
-     "word": "BALAY",
+     "word": "KASA",
      "meaning": "house",
-     "clue": "A house or building; also to begin building a house."
+     "clue": "House, abode, dwelling, domicile, residence, habitation; to wager, bet, stake, lay, lay a wager, make a bet, put one's money on."
     },
     {
      "word": "PLATO",
@@ -172,9 +172,9 @@
      "clue": "A table."
     },
     {
-     "word": "GANHAAN",
+     "word": "GAWANG",
      "meaning": "door",
-     "clue": "Door, etc."
+     "clue": "Door, gate, gateway, portal, exit, entrance; window, look-out."
     }
    ]
   },
@@ -202,14 +202,14 @@
      "clue": "A mountain."
     },
     {
+     "word": "HALON",
+     "meaning": "shadow",
+     "clue": "Shadow."
+    },
+    {
      "word": "BITOON",
      "meaning": "star",
      "clue": "A star or planet."
-    },
-    {
-     "word": "HANDONG",
-     "meaning": "shadow",
-     "clue": "Shadow, etc."
     }
    ]
   },
@@ -227,19 +227,19 @@
      "clue": "Three."
     },
     {
+     "word": "PITO",
+     "meaning": "seven",
+     "clue": "The number seven."
+    },
+    {
+     "word": "APAT",
+     "meaning": "four",
+     "clue": "The number four."
+    },
+    {
      "word": "SINKO",
      "meaning": "five",
      "clue": "Five."
-    },
-    {
-     "word": "SIETE",
-     "meaning": "seven",
-     "clue": "Seven."
-    },
-    {
-     "word": "KWATRO",
-     "meaning": "four",
-     "clue": "Four."
     },
     {
      "word": "IKADUHA",

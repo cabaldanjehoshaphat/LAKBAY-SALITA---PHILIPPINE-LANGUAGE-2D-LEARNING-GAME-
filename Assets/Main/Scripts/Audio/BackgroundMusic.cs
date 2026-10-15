@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement;
 /// Moving between two scenes with the same track (e.g. "Wordle - Start" to "Wordle - Play") keeps the music playing without a restart.
 /// A scene that matches no rule keeps whatever is already playing. The volume is saved in PlayerPrefs ("MusicVolume"); call
 /// BackgroundMusic.SetVolume(0..1) from a settings slider. Music on/off is saved too ("MusicMuted"): SetMuted fades the music out or
-/// back in, and MutedChanged tells buttons (e.g. MusicToggleButton on the main menu) to update their icon. While muted the track keeps
+/// back in, and MutedChanged tells other scripts when music is turned on or off (the main menu's SettingsPanel sets it from its volume slider: 0 = off). While muted the track keeps
 /// playing silently, so turning music back on continues where it was. If a scene has no AudioListener, this object enables its own so
 /// the music is still heard.
 /// </summary>

@@ -201,6 +201,7 @@ public class PlayerDatabase : MonoBehaviour
         WordSearchProgressStore.Reset();
         WordleProgressStore.Reset();
         CrosswordProgressStore.Reset();
+        PhraseProgressStore.Reset();
         Save();
     }
 

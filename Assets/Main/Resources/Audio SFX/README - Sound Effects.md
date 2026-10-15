@@ -4,8 +4,11 @@
 `Resources` folder so code can load them by name without wiring each clip in every scene, for example
 `Resources.Load<AudioClip>("Audio SFX/ui_click")`. That's the same way the background music in `Resources/Audio Soundtrack` loads.
 
-**Status:** the sounds are imported but **not connected to the game yet**. Nothing plays them so far. This file
-describes where each sound is meant to go and how it is planned to be connected.
+**Status:** the **button sounds are connected** (`Scripts/Audio/SoundEffects.cs`): every button in the game plays `ui_click`
+(or `ui_back`, `ui_open`, `ui_close`, `hint`, and the Wordle keypad keys `key_tap_1-3`, `key_delete`, `key_enter`), and the main-menu
+music chip plays `toggle_on` / `toggle_off`. Not connected yet: typing on a physical keyboard, the game-event sounds (Wordle tile reveal,
+word found, win, time up, timer ticks...) and the Sound effects switch in the pause window. The rest of this file describes where
+those sounds are meant to go and how they are planned to be connected.
 
 **Where they came from:** synthesized in code by `SFX Ideas/make_sfx.py` at the project root, using the same bamboo
 marimba, kulintang gong, bandurria pluck and bell tones as the background music, so music and effects sound like one

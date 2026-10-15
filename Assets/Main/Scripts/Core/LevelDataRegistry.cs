@@ -25,6 +25,9 @@ public class LevelDataRegistry : ScriptableObject
     [Tooltip("Word Search category puzzles, one JSON per language: 0 Cebuano, 1 Ilonggo, 2 Tagalog.")]
     public TextAsset[] wordSearchFiles = new TextAsset[3];
 
+    [Tooltip("Phrasebook phrases (Assets/Main/Data/Phrasebook), one JSON per language: 0 Cebuano, 1 Ilonggo, 2 Tagalog.")]
+    public TextAsset[] phrasebookFiles = new TextAsset[3];
+
     private static LevelDataRegistry _instance;
 
     /// <summary>The registry asset (Resources/LevelDataRegistry.asset), or null if it is missing.</summary>

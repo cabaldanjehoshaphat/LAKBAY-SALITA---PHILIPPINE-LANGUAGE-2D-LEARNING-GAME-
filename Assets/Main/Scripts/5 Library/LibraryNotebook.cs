@@ -61,6 +61,9 @@ public class LibraryNotebook : MonoBehaviour
     private TextMeshProUGUI _bubbleText;
     private char _currentLetter;
 
+    // light amber fill of the slider's drag pill and letter bubble (dark text on top, so it stays readable)
+    private static readonly Color PopupFill = new Color32(255, 226, 150, 255);
+
     private RectTransform _track;
     private Image _handle;
     private Image _posPill;
@@ -128,20 +131,21 @@ public class LibraryNotebook : MonoBehaviour
     private void BuildScrollbar(RectTransform root, float w, float h)
     {
         _track = LibraryUiKit.NewRect("ScrollTrack", root);
-        LibraryUiKit.Place(_track, w - 74, 12, 12, h - 24);
+        // light, easy-to-see slider: a soft sand track with a wider golden handle; the drag pill is light with dark text
+        LibraryUiKit.Place(_track, w - 76, 12, 16, h - 24);
         var trackImg = LibraryUiKit.GetOrAdd<Image>(_track.gameObject);
         trackImg.sprite = LibraryUiKit.Rounded;
         trackImg.type = Image.Type.Sliced;
-        trackImg.color = new Color32(232, 218, 192, 255);
+        trackImg.color = new Color32(226, 208, 175, 255);
         trackImg.raycastTarget = true;
         LibraryUiKit.GetOrAdd<LibraryScrollTrack>(_track.gameObject).Owner = this;
 
-        _handle = LibraryUiKit.Box(_track, "Handle", new Color32(138, 107, 71, 235), true);
-        LibraryUiKit.Place(_handle.rectTransform, 0, 0, 12, 80);
+        _handle = LibraryUiKit.Box(_track, "Handle", LibraryUiKit.Accent, true);
+        LibraryUiKit.Place(_handle.rectTransform, 0, 0, 16, 80);
 
-        _posPill = LibraryUiKit.Box(root, "PositionPill", LibraryUiKit.Ink, true);
-        LibraryUiKit.Place(_posPill.rectTransform, w - 74 - 10 - 290, 0, 290, 48);
-        _posText = LibraryUiKit.Label(_posPill.transform, "", 26, Color.white, FontStyles.Bold, TextAlignmentOptions.Center);
+        _posPill = LibraryUiKit.Box(root, "PositionPill", PopupFill, true);
+        LibraryUiKit.Place(_posPill.rectTransform, w - 76 - 10 - 290, 0, 290, 48);
+        _posText = LibraryUiKit.Label(_posPill.transform, "", 26, LibraryUiKit.Ink, FontStyles.Bold, TextAlignmentOptions.Center);
         LibraryUiKit.Fill(_posText.rectTransform);
         _posPill.gameObject.SetActive(false);
     }
@@ -157,7 +161,7 @@ public class LibraryNotebook : MonoBehaviour
         if (max <= 0f) return;
         float hh = Mathf.Clamp(trackH * viewH / contentH, 70f, trackH);
         float t = Mathf.Clamp01(_content.anchoredPosition.y / max);
-        LibraryUiKit.Place(_handle.rectTransform, 0, t * (trackH - hh), 12, hh);
+        LibraryUiKit.Place(_handle.rectTransform, 0, t * (trackH - hh), 16, hh);
     }
 
     private void ShowPosition()
@@ -169,7 +173,7 @@ public class LibraryNotebook : MonoBehaviour
         _posText.text = c + "   " + _ordinal[first].ToString("N0") + " / " + _totalWords.ToString("N0");
         RectTransform h = _handle.rectTransform;
         float y = Mathf.Clamp(12f - h.anchoredPosition.y + h.sizeDelta.y * 0.5f - 24f, 4f, _height - 52f);
-        LibraryUiKit.Place(_posPill.rectTransform, _width - 74 - 10 - 290, y, 290, 48);
+        LibraryUiKit.Place(_posPill.rectTransform, _width - 76 - 10 - 290, y, 290, 48);
         _posPill.gameObject.SetActive(true);
         _posHideTime = Time.unscaledTime + 1.3f;
     }
@@ -372,9 +376,9 @@ public class LibraryNotebook : MonoBehaviour
         hit.raycastTarget = true;
         LibraryUiKit.GetOrAdd<LibraryLetterStrip>(_strip.gameObject).Owner = this;
 
-        _bubble = LibraryUiKit.Icon(root, "Bubble", LibraryUiKit.Circle, LibraryUiKit.Ink);
+        _bubble = LibraryUiKit.Icon(root, "Bubble", LibraryUiKit.Circle, PopupFill);
         LibraryUiKit.Place(_bubble.rectTransform, w - 64 - 110, 0, 90, 90);
-        _bubbleText = LibraryUiKit.Label(_bubble.transform, "A", 54, Color.white, FontStyles.Bold, TextAlignmentOptions.Center);
+        _bubbleText = LibraryUiKit.Label(_bubble.transform, "A", 54, LibraryUiKit.Ink, FontStyles.Bold, TextAlignmentOptions.Center);
         LibraryUiKit.Fill(_bubbleText.rectTransform);
         _bubble.gameObject.SetActive(false);
     }

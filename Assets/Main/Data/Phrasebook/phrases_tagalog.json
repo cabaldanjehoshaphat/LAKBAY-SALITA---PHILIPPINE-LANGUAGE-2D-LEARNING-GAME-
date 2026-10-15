@@ -1,0 +1,166 @@
+{
+ "purpose": "Phrasebook phrases for Lakbay Salita, Tagalog only: 7 everyday topics, each phrase with its English line, the phrase in the language and optional word-by-word meanings (gloss, one entry per word, same order). The Phrasebook screens and the Sentence builder split a phrase into words at the spaces. Loaded at runtime by PhraseData through Resources/LevelDataRegistry.asset (Phrasebook Files).",
+ "status": "DRAFT PLACEHOLDERS - these few phrases only test the Phrasebook screens. Every phrase must be checked or replaced by a native speaker before the game is shared (Ilonggo especially). Edit this file to change a phrase; keep gloss empty or exactly one entry per word.",
+ "name": "Tagalog",
+ "topics": [
+  {
+   "name": "Greetings",
+   "phrases": [
+    {
+     "english": "Good morning",
+     "phrase": "Magandang umaga",
+     "gloss": [
+      "good",
+      "morning"
+     ]
+    },
+    {
+     "english": "Good afternoon",
+     "phrase": "Magandang hapon",
+     "gloss": [
+      "good",
+      "afternoon"
+     ]
+    },
+    {
+     "english": "Good evening",
+     "phrase": "Magandang gabi",
+     "gloss": [
+      "good",
+      "evening"
+     ]
+    },
+    {
+     "english": "How are you?",
+     "phrase": "Kumusta ka?",
+     "gloss": [
+      "how are",
+      "you"
+     ]
+    },
+    {
+     "english": "I am fine",
+     "phrase": "Mabuti ako",
+     "gloss": [
+      "good",
+      "I"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Thanks and sorry",
+   "phrases": [
+    {
+     "english": "Thank you",
+     "phrase": "Salamat",
+     "gloss": [
+      "thanks"
+     ]
+    },
+    {
+     "english": "Thank you very much",
+     "phrase": "Maraming salamat",
+     "gloss": [
+      "many",
+      "thanks"
+     ]
+    },
+    {
+     "english": "You are welcome",
+     "phrase": "Walang anuman",
+     "gloss": []
+    },
+    {
+     "english": "I am sorry",
+     "phrase": "Pasensya na",
+     "gloss": []
+    }
+   ]
+  },
+  {
+   "name": "About me",
+   "phrases": [
+    {
+     "english": "What is your name?",
+     "phrase": "Ano ang pangalan mo?",
+     "gloss": [
+      "what",
+      "the",
+      "name",
+      "your"
+     ]
+    },
+    {
+     "english": "I am Ana",
+     "phrase": "Ako si Ana",
+     "gloss": []
+    },
+    {
+     "english": "Where are you from?",
+     "phrase": "Taga-saan ka?",
+     "gloss": []
+    }
+   ]
+  },
+  {
+   "name": "Food and market",
+   "phrases": [
+    {
+     "english": "How much is this?",
+     "phrase": "Magkano ito?",
+     "gloss": [
+      "how much",
+      "this"
+     ]
+    },
+    {
+     "english": "I want water",
+     "phrase": "Gusto ko ng tubig",
+     "gloss": []
+    }
+   ]
+  },
+  {
+   "name": "Directions",
+   "phrases": [
+    {
+     "english": "Where is the toilet?",
+     "phrase": "Nasaan ang banyo?",
+     "gloss": [
+      "where",
+      "the",
+      "bathroom"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Numbers and time",
+   "phrases": [
+    {
+     "english": "What time is it?",
+     "phrase": "Anong oras na?",
+     "gloss": []
+    }
+   ]
+  },
+  {
+   "name": "Help and safety",
+   "phrases": [
+    {
+     "english": "Help!",
+     "phrase": "Tulong!",
+     "gloss": [
+      "help"
+     ]
+    },
+    {
+     "english": "I need help",
+     "phrase": "Kailangan ko ng tulong",
+     "gloss": []
+    }
+   ]
+  }
+ ]
+}

@@ -278,4 +278,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Main/Scenes/3 Crossword/Crossword - Play.unity
     guid: 0ed5897f9d163ce429af78b56c7afb8e
+  - enabled: 1
+    path: Assets/Main/Scenes/6 Learn/Learn - Cards.unity
+    guid: 0233856b5befd1043ae977f14b239454
+  - enabled: 1
+    path: Assets/Main/Scenes/7 Phrasebook/Phrasebook - Topics.unity
+    guid: 84c4fdb3c454244419e1451251b7edd7
+  - enabled: 1
+    path: Assets/Main/Scenes/7 Phrasebook/Phrasebook - Cards.unity
+    guid: 52f0603b54518aa4db5fa4a0c1d93d08
+  - enabled: 1
+    path: Assets/Main/Scenes/7 Phrasebook/Phrasebook - Builder.unity
+    guid: c684d73a82e5b4845a910963cb07f014
   m_configObjects: {}

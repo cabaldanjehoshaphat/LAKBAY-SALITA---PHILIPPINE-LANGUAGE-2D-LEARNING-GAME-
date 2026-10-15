@@ -10,13 +10,13 @@ using UnityEngine.UI;
 /// ProfileDesignBuilder
 /// Editor tool that rebuilds the "2 Profile Icon" scene in the redesigned look, as real saved scene objects (so the design is
 /// visible in the editor before pressing Play): the time-of-day sky shared with the other screens, a profile card (avatar, name,
-/// "Learning since", day streak, Edit profile, Reset progress), one card for each of Wordle, Crossword and Word Search with the number
-/// solved and a progress bar for each language (Cebuano, Ilonggo, Tagalog), a Words learned card, a Favorites card, and the Edit profile
-/// and Reset progress dialogs, all driven by ProfileScreenController.
+/// "Learning since", day streak, Edit profile, Reset progress), one compact row for each of Wordle, Crossword, Word Search and the Phrasebook
+/// with the number solved (or learned) and a progress bar for each language (Cebuano, Ilonggo, Tagalog) side by side, a Words learned card, a
+/// Favorites card, and the Edit profile and Reset progress dialogs, all driven by ProfileScreenController.
 /// It keeps the scene's PlayerDatabase, SceneNavigator and the yellow back arrow (still wired to the main menu) and removes the
 /// old circuit-board layout. Menu: Tools > Profile > Rebuild design in open scene. Safe to run again.
 /// The previous designs are archived in Assets/Main/Scenes/1 Menu/Archive ("old design" = the circuit-board one, "2nd design" = the one
-/// before the per-language game cards). ArchiveAndRebuild() copies the open design to the archive first and then rebuilds it.
+/// before the per-language game cards, "3rd design" = the one with three game cards before the Phrasebook). ArchiveAndRebuild() copies the open design to the archive first and then rebuilds it.
 /// </summary>
 public static class ProfileDesignBuilder
 {
@@ -42,11 +42,11 @@ public static class ProfileDesignBuilder
     }
 
     private const string ProfileScenePath = "Assets/Main/Scenes/1 Menu/2 Profile Icon.unity";
-    private const string ArchiveCopyPath = "Assets/Main/Scenes/1 Menu/Archive/2 Profile Icon (2nd design 2026-10-08).unity";
+    private const string ArchiveCopyPath = "Assets/Main/Scenes/1 Menu/Archive/2 Profile Icon (3rd design 2026-10-15).unity";
 
     /// <summary>
-    /// Copies the current Profile scene to the archive ("2nd design 2026-10-08", only if that copy does not exist yet), then opens the
-    /// Profile scene, rebuilds it in the Option A design and saves it. Returns a short summary.
+    /// Copies the current Profile scene to the archive ("3rd design 2026-10-15", only if that copy does not exist yet), then opens the
+    /// Profile scene, rebuilds it in the current design (four game rows) and saves it. Returns a short summary.
     /// </summary>
     public static string ArchiveAndRebuild()
     {
@@ -177,21 +177,33 @@ public static class ProfileDesignBuilder
         r.anchoredPosition = new Vector2(x + w / 2f, -(y + h / 2f));
     }
 
-    /// <summary>Three rows on the right of a game card: the language name, a progress bar track and its fill, and the "solved/total" count.</summary>
-    private static void AddLanguageBars(Transform card, string[] languages, Color fillColor, int perLanguageTotal, List<TextMeshProUGUI> countLabels,
+    /// <summary>Three columns on the right of a game row, side by side: the language name, a progress bar (track and fill) and the "solved/total" count.</summary>
+    private static void AddLanguageBars(Transform card, string[] languages, Color fillColor, int[] perLanguageTotal, List<TextMeshProUGUI> countLabels,
         List<RectTransform> barFills)
     {
         for (int i = 0; i < languages.Length; i++)
         {
-            float y = 26 + i * 56;
-            Lab(card, languages[i], 28, InkSoft, false, TextAlignmentOptions.MidlineLeft, 620, y, 150, 44);
+            float x = 520 + i * 205;
+            Lab(card, languages[i], 26, InkSoft, false, TextAlignmentOptions.MidlineLeft, x, 24, 190, 34);
             Image track = LibraryUiKit.Box(card, "bar_track_" + (i + 1), Sand, true);
-            LibraryUiKit.Place(track.rectTransform, 780, y + 14, 250, 16);
+            LibraryUiKit.Place(track.rectTransform, x, 70, 190, 16);
             Image fill = LibraryUiKit.Box(card, "bar_fill_" + (i + 1), fillColor, true);
-            LibraryUiKit.Place(fill.rectTransform, 780, y + 14, 0, 16);
+            LibraryUiKit.Place(fill.rectTransform, x, 70, 0, 16);
             barFills.Add(fill.rectTransform);
-            countLabels.Add(Lab(card, "0/" + perLanguageTotal, 28, Ink, true, TextAlignmentOptions.MidlineRight, 1034, y, 84, 44));
+            countLabels.Add(Lab(card, "0/" + perLanguageTotal[i], 30, Ink, true, TextAlignmentOptions.MidlineLeft, x, 92, 190, 40));
         }
+    }
+
+    /// <summary>One compact game row (1140 x 150): the card, the icon square on the left, the game name and the summary line under it.</summary>
+    private static Image AddGameRow(Transform ui, string name, float y, string title, string summary, Color iconColor, List<TextMeshProUGUI> summaryLabels, out Image icon)
+    {
+        Image row = LibraryUiKit.Box(ui, name, Cream, true);
+        LibraryUiKit.Place(row.rectTransform, 700, y, 1140, 150);
+        icon = LibraryUiKit.Box(row.transform, "icon", iconColor, true);
+        LibraryUiKit.Place(icon.rectTransform, 24, 20, 110, 110);
+        Lab(row.transform, title, 46, Ink, true, TextAlignmentOptions.MidlineLeft, 160, 24, 340, 58);
+        summaryLabels.Add(Lab(row.transform, summary, 28, InkSoft, false, TextAlignmentOptions.MidlineLeft, 160, 86, 340, 38));
+        return row;
     }
 
     // ------------------------------------------------------------------ the scene build
@@ -339,66 +351,63 @@ public static class ProfileDesignBuilder
         Lab(resetLink.transform, "Reset progress", 30, new Color32(163, 45, 45, 255), false, TextAlignmentOptions.Center, 0, 0, 420, 56);
         Button resetLinkButton = MakeButton(resetLink);
 
-        // ---- game cards (Option A): one card per game with a total and a progress bar for each language
+        // ---- game rows: one compact row per game with a total and a progress bar for each language, side by side
         Color coral = new Color32(217, 96, 59, 255);
         Color blue = new Color32(55, 138, 221, 255);
+        Color teal = new Color32(29, 158, 117, 255);
         string[] langNames = { "Cebuano", "Ilonggo", "Tagalog" };
         var summaryLabels = new List<TextMeshProUGUI>();
         var countLabels = new List<TextMeshProUGUI>();
         var barFills = new List<RectTransform>();
+        int[] phraseTotals = { PhraseData.TotalPhrases(0), PhraseData.TotalPhrases(1), PhraseData.TotalPhrases(2) };
+        Image icon;
 
         // Wordle
-        Image wordleCard = LibraryUiKit.Box(ui, "wordle_card", Cream, true);
-        LibraryUiKit.Place(wordleCard.rectTransform, 700, 192, 1140, 208);
-        Image wordleIcon = LibraryUiKit.Box(wordleCard.transform, "icon", Green, true);
-        LibraryUiKit.Place(wordleIcon.rectTransform, 32, 32, 144, 144);
-        Lab(wordleIcon.transform, "W", 84, Color.white, true, TextAlignmentOptions.Center, 0, 0, 144, 144);
-        Lab(wordleCard.transform, "Wordle", 52, Ink, true, TextAlignmentOptions.MidlineLeft, 200, 40, 390, 64);
-        summaryLabels.Add(Lab(wordleCard.transform, "0 of 126 solved", 30, InkSoft, false, TextAlignmentOptions.MidlineLeft, 200, 108, 390, 40));
-        AddLanguageBars(wordleCard.transform, langNames, Green, 42, countLabels, barFills);
+        Image wordleRow = AddGameRow(ui, "wordle_card", 192, "Wordle", "0 of 126 solved", Green, summaryLabels, out icon);
+        Lab(icon.transform, "W", 64, Color.white, true, TextAlignmentOptions.Center, 0, 0, 110, 110);
+        AddLanguageBars(wordleRow.transform, langNames, Green, new[] { 42, 42, 42 }, countLabels, barFills);
 
         // Crossword
-        Image crossCard = LibraryUiKit.Box(ui, "crossword_card", Cream, true);
-        LibraryUiKit.Place(crossCard.rectTransform, 700, 420, 1140, 208);
-        Image crossIcon = LibraryUiKit.Box(crossCard.transform, "icon", blue, true);
-        LibraryUiKit.Place(crossIcon.rectTransform, 32, 32, 144, 144);
-        foreach (float[] sq in new[] { new[] { 28f, 28f }, new[] { 80f, 28f }, new[] { 28f, 80f }, new[] { 80f, 80f } })
+        Image crossRow = AddGameRow(ui, "crossword_card", 358, "Crossword", "0 of 63 solved", blue, summaryLabels, out icon);
+        foreach (float[] sq in new[] { new[] { 21f, 21f }, new[] { 59f, 21f }, new[] { 21f, 59f }, new[] { 59f, 59f } })
         {
-            Image s = LibraryUiKit.Box(crossIcon.transform, "square", Color.white, true);
-            LibraryUiKit.Place(s.rectTransform, sq[0], sq[1], 40, 40);
+            Image sqImg = LibraryUiKit.Box(icon.transform, "square", Color.white, true);
+            LibraryUiKit.Place(sqImg.rectTransform, sq[0], sq[1], 30, 30);
         }
-        Lab(crossCard.transform, "Crossword", 52, Ink, true, TextAlignmentOptions.MidlineLeft, 200, 40, 390, 64);
-        summaryLabels.Add(Lab(crossCard.transform, "0 of 63 solved", 30, InkSoft, false, TextAlignmentOptions.MidlineLeft, 200, 108, 390, 40));
-        AddLanguageBars(crossCard.transform, langNames, blue, 21, countLabels, barFills);
+        AddLanguageBars(crossRow.transform, langNames, blue, new[] { 21, 21, 21 }, countLabels, barFills);
 
         // Word Search
-        Image searchCard = LibraryUiKit.Box(ui, "wordsearch_card", Cream, true);
-        LibraryUiKit.Place(searchCard.rectTransform, 700, 648, 1140, 208);
-        Image searchIcon = LibraryUiKit.Box(searchCard.transform, "icon", coral, true);
-        LibraryUiKit.Place(searchIcon.rectTransform, 32, 32, 144, 144);
-        Image ring = LibraryUiKit.Icon(searchIcon.transform, "ring", HdCircle(), Color.white);
-        LibraryUiKit.Place(ring.rectTransform, 28, 24, 70, 70);
-        Image hole = LibraryUiKit.Icon(searchIcon.transform, "hole", HdCircle(), coral);
-        LibraryUiKit.Place(hole.rectTransform, 42, 38, 42, 42);
-        Image handle = LibraryUiKit.Box(searchIcon.transform, "handle", Color.white, true);
-        SetCentered(handle.rectTransform, 80, 96, 46, 14);
+        Image searchRow = AddGameRow(ui, "wordsearch_card", 524, "Word Search", "0 of 63 solved", coral, summaryLabels, out icon);
+        Image ring = LibraryUiKit.Icon(icon.transform, "ring", HdCircle(), Color.white);
+        LibraryUiKit.Place(ring.rectTransform, 21, 18, 54, 54);
+        Image hole = LibraryUiKit.Icon(icon.transform, "hole", HdCircle(), coral);
+        LibraryUiKit.Place(hole.rectTransform, 32, 29, 32, 32);
+        Image handle = LibraryUiKit.Box(icon.transform, "handle", Color.white, true);
+        SetCentered(handle.rectTransform, 61, 73, 36, 11);
         handle.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -45f);
-        Lab(searchCard.transform, "Word Search", 52, Ink, true, TextAlignmentOptions.MidlineLeft, 200, 40, 390, 64);
-        summaryLabels.Add(Lab(searchCard.transform, "0 of 63 solved", 30, InkSoft, false, TextAlignmentOptions.MidlineLeft, 200, 108, 390, 40));
-        AddLanguageBars(searchCard.transform, langNames, coral, 21, countLabels, barFills);
+        AddLanguageBars(searchRow.transform, langNames, coral, new[] { 21, 21, 21 }, countLabels, barFills);
+
+        // Phrasebook (phrases learned in the Sentence builder)
+        Image phraseRow = AddGameRow(ui, "phrasebook_card", 690, "Phrasebook", "0 of " + (phraseTotals[0] + phraseTotals[1] + phraseTotals[2]) + " learned", teal, summaryLabels, out icon);
+        Image bubble = LibraryUiKit.Box(icon.transform, "bubble", Color.white, true);
+        LibraryUiKit.Place(bubble.rectTransform, 15, 24, 80, 50);
+        Image tail = LibraryUiKit.Box(icon.transform, "bubble_tail", Color.white, false);
+        SetCentered(tail.rectTransform, 30, 62, 20, 20);
+        tail.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 45f);
+        AddLanguageBars(phraseRow.transform, langNames, teal, phraseTotals, countLabels, barFills);
 
         // ---- words learned and favorites
         Image learnedCard = LibraryUiKit.Box(ui, "words_learned_card", Cream, true);
-        LibraryUiKit.Place(learnedCard.rectTransform, 700, 876, 552, 156);
-        Lab(learnedCard.transform, "Words learned", 30, InkSoft, false, TextAlignmentOptions.MidlineLeft, 28, 16, 500, 40);
-        TextMeshProUGUI wordsLearned = Lab(learnedCard.transform, "0", 72, Ink, true, TextAlignmentOptions.MidlineLeft, 28, 56, 500, 84);
+        LibraryUiKit.Place(learnedCard.rectTransform, 700, 860, 552, 172);
+        Lab(learnedCard.transform, "Words learned", 30, InkSoft, false, TextAlignmentOptions.MidlineLeft, 28, 20, 500, 40);
+        TextMeshProUGUI wordsLearned = Lab(learnedCard.transform, "0", 76, Ink, true, TextAlignmentOptions.MidlineLeft, 28, 66, 500, 90);
 
         Image favCard = LibraryUiKit.Box(ui, "favorites_card", Purple, true);
-        LibraryUiKit.Place(favCard.rectTransform, 1288, 876, 552, 156);
-        Lab(favCard.transform, "Favorites", 30, new Color32(232, 213, 247, 255), false, TextAlignmentOptions.MidlineLeft, 28, 16, 400, 40);
-        TextMeshProUGUI favValue = Lab(favCard.transform, "0 words", 72, Color.white, true, TextAlignmentOptions.MidlineLeft, 28, 56, 440, 84);
+        LibraryUiKit.Place(favCard.rectTransform, 1288, 860, 552, 172);
+        Lab(favCard.transform, "Favorites", 30, new Color32(232, 213, 247, 255), false, TextAlignmentOptions.MidlineLeft, 28, 20, 400, 40);
+        TextMeshProUGUI favValue = Lab(favCard.transform, "0 words", 76, Color.white, true, TextAlignmentOptions.MidlineLeft, 28, 66, 440, 90);
         Image chevron = LibraryUiKit.Icon(favCard.transform, "chevron", Spr("main_menu_play_triangle.png"), Color.white);
-        LibraryUiKit.Place(chevron.rectTransform, 484, 56, 36, 44);
+        LibraryUiKit.Place(chevron.rectTransform, 484, 64, 36, 44);
         Button favButton = MakeButton(favCard);
 
         // ---- sky theme (time of day)
@@ -493,7 +502,7 @@ public static class ProfileDesignBuilder
         Image warnDot = LibraryUiKit.Icon(warnCircle.transform, "dot", HdCircle(), new Color32(163, 45, 45, 255));
         LibraryUiKit.Place(warnDot.rectTransform, 54, 82, 12, 12);
         Lab(resetCard.transform, "Reset all progress?", 44, Ink, true, TextAlignmentOptions.Center, 0, 100, 600, 60);
-        TextMeshProUGUI resetBody = Lab(resetCard.transform, "This clears your name, avatar, solved counts and streak. It can't be undone. Library favorites stay.", 32, InkSoft, false,
+        TextMeshProUGUI resetBody = Lab(resetCard.transform, "This clears your name, avatar, solved counts, learned phrases and streak. It can't be undone. Library favorites stay.", 32, InkSoft, false,
             TextAlignmentOptions.Top, 48, 176, 504, 150);
         resetBody.enableWordWrapping = true;
         Image keepOuter = LibraryUiKit.Box(resetCard.transform, "keep_button", Ink, true);
@@ -525,6 +534,7 @@ public static class ProfileDesignBuilder
         SetRef(so, "wordsLearnedValue", wordsLearned);
         SetRef(so, "favoritesValue", favValue);
         SetRef(so, "favoritesButton", favButton);
+        so.FindProperty("barFullWidth").floatValue = 190f;
         SetRef(so, "editPanel", editDim.gameObject);
         SetArray(so, "avatarChoices", choices);
         SerializedProperty ringProp = so.FindProperty("avatarChoiceRings");

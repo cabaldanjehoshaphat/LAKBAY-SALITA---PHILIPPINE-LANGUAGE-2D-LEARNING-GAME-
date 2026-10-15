@@ -24,3 +24,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: b23f7a28fabb47aabc54c9c478cf7d1d, type: 3}
   - {fileID: 4900000, guid: 32ff5802e897404ebd4cc39dfc909bfb, type: 3}
   - {fileID: 4900000, guid: f000cf590f8c453a94c3a6864188a1d8, type: 3}
+  phrasebookFiles:
+  - {fileID: 4900000, guid: f41a9075c10194d458bc87dfc3a87f08, type: 3}
+  - {fileID: 4900000, guid: 6885cce07cde99e48b619af66b7f8fd7, type: 3}
+  - {fileID: 4900000, guid: 9121d70a740a42b4580fa70e608c18be, type: 3}

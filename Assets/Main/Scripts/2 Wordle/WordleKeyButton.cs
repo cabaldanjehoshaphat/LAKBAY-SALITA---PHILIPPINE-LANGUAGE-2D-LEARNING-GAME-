@@ -13,9 +13,10 @@ public enum WordleKeyKind
 /// <summary>
 /// WordleKeyButton
 /// One key of the on-screen Wordle keyboard (put on each key object together with a Button and an Image).
-/// WordleGameController listens to Pressed and types the letter, submits the row or deletes a letter. After each
-/// guess the controller colours letter keys green / yellow / gray through SetState, so players can see which letters
-/// they already tried. Letter keys remember the best state they ever had (green beats yellow beats gray).
+/// WordleGameController listens to Pressed and types the letter, submits the row or deletes a letter. Keys stay plain
+/// after a guess (so the keypad does not give away right or wrong letters); if WordleGameController.colorKeyboardKeys is
+/// turned on, the controller colours letter keys green / yellow / gray through SetState instead. Letter keys remember
+/// the best state they ever had (green beats yellow beats gray).
 /// </summary>
 public class WordleKeyButton : MonoBehaviour
 {
