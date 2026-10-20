@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// LibraryFavoritesStore
-/// Small static helper that reads and writes the Library's favorite words directly in PlayerPrefs, using the exact same
+/// Small static helper that reads and writes the Library's favorite words directly in SaveStore, using the exact same
 /// key and format as LibraryData ("library.favorites.v1", entries "LanguageIndex:WORD" joined with "|"; language index 0 =
 /// Cebuano, 1 = Hiligaynon/Ilonggo, 2 = Tagalog). It lets other screens (the Crossword result card) star a word without
 /// loading the whole dictionary; the Library shows the favorite the next time it opens.
@@ -20,7 +20,7 @@ public static class LibraryFavoritesStore
     private static List<string> Load()
     {
         var list = new List<string>();
-        string saved = PlayerPrefs.GetString(FavoritesKey, string.Empty);
+        string saved = SaveStore.GetString(FavoritesKey, string.Empty);
         if (saved.Length > 0)
         {
             foreach (string part in saved.Split('|'))
@@ -61,8 +61,8 @@ public static class LibraryFavoritesStore
             list.Add(key);
             nowFavorite = true;
         }
-        PlayerPrefs.SetString(FavoritesKey, string.Join("|", list.ToArray()));
-        PlayerPrefs.Save();
+        SaveStore.SetString(FavoritesKey, string.Join("|", list.ToArray()));
+        SaveStore.Save();
         return nowFavorite;
     }
 }

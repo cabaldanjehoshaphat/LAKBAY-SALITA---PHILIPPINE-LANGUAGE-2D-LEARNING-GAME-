@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// StreakTracker
-/// Static helper that keeps the player's day-streak in PlayerPrefs (no permissions needed).
+/// Static helper that keeps the player's day-streak in SaveStore (no permissions needed).
 /// Call RecordPlay() whenever the player starts a minigame (SceneNavigator does this for Wordle,
 /// Crossword and Word Search). A day counts once; playing on consecutive local calendar days grows
 /// the streak, and missing a whole day resets it to 1 on the next play.
@@ -30,31 +30,31 @@ public static class StreakTracker
             return;
         }
 
-        int count = PlayerPrefs.GetInt(CountKey, 0);
+        int count = SaveStore.GetInt(CountKey, 0);
         count = hasLast && last == today.AddDays(-1) ? count + 1 : 1;
 
-        PlayerPrefs.SetInt(CountKey, count);
-        PlayerPrefs.SetString(LastPlayKey, today.ToString(DateFormat, CultureInfo.InvariantCulture));
-        if (count > PlayerPrefs.GetInt(BestKey, 0))
+        SaveStore.SetInt(CountKey, count);
+        SaveStore.SetString(LastPlayKey, today.ToString(DateFormat, CultureInfo.InvariantCulture));
+        if (count > SaveStore.GetInt(BestKey, 0))
         {
-            PlayerPrefs.SetInt(BestKey, count);
+            SaveStore.SetInt(BestKey, count);
         }
-        PlayerPrefs.Save();
+        SaveStore.Save();
     }
 
     /// <summary>The longest streak the player ever reached (never lower than the current streak).</summary>
     public static int GetBestStreak()
     {
-        return Mathf.Max(PlayerPrefs.GetInt(BestKey, 0), GetStreak());
+        return Mathf.Max(SaveStore.GetInt(BestKey, 0), GetStreak());
     }
 
     /// <summary>Forgets the streak and the best streak (used when the profile is reset).</summary>
     public static void Reset()
     {
-        PlayerPrefs.DeleteKey(CountKey);
-        PlayerPrefs.DeleteKey(LastPlayKey);
-        PlayerPrefs.DeleteKey(BestKey);
-        PlayerPrefs.Save();
+        SaveStore.DeleteKey(CountKey);
+        SaveStore.DeleteKey(LastPlayKey);
+        SaveStore.DeleteKey(BestKey);
+        SaveStore.Save();
     }
 
     /// <summary>The streak to show: 0 if the player has not played today or yesterday.</summary>
@@ -69,14 +69,14 @@ public static class StreakTracker
         DateTime today = DateTime.Now.Date;
         if (last == today || last == today.AddDays(-1))
         {
-            return PlayerPrefs.GetInt(CountKey, 0);
+            return SaveStore.GetInt(CountKey, 0);
         }
         return 0;
     }
 
     private static bool TryGetLastPlay(out DateTime last)
     {
-        return DateTime.TryParseExact(PlayerPrefs.GetString(LastPlayKey, string.Empty), DateFormat,
+        return DateTime.TryParseExact(SaveStore.GetString(LastPlayKey, string.Empty), DateFormat,
             CultureInfo.InvariantCulture, DateTimeStyles.None, out last);
     }
 }

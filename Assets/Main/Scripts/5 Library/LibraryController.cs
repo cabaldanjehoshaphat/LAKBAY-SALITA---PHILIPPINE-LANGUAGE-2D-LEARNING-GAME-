@@ -15,7 +15,7 @@ using UnityEngine.UI;
 ///  - with text typed: ranked search results (exact matches first, related words below), cross-language
 ///    suggestions when a language has no exact match, and "did you mean" spelling help,
 ///  - on the left: the opened word's details (meaning, definition, same word in the other languages),
-///    word of the day, recent searches and favorites (stars are saved with PlayerPrefs).
+///    word of the day, recent searches and favorites (stars are saved with SaveStore).
 /// All data and search logic lives in LibraryData; list rendering in LibraryNotebook; shared widgets in
 /// LibraryUiKit. Nothing here needs to be set up in the editor except the three TextAsset fields.
 /// </summary>

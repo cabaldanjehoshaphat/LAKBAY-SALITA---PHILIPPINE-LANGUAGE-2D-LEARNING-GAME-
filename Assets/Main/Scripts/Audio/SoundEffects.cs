@@ -16,7 +16,7 @@ using UnityEngine.UI;
 ///  - the Sound effects switch in the settings window plays toggle_on itself when it turns the effects back on
 ///  - every other button, including buttons the games create while they run (tiles, list rows, Library items): ui_click
 /// Because it looks at the screen and not at each button, new buttons get their sound without any setup. SoundEffects.Play("clip name") plays
-/// any clip of that folder from code. Sound effects can be switched off with SoundEffects.SetMuted(true) (saved in PlayerPrefs "SfxMuted");
+/// any clip of that folder from code. Sound effects can be switched off with SoundEffects.SetMuted(true) (saved in SaveStore "SfxMuted");
 /// there is no switch for it in the menus yet. The sounds are described in Resources/Audio SFX/README - Sound Effects.md.
 /// </summary>
 public class SoundEffects : MonoBehaviour
@@ -36,13 +36,13 @@ public class SoundEffects : MonoBehaviour
     /// <summary>True when the player turned the sound effects off.</summary>
     public static bool Muted
     {
-        get { return _instance != null ? _instance._muted : PlayerPrefs.GetInt(MutedKey, 0) == 1; }
+        get { return _instance != null ? _instance._muted : SaveStore.GetInt(MutedKey, 0) == 1; }
     }
 
     /// <summary>Turns the sound effects off (true) or on (false) and saves the choice.</summary>
     public static void SetMuted(bool muted)
     {
-        PlayerPrefs.SetInt(MutedKey, muted ? 1 : 0);
+        SaveStore.SetInt(MutedKey, muted ? 1 : 0);
         if (_instance != null)
         {
             _instance._muted = muted;
@@ -62,7 +62,7 @@ public class SoundEffects : MonoBehaviour
         _instance._source = go.AddComponent<AudioSource>();
         _instance._source.playOnAwake = false;
         _instance._source.spatialBlend = 0f;
-        _instance._muted = PlayerPrefs.GetInt(MutedKey, 0) == 1;
+        _instance._muted = SaveStore.GetInt(MutedKey, 0) == 1;
     }
 
     /// <summary>Plays one clip of Resources/Audio SFX by name (for example "ui_click"), unless the effects are muted.</summary>

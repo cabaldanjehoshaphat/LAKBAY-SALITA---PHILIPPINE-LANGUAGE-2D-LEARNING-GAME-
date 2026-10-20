@@ -13,7 +13,7 @@ using UnityEngine.UI;
 ///  - the Across / Down tabs of the clue list (the tab follows the active word, the list scrolls to it),
 ///  - a stopwatch, the language chip and a pause button (Esc and the app going to the background also pause),
 ///  - Hint (reveal one letter, 3 per puzzle), Check (mark wrong letters in the active word) and Reveal (fill the active word, once),
-///  - an optional on-screen keypad, hidden by default and switched on and off with the Keypad switch (remembered in PlayerPrefs;
+///  - an optional on-screen keypad, hidden by default and switched on and off with the Keypad switch (remembered in SaveStore;
 ///    the physical keyboard always works). With the keypad on the clue list becomes shorter to make room for the keys,
 ///  - the pause window (Resume, New puzzle, Back to games) and a win card listing every word the player learned, with a star to
 ///    save each word to the Library favorites, plus time, hints used and streak.
@@ -201,7 +201,7 @@ public class CrosswordGameController : MonoBehaviour
         revealsLeft = revealsPerPuzzle;
         RefreshToolLabels();
 
-        keypadOn = PlayerPrefs.GetInt(KeypadPrefKey, 0) == 1;
+        keypadOn = SaveStore.GetInt(KeypadPrefKey, 0) == 1;
         if (keypadToggle != null) keypadToggle.SetIsOnWithoutNotify(keypadOn);
         ApplyKeypadState();
 
@@ -398,8 +398,8 @@ public class CrosswordGameController : MonoBehaviour
     private void OnKeypadToggled(bool on)
     {
         keypadOn = on;
-        PlayerPrefs.SetInt(KeypadPrefKey, on ? 1 : 0);
-        PlayerPrefs.Save();
+        SaveStore.SetInt(KeypadPrefKey, on ? 1 : 0);
+        SaveStore.Save();
         ApplyKeypadState();
     }
 

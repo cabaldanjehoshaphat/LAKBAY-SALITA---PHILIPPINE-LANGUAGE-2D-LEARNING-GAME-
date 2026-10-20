@@ -33,7 +33,7 @@ public static class CrosswordSession
 
 /// <summary>
 /// CrosswordProgressStore
-/// Remembers which Crossword category puzzles the player has solved, in PlayerPrefs ("crossword.solved.v1", entries "language:category:size"
+/// Remembers which Crossword category puzzles the player has solved, in SaveStore ("crossword.solved.v1", entries "language:category:size"
 /// joined with "|"). The start screen shows "N of 3 solved" per category from it, and the hub shows the total.
 /// </summary>
 public static class CrosswordProgressStore
@@ -48,7 +48,7 @@ public static class CrosswordProgressStore
     private static List<string> Load()
     {
         var list = new List<string>();
-        string saved = PlayerPrefs.GetString(SolvedKey, string.Empty);
+        string saved = SaveStore.GetString(SolvedKey, string.Empty);
         foreach (string part in saved.Split('|'))
         {
             if (part.Length > 0)
@@ -97,15 +97,15 @@ public static class CrosswordProgressStore
         if (!list.Contains(key))
         {
             list.Add(key);
-            PlayerPrefs.SetString(SolvedKey, string.Join("|", list.ToArray()));
-            PlayerPrefs.Save();
+            SaveStore.SetString(SolvedKey, string.Join("|", list.ToArray()));
+            SaveStore.Save();
         }
     }
 
     /// <summary>Forgets every solved puzzle (used when the profile is reset).</summary>
     public static void Reset()
     {
-        PlayerPrefs.DeleteKey(SolvedKey);
-        PlayerPrefs.Save();
+        SaveStore.DeleteKey(SolvedKey);
+        SaveStore.Save();
     }
 }

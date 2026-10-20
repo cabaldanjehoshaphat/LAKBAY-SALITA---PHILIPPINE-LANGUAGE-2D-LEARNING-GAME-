@@ -25,15 +25,15 @@ public static class PhraseSession
     /// <summary>The language the player last picked in the Phrasebook (saved), used when the Phrasebook opens from the main menu.</summary>
     public static int SavedLanguage()
     {
-        return Mathf.Clamp(PlayerPrefs.GetInt(LanguageKey, 0), 0, 2);
+        return Mathf.Clamp(SaveStore.GetInt(LanguageKey, 0), 0, 2);
     }
 
     /// <summary>Sets the Phrasebook language and remembers it.</summary>
     public static void SetLanguage(int language)
     {
         Language = Mathf.Clamp(language, 0, 2);
-        PlayerPrefs.SetInt(LanguageKey, Language);
-        PlayerPrefs.Save();
+        SaveStore.SetInt(LanguageKey, Language);
+        SaveStore.Save();
     }
 
     /// <summary>Opens the phrase cards of a topic, starting at one phrase.</summary>
@@ -79,7 +79,7 @@ public static class PhraseSession
 
 /// <summary>
 /// PhraseProgressStore
-/// Remembers which phrases the player has built correctly in the Sentence builder, in PlayerPrefs ("phrasebook.learned.v1", entries
+/// Remembers which phrases the player has built correctly in the Sentence builder, in SaveStore ("phrasebook.learned.v1", entries
 /// "language:topic:phrase" joined with "|"). The topics screen shows "N of M learned" per topic from it and the hub shows the total.
 /// </summary>
 public static class PhraseProgressStore
@@ -94,7 +94,7 @@ public static class PhraseProgressStore
     private static List<string> Load()
     {
         var list = new List<string>();
-        string saved = PlayerPrefs.GetString(LearnedKey, string.Empty);
+        string saved = SaveStore.GetString(LearnedKey, string.Empty);
         foreach (string part in saved.Split('|'))
         {
             if (part.Length > 0)
@@ -143,15 +143,15 @@ public static class PhraseProgressStore
         if (!list.Contains(key))
         {
             list.Add(key);
-            PlayerPrefs.SetString(LearnedKey, string.Join("|", list.ToArray()));
-            PlayerPrefs.Save();
+            SaveStore.SetString(LearnedKey, string.Join("|", list.ToArray()));
+            SaveStore.Save();
         }
     }
 
     /// <summary>Forgets every learned phrase (used when the profile is reset).</summary>
     public static void Reset()
     {
-        PlayerPrefs.DeleteKey(LearnedKey);
-        PlayerPrefs.Save();
+        SaveStore.DeleteKey(LearnedKey);
+        SaveStore.Save();
     }
 }

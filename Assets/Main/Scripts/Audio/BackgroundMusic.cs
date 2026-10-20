@@ -9,10 +9,10 @@ using UnityEngine.SceneManagement;
 /// each other. Panels and popups inside a scene don't change the music. It creates itself before the
 /// first scene loads (RuntimeInitializeOnLoadMethod), survives scene loads (DontDestroyOnLoad), and needs nothing placed in any scene.
 /// The tracks are AudioClips in Assets/Main/Resources/Audio Soundtrack/. Which track a scene gets is decided by its name (see Tracks):
-///   "1 Main_menu" -> Lakbay, "2 Profile Icon" -> Ako Ni, "3 Language_Selection_Menu" -> Tulay, "4 Library_menu" -> Tahimik,
+///   "0 Intro" and "1 Main_menu" -> Lakbay (the intro cutscene and the menu share the track, so it plays on without a restart), "2 Profile Icon" -> Ako Ni, "3 Language_Selection_Menu" -> Tulay, "4 Library_menu" -> Tahimik,
 ///   any Wordle scene -> Hula-Hula, any Crossword scene -> Pahalang Pababa, any Word Search scene -> Pangita.
 /// Moving between two scenes with the same track (e.g. "Wordle - Start" to "Wordle - Play") keeps the music playing without a restart.
-/// A scene that matches no rule keeps whatever is already playing. The volume is saved in PlayerPrefs ("MusicVolume"); call
+/// A scene that matches no rule keeps whatever is already playing. The volume is saved in SaveStore ("MusicVolume"); call
 /// BackgroundMusic.SetVolume(0..1) from a settings slider. Music on/off is saved too ("MusicMuted"): SetMuted fades the music out or
 /// back in, and MutedChanged tells other scripts when music is turned on or off (the main menu's SettingsPanel sets it from its volume slider: 0 = off). While muted the track keeps
 /// playing silently, so turning music back on continues where it was. If a scene has no AudioListener, this object enables its own so
@@ -31,6 +31,7 @@ public class BackgroundMusic : MonoBehaviour
     /// <summary>Scene-name keyword (lower case) -> clip name in Resources/Audio Soundtrack. The first match wins.</summary>
     private static readonly string[,] Tracks =
     {
+        { "intro", "01_main_menu_lakbay" },
         { "main_menu", "01_main_menu_lakbay" },
         { "profile", "02_profile_ako_ni" },
         { "language_selection", "03_language_selection_tulay" },
@@ -57,20 +58,20 @@ public class BackgroundMusic : MonoBehaviour
     /// <summary>The saved music volume, 0 to 1.</summary>
     public static float Volume
     {
-        get { return _instance != null ? _instance._volume : PlayerPrefs.GetFloat(VolumeKey, DefaultVolume); }
+        get { return _instance != null ? _instance._volume : SaveStore.GetFloat(VolumeKey, DefaultVolume); }
     }
 
     /// <summary>True when the player turned the music off.</summary>
     public static bool Muted
     {
-        get { return _instance != null ? _instance._muted : PlayerPrefs.GetInt(MutedKey, 0) == 1; }
+        get { return _instance != null ? _instance._muted : SaveStore.GetInt(MutedKey, 0) == 1; }
     }
 
     /// <summary>Sets and saves the music volume (0 = silent, 1 = full).</summary>
     public static void SetVolume(float volume)
     {
         volume = Mathf.Clamp01(volume);
-        PlayerPrefs.SetFloat(VolumeKey, volume);
+        SaveStore.SetFloat(VolumeKey, volume);
         if (_instance != null)
         {
             _instance._volume = volume;
@@ -81,8 +82,8 @@ public class BackgroundMusic : MonoBehaviour
     /// <summary>Turns the music off (true) or on (false) with a short fade, and saves the choice.</summary>
     public static void SetMuted(bool muted)
     {
-        PlayerPrefs.SetInt(MutedKey, muted ? 1 : 0);
-        PlayerPrefs.Save();
+        SaveStore.SetInt(MutedKey, muted ? 1 : 0);
+        SaveStore.Save();
         if (_instance != null)
         {
             _instance._muted = muted;
@@ -114,8 +115,8 @@ public class BackgroundMusic : MonoBehaviour
 
     private void Awake()
     {
-        _volume = PlayerPrefs.GetFloat(VolumeKey, DefaultVolume);
-        _muted = PlayerPrefs.GetInt(MutedKey, 0) == 1;
+        _volume = SaveStore.GetFloat(VolumeKey, DefaultVolume);
+        _muted = SaveStore.GetInt(MutedKey, 0) == 1;
         _current = MakeSource();
         _next = MakeSource();
         _fallbackListener = gameObject.AddComponent<AudioListener>();

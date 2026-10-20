@@ -33,7 +33,7 @@ public static class WordleSession
 
 /// <summary>
 /// WordleProgressStore
-/// Remembers which Wordle category levels the player has solved, in PlayerPrefs ("wordle.solved.v1", entries "language:category:level"
+/// Remembers which Wordle category levels the player has solved, in SaveStore ("wordle.solved.v1", entries "language:category:level"
 /// joined with "|"). The start screen shows "N of 6 solved" per category from it, and the hub shows the total.
 /// </summary>
 public static class WordleProgressStore
@@ -48,7 +48,7 @@ public static class WordleProgressStore
     private static List<string> Load()
     {
         var list = new List<string>();
-        string saved = PlayerPrefs.GetString(SolvedKey, string.Empty);
+        string saved = SaveStore.GetString(SolvedKey, string.Empty);
         foreach (string part in saved.Split('|'))
         {
             if (part.Length > 0)
@@ -97,15 +97,15 @@ public static class WordleProgressStore
         if (!list.Contains(key))
         {
             list.Add(key);
-            PlayerPrefs.SetString(SolvedKey, string.Join("|", list.ToArray()));
-            PlayerPrefs.Save();
+            SaveStore.SetString(SolvedKey, string.Join("|", list.ToArray()));
+            SaveStore.Save();
         }
     }
 
     /// <summary>Forgets every solved level (used when the profile is reset).</summary>
     public static void Reset()
     {
-        PlayerPrefs.DeleteKey(SolvedKey);
-        PlayerPrefs.Save();
+        SaveStore.DeleteKey(SolvedKey);
+        SaveStore.Save();
     }
 }

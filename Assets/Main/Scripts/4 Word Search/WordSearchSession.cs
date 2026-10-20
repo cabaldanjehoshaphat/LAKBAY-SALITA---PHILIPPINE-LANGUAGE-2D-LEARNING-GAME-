@@ -12,7 +12,7 @@ public enum WordSearchMode
 /// WordSearchSession
 /// Static hand-over between the Word Search scenes: which language, category and puzzle (A, B, C = 0, 1, 2) to play and in which
 /// mode. The language hub sets the language, the start screen sets the category, puzzle and mode, and the play scene reads them.
-/// The chosen mode is remembered in PlayerPrefs ("wordsearch.mode"). Language index everywhere: 0 Cebuano, 1 Ilonggo, 2 Tagalog.
+/// The chosen mode is remembered in SaveStore ("wordsearch.mode"). Language index everywhere: 0 Cebuano, 1 Ilonggo, 2 Tagalog.
 /// Also holds the scene names and the helper that finds the puzzle after the current one.
 /// </summary>
 public static class WordSearchSession
@@ -40,12 +40,12 @@ public static class WordSearchSession
             {
                 return WordSearchMode.Classic;
             }
-            return PlayerPrefs.GetInt(ModeKey, 0) == 1 ? WordSearchMode.Meaning : WordSearchMode.Classic;
+            return SaveStore.GetInt(ModeKey, 0) == 1 ? WordSearchMode.Meaning : WordSearchMode.Classic;
         }
         set
         {
-            PlayerPrefs.SetInt(ModeKey, value == WordSearchMode.Meaning ? 1 : 0);
-            PlayerPrefs.Save();
+            SaveStore.SetInt(ModeKey, value == WordSearchMode.Meaning ? 1 : 0);
+            SaveStore.Save();
         }
     }
 
@@ -67,7 +67,7 @@ public static class WordSearchSession
 
 /// <summary>
 /// WordSearchProgressStore
-/// Remembers which Word Search puzzles the player has solved, in PlayerPrefs ("wordsearch.solved.v1", entries
+/// Remembers which Word Search puzzles the player has solved, in SaveStore ("wordsearch.solved.v1", entries
 /// "language:category:puzzle" joined with "|"). The start screen shows solved puzzles as gold chips.
 /// </summary>
 public static class WordSearchProgressStore
@@ -82,7 +82,7 @@ public static class WordSearchProgressStore
     private static List<string> Load()
     {
         var list = new List<string>();
-        string saved = PlayerPrefs.GetString(SolvedKey, string.Empty);
+        string saved = SaveStore.GetString(SolvedKey, string.Empty);
         foreach (string part in saved.Split('|'))
         {
             if (part.Length > 0)
@@ -132,15 +132,15 @@ public static class WordSearchProgressStore
         if (!list.Contains(key))
         {
             list.Add(key);
-            PlayerPrefs.SetString(SolvedKey, string.Join("|", list.ToArray()));
-            PlayerPrefs.Save();
+            SaveStore.SetString(SolvedKey, string.Join("|", list.ToArray()));
+            SaveStore.Save();
         }
     }
 
     /// <summary>Forgets every solved puzzle (used when the profile is reset).</summary>
     public static void Reset()
     {
-        PlayerPrefs.DeleteKey(SolvedKey);
-        PlayerPrefs.Save();
+        SaveStore.DeleteKey(SolvedKey);
+        SaveStore.Save();
     }
 }

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Main/Scenes/1 Menu/0 Intro.unity
+    guid: 287fe1a2daaf3e8499fd029ac5837daf
+  - enabled: 1
     path: Assets/Main/Scenes/1 Menu/1 Main_menu.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
@@ -17,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Main/Scenes/1 Menu/4 Library_menu.unity
     guid: 96a3ad96affe7074c89c69f058ddc6e6
+  - enabled: 1
+    path: Assets/Main/Scenes/1 Menu/5 Options.unity
+    guid: 4196a366bcf171447a2ec7567e586f9e
   - enabled: 1
     path: Assets/Main/Scenes/2 Wordle/Archive/Level scenes before categories/1 -
       Puzzle - Cebuano/puzzle-wordle-generator 1 Cebuano.unity

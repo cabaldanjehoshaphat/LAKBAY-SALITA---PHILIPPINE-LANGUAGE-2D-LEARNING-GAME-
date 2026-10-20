@@ -22,3 +22,6 @@ UserSettings/
 # Test screenshots (large, not part of the game)
 /Assets/Screenshots/
 /Assets/Screenshots.meta
+
+# Save files of the editor (the built game keeps its own in Lakbay-Salita_Data/SaveData)
+/SaveData/

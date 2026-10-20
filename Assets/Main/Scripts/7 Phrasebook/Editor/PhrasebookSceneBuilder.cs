@@ -520,9 +520,9 @@ public static class PhrasebookSceneBuilder
         card.name = "phrasebook_card";
         card.transform.SetSiblingIndex(library.transform.GetSiblingIndex() + 1);
 
-        // three cards of 140 px: Play, Library, Phrasebook
+        // three cards of 140 px, top to bottom: Phrasebook, Play, Library
         float[] ys = { 352f, 508f, 664f };
-        GameObject[] cards = { play, library, card };
+        GameObject[] cards = { card, play, library };
         for (int i = 0; i < cards.Length; i++)
         {
             LibraryUiKit.Place((RectTransform)cards[i].transform, 580, ys[i], 760, 140);

@@ -42,7 +42,7 @@ public class LibraryEntry
 /// language sorted A-Z for the notebook list, and answers searches with a ranking: exact native
 /// headword or exact English meaning first, then headword-prefix / meaning starts-with / whole-word
 /// matches, then definition matches (so both "house" and "balay" work). Also provides "did you mean" spelling help, word of the day, the same word
-/// in the other languages, and favorites / recent searches saved with PlayerPrefs.
+/// in the other languages, and favorites / recent searches saved with SaveStore.
 /// Used by LibraryController; has no UI code.
 /// </summary>
 public class LibraryData
@@ -431,8 +431,8 @@ public class LibraryData
     {
         if (e == null) return;
         if (!_favorites.Remove(e.Key)) _favorites.Add(e.Key);
-        PlayerPrefs.SetString(FavoritesKey, string.Join("|", _favorites.ToArray()));
-        PlayerPrefs.Save();
+        SaveStore.SetString(FavoritesKey, string.Join("|", _favorites.ToArray()));
+        SaveStore.Save();
     }
 
     public List<LibraryEntry> Favorites()
@@ -454,15 +454,15 @@ public class LibraryData
         _recent.Remove(q);
         _recent.Insert(0, q);
         if (_recent.Count > 8) _recent.RemoveAt(_recent.Count - 1);
-        PlayerPrefs.SetString(RecentKey, string.Join("\n", _recent.ToArray()));
-        PlayerPrefs.Save();
+        SaveStore.SetString(RecentKey, string.Join("\n", _recent.ToArray()));
+        SaveStore.Save();
     }
 
     private void LoadPrefs()
     {
-        string fav = PlayerPrefs.GetString(FavoritesKey, string.Empty);
+        string fav = SaveStore.GetString(FavoritesKey, string.Empty);
         if (fav.Length > 0) _favorites.AddRange(fav.Split('|'));
-        string rec = PlayerPrefs.GetString(RecentKey, string.Empty);
+        string rec = SaveStore.GetString(RecentKey, string.Empty);
         if (rec.Length > 0) _recent.AddRange(rec.Split('\n'));
     }
 }

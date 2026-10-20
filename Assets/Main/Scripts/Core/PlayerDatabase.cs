@@ -45,7 +45,11 @@ public class PlayerDatabase : MonoBehaviour
 
     public PlayerData Data => data;
 
-    private string SavePath => Path.Combine(Application.persistentDataPath, "player_data.json");
+    /// <summary>player_data.json, in the save folder of SaveStore (Lakbay-Salita_Data/SaveData in a built game).</summary>
+    private string SavePath => SaveStore.PlayerDataPath;
+
+    /// <summary>The place of player_data.json in older versions of the game (the Windows user folder); copied once into the save folder.</summary>
+    private static string LegacyPath => Path.Combine(Application.persistentDataPath, "player_data.json");
 
     private void Awake()
     {
@@ -208,6 +212,17 @@ public class PlayerDatabase : MonoBehaviour
     /// <summary>Loads player_data.json from disk, or starts fresh defaults if none exists yet.</summary>
     public void Load()
     {
+        if (!File.Exists(SavePath) && File.Exists(LegacyPath))
+        {
+            try
+            {
+                SaveStore.WriteAtomic(SavePath, File.ReadAllText(LegacyPath));   // take over the profile of an older version
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogWarning("PlayerDatabase: could not copy the old profile (" + ex.Message + ")");
+            }
+        }
         if (File.Exists(SavePath))
         {
             string json = File.ReadAllText(SavePath);
@@ -234,6 +249,6 @@ public class PlayerDatabase : MonoBehaviour
     public void Save()
     {
         string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(SavePath, json);
+        SaveStore.WriteAtomic(SavePath, json);
     }
 }

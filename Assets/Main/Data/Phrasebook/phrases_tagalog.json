@@ -1,6 +1,6 @@
 {
  "purpose": "Phrasebook phrases for Lakbay Salita, Tagalog only: 7 everyday topics, each phrase with its English line, the phrase in the language and optional word-by-word meanings (gloss, one entry per word, same order). The Phrasebook screens and the Sentence builder split a phrase into words at the spaces. Loaded at runtime by PhraseData through Resources/LevelDataRegistry.asset (Phrasebook Files).",
- "status": "DRAFT PLACEHOLDERS - these few phrases only test the Phrasebook screens. Every phrase must be checked or replaced by a native speaker before the game is shared (Ilonggo especially). Edit this file to change a phrase; keep gloss empty or exactly one entry per word.",
+ "status": "DRAFT - the first phrases only test the Phrasebook screens and 10 more everyday phrases (directions, help, food, time) were added later; none has been checked by a native speaker yet. Every phrase must be checked or replaced by a native speaker before the game is shared (Ilonggo especially). Edit this file to change a phrase; keep gloss empty or exactly one entry per word. New phrases go at the END of their topic so the saved progress keeps its numbers.",
  "name": "Tagalog",
  "topics": [
   {
@@ -69,12 +69,18 @@
     {
      "english": "You are welcome",
      "phrase": "Walang anuman",
-     "gloss": []
+     "gloss": [
+      "no",
+      "anything"
+     ]
     },
     {
      "english": "I am sorry",
      "phrase": "Pasensya na",
-     "gloss": []
+     "gloss": [
+      "patience",
+      "now"
+     ]
     }
    ]
   },
@@ -94,12 +100,37 @@
     {
      "english": "I am Ana",
      "phrase": "Ako si Ana",
-     "gloss": []
+     "gloss": [
+      "I",
+      "am",
+      "Ana"
+     ]
     },
     {
      "english": "Where are you from?",
      "phrase": "Taga-saan ka?",
-     "gloss": []
+     "gloss": [
+      "from where",
+      "you"
+     ]
+    },
+    {
+     "english": "I do not understand",
+     "phrase": "Hindi ko maintindihan",
+     "gloss": [
+      "not",
+      "I",
+      "understand"
+     ]
+    },
+    {
+     "english": "Please speak slowly",
+     "phrase": "Dahan-dahan lang po",
+     "gloss": [
+      "slowly",
+      "only",
+      "polite"
+     ]
     }
    ]
   },
@@ -117,7 +148,37 @@
     {
      "english": "I want water",
      "phrase": "Gusto ko ng tubig",
-     "gloss": []
+     "gloss": [
+      "want",
+      "I",
+      "some",
+      "water"
+     ]
+    },
+    {
+     "english": "I am hungry",
+     "phrase": "Gutom na ako",
+     "gloss": [
+      "hungry",
+      "now",
+      "I"
+     ]
+    },
+    {
+     "english": "It is delicious",
+     "phrase": "Ang sarap",
+     "gloss": [
+      "the",
+      "delicious"
+     ]
+    },
+    {
+     "english": "It is very expensive",
+     "phrase": "Sobrang mahal",
+     "gloss": [
+      "very",
+      "expensive"
+     ]
     }
    ]
   },
@@ -132,6 +193,31 @@
       "the",
       "bathroom"
      ]
+    },
+    {
+     "english": "Where is the market?",
+     "phrase": "Nasaan ang palengke?",
+     "gloss": [
+      "where",
+      "the",
+      "market"
+     ]
+    },
+    {
+     "english": "Turn left",
+     "phrase": "Kumaliwa ka",
+     "gloss": [
+      "turn left",
+      "you"
+     ]
+    },
+    {
+     "english": "Go straight",
+     "phrase": "Diretso lang",
+     "gloss": [
+      "straight",
+      "only"
+     ]
     }
    ]
   },
@@ -141,7 +227,20 @@
     {
      "english": "What time is it?",
      "phrase": "Anong oras na?",
-     "gloss": []
+     "gloss": [
+      "what",
+      "time",
+      "now"
+     ]
+    },
+    {
+     "english": "See you tomorrow",
+     "phrase": "Kita tayo bukas",
+     "gloss": [
+      "see",
+      "we",
+      "tomorrow"
+     ]
     }
    ]
   },
@@ -158,7 +257,20 @@
     {
      "english": "I need help",
      "phrase": "Kailangan ko ng tulong",
-     "gloss": []
+     "gloss": [
+      "need",
+      "I",
+      "some",
+      "help"
+     ]
+    },
+    {
+     "english": "I am lost",
+     "phrase": "Naliligaw ako",
+     "gloss": [
+      "lost",
+      "I"
+     ]
     }
    ]
   }

@@ -1,6 +1,6 @@
 {
  "purpose": "Phrasebook phrases for Lakbay Salita, Ilonggo only: 7 everyday topics, each phrase with its English line, the phrase in the language and optional word-by-word meanings (gloss, one entry per word, same order). The Phrasebook screens and the Sentence builder split a phrase into words at the spaces. Loaded at runtime by PhraseData through Resources/LevelDataRegistry.asset (Phrasebook Files).",
- "status": "DRAFT PLACEHOLDERS - these few phrases only test the Phrasebook screens. Every phrase must be checked or replaced by a native speaker before the game is shared (Ilonggo especially). Edit this file to change a phrase; keep gloss empty or exactly one entry per word.",
+ "status": "DRAFT - the first phrases only test the Phrasebook screens and 10 more everyday phrases (directions, help, food, time) were added later; none has been checked by a native speaker yet. Every phrase must be checked or replaced by a native speaker before the game is shared (Ilonggo especially). Edit this file to change a phrase; keep gloss empty or exactly one entry per word. New phrases go at the END of their topic so the saved progress keeps its numbers.",
  "name": "Ilonggo",
  "topics": [
   {
@@ -41,7 +41,11 @@
     {
      "english": "I am fine",
      "phrase": "Maayo man ako",
-     "gloss": []
+     "gloss": [
+      "good",
+      "indeed",
+      "I"
+     ]
     }
    ]
   },
@@ -58,7 +62,11 @@
     {
      "english": "Thank you very much",
      "phrase": "Madamo nga salamat",
-     "gloss": []
+     "gloss": [
+      "many",
+      "that",
+      "thanks"
+     ]
     },
     {
      "english": "I am sorry",
@@ -75,17 +83,47 @@
     {
      "english": "What is your name?",
      "phrase": "Ano ang imo ngalan?",
-     "gloss": []
+     "gloss": [
+      "what",
+      "the",
+      "your",
+      "name"
+     ]
     },
     {
      "english": "I am Ana",
      "phrase": "Ako si Ana",
-     "gloss": []
+     "gloss": [
+      "I",
+      "am",
+      "Ana"
+     ]
     },
     {
      "english": "Where are you from?",
      "phrase": "Taga-diin ka?",
-     "gloss": []
+     "gloss": [
+      "from where",
+      "you"
+     ]
+    },
+    {
+     "english": "I do not understand",
+     "phrase": "Indi ko mahangpan",
+     "gloss": [
+      "not",
+      "I",
+      "understand"
+     ]
+    },
+    {
+     "english": "Please speak slowly",
+     "phrase": "Hinay-hinay lang palihog",
+     "gloss": [
+      "slowly",
+      "only",
+      "please"
+     ]
     }
    ]
   },
@@ -95,12 +133,44 @@
     {
      "english": "How much is this?",
      "phrase": "Tagpila ini?",
-     "gloss": []
+     "gloss": [
+      "how much",
+      "this"
+     ]
     },
     {
      "english": "I want water",
      "phrase": "Gusto ko sang tubig",
-     "gloss": []
+     "gloss": [
+      "want",
+      "I",
+      "some",
+      "water"
+     ]
+    },
+    {
+     "english": "I am hungry",
+     "phrase": "Gutom ako",
+     "gloss": [
+      "hungry",
+      "I"
+     ]
+    },
+    {
+     "english": "It is delicious",
+     "phrase": "Namit gid",
+     "gloss": [
+      "delicious",
+      "really"
+     ]
+    },
+    {
+     "english": "It is very expensive",
+     "phrase": "Mahal gid",
+     "gloss": [
+      "expensive",
+      "really"
+     ]
     }
    ]
   },
@@ -110,7 +180,37 @@
     {
      "english": "Where is the toilet?",
      "phrase": "Diin ang kasilyas?",
-     "gloss": []
+     "gloss": [
+      "where",
+      "the",
+      "toilet"
+     ]
+    },
+    {
+     "english": "Where is the market?",
+     "phrase": "Diin ang tiyangge?",
+     "gloss": [
+      "where",
+      "the",
+      "market"
+     ]
+    },
+    {
+     "english": "Turn left",
+     "phrase": "Liko sa wala",
+     "gloss": [
+      "turn",
+      "to",
+      "left"
+     ]
+    },
+    {
+     "english": "Go straight",
+     "phrase": "Diretso lang",
+     "gloss": [
+      "straight",
+      "only"
+     ]
     }
    ]
   },
@@ -120,7 +220,21 @@
     {
      "english": "What time is it?",
      "phrase": "Ano nga oras na?",
-     "gloss": []
+     "gloss": [
+      "what",
+      "that",
+      "time",
+      "now"
+     ]
+    },
+    {
+     "english": "See you tomorrow",
+     "phrase": "Kita-kita sa buwas",
+     "gloss": [
+      "see you",
+      "on",
+      "tomorrow"
+     ]
     }
    ]
   },
@@ -137,7 +251,22 @@
     {
      "english": "I need help",
      "phrase": "Kinahanglan ko sang bulig",
-     "gloss": []
+     "gloss": [
+      "need",
+      "I",
+      "some",
+      "help"
+     ]
+    },
+    {
+     "english": "I am lost",
+     "phrase": "Naawol ako sa dalan",
+     "gloss": [
+      "lost",
+      "I",
+      "on",
+      "road"
+     ]
     }
    ]
   }
