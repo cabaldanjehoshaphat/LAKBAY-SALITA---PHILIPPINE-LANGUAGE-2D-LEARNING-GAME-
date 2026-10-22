@@ -24,6 +24,9 @@ public class PlayerData
 
     public int avatarIndex = 0;
 
+    /// <summary>True when the player chose a picture from their computer (saved by AvatarLibrary.ImportCustom) instead of one of the built-in avatars.</summary>
+    public bool useCustomAvatar = false;
+
     /// <summary>Day the profile was created, as yyyy-MM-dd (filled in on first load).</summary>
     public string joinedDate = string.Empty;
 

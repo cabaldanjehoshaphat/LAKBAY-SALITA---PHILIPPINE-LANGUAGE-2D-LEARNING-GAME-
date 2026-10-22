@@ -15,6 +15,8 @@ using UnityEngine.UI;
 /// Favorites card, and the Edit profile and Reset progress dialogs, all driven by ProfileScreenController.
 /// It keeps the scene's PlayerDatabase, SceneNavigator and the yellow back arrow (still wired to the main menu) and removes the
 /// old circuit-board layout. Menu: Tools > Profile > Rebuild design in open scene. Safe to run again.
+/// The Edit profile dialog shows 24 round chibi avatar pictures (Assets/Main/Resources/Avatars, set up as sprites by this builder), a round slot
+/// and a button "Choose a picture from your computer" (the player's own picture, see AvatarLibrary / FilePicker), the name field, Save and Cancel.
 /// The previous designs are archived in Assets/Main/Scenes/1 Menu/Archive ("old design" = the circuit-board one, "2nd design" = the one
 /// before the per-language game cards, "3rd design" = the one with three game cards before the Phrasebook). ArchiveAndRebuild() copies the open design to the archive first and then rebuilds it.
 /// </summary>
@@ -31,6 +33,11 @@ public static class ProfileDesignBuilder
     private static readonly Color Navy = new Color32(27, 58, 140, 255);
     private static readonly Color Sand = new Color32(239, 231, 212, 255);
     private static readonly Color Red = new Color32(192, 57, 43, 255);
+    private static readonly Color Yellow = new Color32(232, 185, 35, 255);
+
+    // the chibi avatar pictures (made by the avatar script, see AvatarLibrary)
+    private const int AvatarCount = 24;
+    private const string AvatarFolder = "Assets/Main/Resources/Avatars/";
 
     private static Material _mat;
 
@@ -93,6 +100,40 @@ public static class ProfileDesignBuilder
     }
 
     /// <summary>A 256 px circle sprite (sharper than the 64 px one used for small dots), falling back to the small one.</summary>
+    private static Sprite AvatarSprite(int index)
+    {
+        return AssetDatabase.LoadAssetAtPath<Sprite>(AvatarFolder + "avatar_" + (index + 1).ToString("00") + ".png");
+    }
+
+    /// <summary>Makes the avatar pictures sprites (no mip maps, not compressed) so they can be loaded from Resources/Avatars.</summary>
+    private static void SetUpAvatarImports()
+    {
+        bool changed = false;
+        for (int i = 0; i < AvatarCount; i++)
+        {
+            string path = AvatarFolder + "avatar_" + (i + 1).ToString("00") + ".png";
+            var importer = AssetImporter.GetAtPath(path) as TextureImporter;
+            if (importer == null)
+            {
+                continue;
+            }
+            if (importer.textureType != TextureImporterType.Sprite || importer.mipmapEnabled || importer.textureCompression != TextureImporterCompression.Uncompressed)
+            {
+                importer.textureType = TextureImporterType.Sprite;
+                importer.spriteImportMode = SpriteImportMode.Single;
+                importer.mipmapEnabled = false;
+                importer.alphaIsTransparency = true;
+                importer.textureCompression = TextureImporterCompression.Uncompressed;
+                importer.SaveAndReimport();
+                changed = true;
+            }
+        }
+        if (changed)
+        {
+            AssetDatabase.Refresh();
+        }
+    }
+
     private static Sprite HdCircle()
     {
         Sprite s = Spr("main_menu_circle_hd.png");
@@ -218,6 +259,7 @@ public static class ProfileDesignBuilder
         }
         Transform canvas = canvasGo.transform;
         Material mat = Mat();
+        SetUpAvatarImports();
 
         // ---- remove the old layout and any earlier run of this builder (the background colour and back arrow are kept)
         for (int i = canvas.childCount - 1; i >= 0; i--)
@@ -310,6 +352,12 @@ public static class ProfileDesignBuilder
 
         Image avatar = LibraryUiKit.Icon(card.transform, "avatar", HdCircle(), new Color32(91, 141, 220, 255));
         LibraryUiKit.Place(avatar.rectTransform, 166, 52, 248, 248);
+        Sprite firstAvatar = AvatarSprite(0);
+        if (firstAvatar != null)
+        {
+            avatar.sprite = firstAvatar;   // the picture of the first built-in avatar (ProfileScreenController shows the chosen one at run time)
+            avatar.color = Color.white;
+        }
         var mask = avatar.gameObject.AddComponent<Mask>();
         mask.showMaskGraphic = true;
         Image head = LibraryUiKit.Icon(avatar.transform, "head", HdCircle(), new Color32(240, 245, 255, 255));
@@ -433,29 +481,43 @@ public static class ProfileDesignBuilder
         LibraryUiKit.Fill(editDim.rectTransform);
         editDim.raycastTarget = true;
         Image editCard = LibraryUiKit.Box(editDim.transform, "card", Cream, true);
-        LibraryUiKit.Place(editCard.rectTransform, 600, 170, 720, 700);
+        LibraryUiKit.Place(editCard.rectTransform, 410, 70, 1100, 940);
         TextMeshProUGUI editTitle;
-        Pill(editCard.transform, "ribbon", "Edit profile", 160, -44, 400, 100, Navy, Color.white, 48, true, out editTitle);
-        Lab(editCard.transform, "Choose an avatar", 32, InkSoft, false, TextAlignmentOptions.MidlineLeft, 48, 86, 624, 44);
+        Pill(editCard.transform, "ribbon", "Edit profile", 350, -44, 400, 100, Navy, Color.white, 48, true, out editTitle);
+        Lab(editCard.transform, "Choose an avatar", 32, InkSoft, false, TextAlignmentOptions.MidlineLeft, 78, 86, 944, 44);
         var choices = new List<Image>();
         var rings = new List<GameObject>();
-        for (int i = 0; i < 10; i++)
+        // 24 chibi avatar pictures, 8 in a row
+        for (int i = 0; i < AvatarCount; i++)
         {
-            float cx = 72 + (i % 5) * 122;
-            float cy = 142 + (i / 5) * 120;
+            float cx = 78 + (i % 8) * 118;
+            float cy = 142 + (i / 8) * 120;
             Image ringImg = LibraryUiKit.Icon(editCard.transform, "ring_" + (i + 1), HdCircle(), Ink);
-            LibraryUiKit.Place(ringImg.rectTransform, cx - 8, cy - 8, 104, 104);
-            Image choice = LibraryUiKit.Icon(editCard.transform, "avatar_" + (i + 1), HdCircle(), Color.gray);
-            LibraryUiKit.Place(choice.rectTransform, cx, cy, 88, 88);
+            LibraryUiKit.Place(ringImg.rectTransform, cx - 6, cy - 6, 104, 104);
+            Image choice = LibraryUiKit.Icon(editCard.transform, "avatar_" + (i + 1), AvatarSprite(i), Color.white);
+            LibraryUiKit.Place(choice.rectTransform, cx, cy, 92, 92);
             MakeButton(choice);
             choices.Add(choice);
             rings.Add(ringImg.gameObject);
         }
-        Lab(editCard.transform, "Your name", 32, InkSoft, false, TextAlignmentOptions.MidlineLeft, 48, 392, 624, 40);
+
+        // a picture from the player's own computer: a round slot (shows the picture, a + while there is none) and the button that opens the file window
+        Image customRing = LibraryUiKit.Icon(editCard.transform, "custom_ring", HdCircle(), Ink);
+        LibraryUiKit.Place(customRing.rectTransform, 72, 502, 104, 104);
+        Image customChoice = LibraryUiKit.Icon(editCard.transform, "custom_avatar", HdCircle(), new Color32(214, 206, 188, 255));
+        LibraryUiKit.Place(customChoice.rectTransform, 78, 508, 92, 92);
+        MakeButton(customChoice);
+        Lab(customChoice.transform, "+", 64, Ink, true, TextAlignmentOptions.Center, 0, 0, 92, 92).gameObject.name = "plus";
+        TextMeshProUGUI pickLabel;
+        Image pickImg = Pill(editCard.transform, "pick_picture_button", "Choose a picture from your computer", 196, 514, 826, 80, Yellow, Ink, 36, true, out pickLabel);
+        Button pickButton = MakeButton(pickImg);
+        TextMeshProUGUI pickStatus = Lab(editCard.transform, "", 28, InkSoft, false, TextAlignmentOptions.MidlineLeft, 196, 596, 826, 36);
+        pickStatus.fontStyle = FontStyles.Italic;
+        Lab(editCard.transform, "Your name", 32, InkSoft, false, TextAlignmentOptions.MidlineLeft, 78, 640, 944, 40);
         Image inputOuter = LibraryUiKit.Box(editCard.transform, "name_border", Ink, true);
-        LibraryUiKit.Place(inputOuter.rectTransform, 48, 436, 624, 84);
+        LibraryUiKit.Place(inputOuter.rectTransform, 78, 684, 944, 84);
         Image inputBg = LibraryUiKit.Box(inputOuter.transform, "name_input", Color.white, true);
-        LibraryUiKit.Place(inputBg.rectTransform, 4, 4, 616, 76);
+        LibraryUiKit.Place(inputBg.rectTransform, 4, 4, 936, 76);
         inputBg.raycastTarget = true;
         RectTransform area = LibraryUiKit.NewRect("TextArea", inputBg.transform);
         LibraryUiKit.Fill(area);
@@ -480,13 +542,13 @@ public static class ProfileDesignBuilder
         nameInput.caretWidth = 3;
 
         TextMeshProUGUI saveLabel;
-        Image saveImg = Pill(editCard.transform, "save_button", "Save", 48, 570, 300, 84, Green, Color.white, 40, true, out saveLabel);
+        Image saveImg = Pill(editCard.transform, "save_button", "Save", 78, 806, 460, 84, Green, Color.white, 40, true, out saveLabel);
         Button saveButton = MakeButton(saveImg);
         Image cancelOuter = LibraryUiKit.Box(editCard.transform, "cancel_button", Ink, true);
-        LibraryUiKit.Place(cancelOuter.rectTransform, 372, 570, 300, 84);
+        LibraryUiKit.Place(cancelOuter.rectTransform, 562, 806, 460, 84);
         Image cancelInner = LibraryUiKit.Box(cancelOuter.transform, "inner", Cream, true);
-        LibraryUiKit.Place(cancelInner.rectTransform, 4, 4, 292, 76);
-        Lab(cancelInner.transform, "Cancel", 38, Ink, false, TextAlignmentOptions.Center, 0, 0, 292, 76);
+        LibraryUiKit.Place(cancelInner.rectTransform, 4, 4, 452, 76);
+        Lab(cancelInner.transform, "Cancel", 38, Ink, false, TextAlignmentOptions.Center, 0, 0, 452, 76);
         Button cancelButton = MakeButton(cancelOuter);
 
         // reset progress
@@ -540,6 +602,10 @@ public static class ProfileDesignBuilder
         SerializedProperty ringProp = so.FindProperty("avatarChoiceRings");
         ringProp.arraySize = rings.Count;
         for (int i = 0; i < rings.Count; i++) ringProp.GetArrayElementAtIndex(i).objectReferenceValue = rings[i];
+        SetRef(so, "customChoice", customChoice);
+        SetRef(so, "customChoiceRing", customRing.gameObject);
+        SetRef(so, "pickPictureButton", pickButton);
+        SetRef(so, "pickPictureStatus", pickStatus);
         SetRef(so, "nameInput", nameInput);
         SetRef(so, "saveButton", saveButton);
         SetRef(so, "cancelButton", cancelButton);
@@ -548,14 +614,7 @@ public static class ProfileDesignBuilder
         SetRef(so, "resetButton", resetButton);
         so.ApplyModifiedPropertiesWithoutUndo();
 
-        // preview colours of the avatar choices (so the saved scene shows the palette)
-        Color[] palette =
-        {
-            new Color32(91, 141, 220, 255), new Color32(93, 160, 42, 255), new Color32(232, 117, 26, 255), new Color32(138, 63, 199, 255),
-            new Color32(212, 83, 126, 255), new Color32(232, 185, 35, 255), new Color32(29, 158, 117, 255), new Color32(55, 138, 221, 255),
-            new Color32(153, 60, 29, 255), new Color32(95, 94, 90, 255)
-        };
-        for (int i = 0; i < choices.Count; i++) choices[i].color = palette[i];
+        customRing.gameObject.SetActive(false);
         for (int i = 0; i < rings.Count; i++) rings[i].SetActive(i == 0);
 
         editDim.gameObject.SetActive(false);

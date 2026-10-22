@@ -1,5 +1,5 @@
 {
- "purpose": "Wordle levels for Lakbay Salita, Tagalog only: 7 categories x 6 levels. Each level is one word (4-7 letters, growing with the level) with its English meaning and a dictionary clue. Loaded at runtime by WordleData through Resources/LevelDataRegistry.asset (Wordle Files, slot 2).",
+ "purpose": "Wordle levels for Lakbay Salita, Tagalog only: 7 categories x 6 levels. Each level is one word (4-7 letters, growing with the level) with its English meaning and a short, child-friendly description. Loaded at runtime by WordleData through Resources/LevelDataRegistry.asset (Wordle Files, slot 2).",
  "status": "DRAFT - the words were picked automatically from the dictionary files (clean single-meaning entries first, one meaning per level) and still need a native-speaker review. Edit this file to change a word; keep each category's levels in order from shortest to longest word. Words must use letters A-Z only.",
  "name": "Tagalog",
  "categories": [
@@ -9,32 +9,32 @@
     {
      "word": "PUSA",
      "meaning": "cat",
-     "clue": "A cat."
+     "clue": "A small pet that purrs and says meow"
     },
     {
      "word": "IBON",
      "meaning": "bird",
-     "clue": "A bird."
+     "clue": "An animal with feathers and wings that can fly"
     },
     {
      "word": "TUPA",
      "meaning": "sheep",
-     "clue": "Sheep; pressing the keys of a piano, typewriter, etc."
+     "clue": "A farm animal with thick wool"
     },
     {
      "word": "MANOK",
      "meaning": "chicken",
-     "clue": "A chicken or fowl."
+     "clue": "A farm bird that lays eggs and says cluck"
     },
     {
      "word": "UNGGO",
      "meaning": "monkey",
-     "clue": "Monkey."
+     "clue": "A clever animal that climbs trees and loves bananas"
     },
     {
      "word": "PALAKA",
      "meaning": "frog",
-     "clue": "Frog."
+     "clue": "A small green animal that jumps and lives near water"
     }
    ]
   },
@@ -44,32 +44,32 @@
     {
      "word": "ALAT",
      "meaning": "salt",
-     "clue": "Salt; salty; saltiness; policeman."
+     "clue": "White grains that make food taste salty"
     },
     {
      "word": "AGWA",
      "meaning": "water",
-     "clue": "Water."
+     "clue": "The clear liquid we drink every day"
     },
     {
      "word": "ITLOG",
      "meaning": "egg",
-     "clue": "An egg."
+     "clue": "Laid by a hen; it has a shell, a white and a yolk"
     },
     {
      "word": "SOPAS",
      "meaning": "soup",
-     "clue": "Soup."
+     "clue": "A warm liquid food that we eat with a spoon"
     },
     {
      "word": "BAWANG",
      "meaning": "garlic",
-     "clue": "Garlic."
+     "clue": "A small white bulb with a strong smell, used in cooking"
     },
     {
      "word": "TINAPAY",
      "meaning": "bread",
-     "clue": "Bread."
+     "clue": "Baked from flour; we eat it for breakfast"
     }
    ]
   },
@@ -79,32 +79,32 @@
     {
      "word": "MATA",
      "meaning": "eye",
-     "clue": "Eye; sight; view; core; center."
+     "clue": "The part of your face you use to see"
     },
     {
      "word": "DILA",
      "meaning": "tongue",
-     "clue": "The tongue."
+     "clue": "It is inside your mouth and helps you taste and talk"
     },
     {
      "word": "BUHOK",
      "meaning": "hair",
-     "clue": "Hair."
+     "clue": "The strands that grow on top of your head"
     },
     {
      "word": "TENGA",
      "meaning": "ear",
-     "clue": "Ear."
+     "clue": "The part of your head you use to hear"
     },
     {
      "word": "BUYON",
      "meaning": "belly",
-     "clue": "Belly; paunch."
+     "clue": "The soft round part on the front of your body"
     },
     {
      "word": "LIKURAN",
      "meaning": "back",
-     "clue": "Back; other side; background."
+     "clue": "The part of your body behind you, opposite your belly"
     }
    ]
   },
@@ -114,32 +114,32 @@
     {
      "word": "BATA",
      "meaning": "child",
-     "clue": "A baby or child; also used to mean young."
+     "clue": "A young boy or girl"
     },
     {
      "word": "IMPO",
      "meaning": "grandmother",
-     "clue": "Grandmother."
+     "clue": "The mother of your mother or father"
     },
     {
      "word": "BANA",
      "meaning": "husband",
-     "clue": "Husband; marsh; lowland covered with water."
+     "clue": "A married man, the partner of a wife"
     },
     {
      "word": "LOLO",
      "meaning": "grandfather",
-     "clue": "A grandfather."
+     "clue": "The father of your mother or father"
     },
     {
      "word": "AMANG",
      "meaning": "boy",
-     "clue": "Boy; elderly man; term for father."
+     "clue": "A young male child"
     },
     {
      "word": "SANGGOL",
      "meaning": "baby",
-     "clue": "Baby; babe; infant; very young (child)"
+     "clue": "A very young child who cannot walk or talk yet"
     }
    ]
   },
@@ -149,32 +149,32 @@
     {
      "word": "ILAW",
      "meaning": "light",
-     "clue": "Light, a lamp, or illumination."
+     "clue": "Brightness that helps you see in the dark"
     },
     {
      "word": "YAWE",
      "meaning": "key",
-     "clue": "Key."
+     "clue": "A small metal tool that opens a lock"
     },
     {
      "word": "BAHAY",
      "meaning": "house",
-     "clue": "A house, dwelling, or home."
+     "clue": "A building where a family lives"
     },
     {
      "word": "PINTO",
      "meaning": "door",
-     "clue": "Door."
+     "clue": "You open it to go in or out of a room"
     },
     {
      "word": "BUBONG",
      "meaning": "roof",
-     "clue": "Roof."
+     "clue": "The top of a house that keeps the rain out"
     },
     {
      "word": "BINTANA",
      "meaning": "window",
-     "clue": "A window."
+     "clue": "An opening in a wall that lets in light and air"
     }
    ]
   },
@@ -184,32 +184,32 @@
     {
      "word": "ULAP",
      "meaning": "cloud",
-     "clue": "Cloud; fog; mist."
+     "clue": "A fluffy white shape floating in the sky"
     },
     {
      "word": "ULAN",
      "meaning": "rain",
-     "clue": "Rain or rainfall."
+     "clue": "Water that falls from the clouds"
     },
     {
      "word": "ARAW",
      "meaning": "sun",
-     "clue": "The sun; also a day or the daytime."
+     "clue": "The bright star that gives us light and warmth in the day"
     },
     {
      "word": "BAHA",
      "meaning": "flood",
-     "clue": "Flood."
+     "clue": "Too much water covering dry land"
     },
     {
      "word": "DAGAT",
      "meaning": "sea",
-     "clue": "The sea, ocean, bay, or gulf."
+     "clue": "A huge area of salty water"
     },
     {
      "word": "BITUIN",
      "meaning": "star",
-     "clue": "Star; star in movies, drama etc."
+     "clue": "A tiny bright light in the night sky"
     }
    ]
   },
@@ -219,32 +219,32 @@
     {
      "word": "TRES",
      "meaning": "three",
-     "clue": "Three."
+     "clue": "The number after two"
     },
     {
      "word": "APAT",
      "meaning": "four",
-     "clue": "The number four."
+     "clue": "The number after three"
     },
     {
      "word": "LIMA",
      "meaning": "five",
-     "clue": "Five (5)"
+     "clue": "The number after four; the fingers of one hand"
     },
     {
      "word": "ANIM",
      "meaning": "six",
-     "clue": "The number six."
+     "clue": "The number after five"
     },
     {
      "word": "MEDYO",
      "meaning": "half",
-     "clue": "Half; semi-; comparatively; somewhat; pretty; fairly; partial."
+     "clue": "One of two equal parts"
     },
     {
      "word": "ULTIMA",
      "meaning": "last",
-     "clue": "Last."
+     "clue": "The one at the very end"
     }
    ]
   }

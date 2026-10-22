@@ -6,7 +6,7 @@ using UnityEngine;
 /// WordSearchData
 /// The Word Search puzzle data model and its loader. The puzzles live in one JSON file per language, Assets/Main/Data/Word Search/Puzzles/
 /// wordsearch_puzzles_<language>.json, found through LevelDataRegistry: 3 languages (0 Cebuano, 1 Ilonggo, 2 Tagalog) x 7 categories x 3 puzzles (A, B, C) of 7-8 words,
-/// each word with its English meaning. WordSearchData.Puzzle(language, category, puzzle) returns one puzzle; the file is read
+/// each word with its English meaning and a short description. WordSearchData.Puzzle(language, category, puzzle) returns one puzzle; the file is read
 /// once and cached. To change a word, edit the JSON (keep words 3-8 letters so they fit the 10x10 grid).
 /// </summary>
 [Serializable]
@@ -14,6 +14,8 @@ public class WordSearchWord
 {
     public string word;
     public string meaning;
+    /// <summary>A short, child-friendly sentence about the word (shown in the description card of the game).</summary>
+    public string description;
 }
 
 [Serializable]

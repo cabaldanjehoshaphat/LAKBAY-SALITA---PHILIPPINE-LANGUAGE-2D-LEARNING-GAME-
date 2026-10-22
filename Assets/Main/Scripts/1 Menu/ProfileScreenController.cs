@@ -12,7 +12,9 @@ using UnityEngine.UI;
 /// progress bar with a count for each language (Cebuano, Ilonggo, Tagalog) side by side, the words learned, and the number of Library
 /// favorites (the Favorites card opens the Library).
 ///
-/// Edit profile opens a dialog to pick one of 10 avatar colours and change the name (saved to PlayerDatabase). "Reset progress"
+/// Edit profile opens a dialog to pick one of the built-in chibi avatar pictures (AvatarLibrary, Resources/Avatars) or a picture of your
+/// own from the computer ("Choose a picture from your computer": the Windows file window, FilePicker; the picture is cut to a round
+/// 256 x 256 image and saved in the save folder), and to change the name (saved to PlayerDatabase). "Reset progress"
 /// opens a confirmation; confirming starts a fresh profile (PlayerDatabase.ResetAll, which also clears the streak) but keeps the
 /// Library favorites. All references are assigned in the scene by ProfileDesignBuilder.
 /// </summary>
@@ -50,6 +52,13 @@ public class ProfileScreenController : MonoBehaviour
     [SerializeField] private GameObject editPanel;
     [SerializeField] private Image[] avatarChoices;
     [SerializeField] private GameObject[] avatarChoiceRings;
+    [Tooltip("The round slot beside the picture button: shows the player's own picture (and a + while there is none). Pressing it picks that picture.")]
+    [SerializeField] private Image customChoice;
+    [SerializeField] private GameObject customChoiceRing;
+    [Tooltip("\"Choose a picture from your computer\": opens the file window.")]
+    [SerializeField] private Button pickPictureButton;
+    [Tooltip("A line under the picture button: \"Picture added\" or what went wrong.")]
+    [SerializeField] private TMP_Text pickPictureStatus;
     [SerializeField] private TMP_InputField nameInput;
     [SerializeField] private Button saveButton;
     [SerializeField] private Button cancelButton;
@@ -59,7 +68,7 @@ public class ProfileScreenController : MonoBehaviour
     [SerializeField] private Button keepButton;
     [SerializeField] private Button resetButton;
 
-    [Header("Avatar colours (10)")]
+    [Header("Avatar colours (only used when there are no avatar pictures)")]
     [SerializeField]
     private Color[] avatarColors =
     {
@@ -69,6 +78,7 @@ public class ProfileScreenController : MonoBehaviour
     };
 
     private int selectedAvatar;
+    private bool selectedCustom;
 
     private void Awake()
     {
@@ -78,6 +88,15 @@ public class ProfileScreenController : MonoBehaviour
         Hook(favoritesButton, delegate { SceneManager.LoadScene(LibraryScene); });
         Hook(saveButton, SaveEdit);
         Hook(cancelButton, CloseEdit);
+        Hook(pickPictureButton, PickPicture);
+        if (customChoice != null)
+        {
+            Button customButton = customChoice.GetComponent<Button>();
+            if (customButton != null)
+            {
+                customButton.onClick.AddListener(SelectCustom);
+            }
+        }
         Hook(keepButton, CloseReset);
         Hook(resetButton, ConfirmReset);
 
@@ -129,7 +148,7 @@ public class ProfileScreenController : MonoBehaviour
             return;
         }
 
-        if (avatarImage != null) avatarImage.color = AvatarColor(db.AvatarIndex);
+        ShowAvatar(db);
         if (nameLabel != null) nameLabel.text = DisplayName(db.PlayerNameOrId);
         if (joinedLabel != null)
         {
@@ -210,6 +229,29 @@ public class ProfileScreenController : MonoBehaviour
         }
     }
 
+    /// <summary>Puts the player's avatar picture on the profile card (the grey head and body shapes of the old design are hidden).</summary>
+    private void ShowAvatar(PlayerDatabase db)
+    {
+        if (avatarImage == null)
+        {
+            return;
+        }
+        Sprite sprite = AvatarLibrary.SpriteFor(db);
+        if (sprite != null)
+        {
+            avatarImage.sprite = sprite;
+        }
+        avatarImage.color = sprite != null ? Color.white : AvatarColor(db.AvatarIndex);
+        foreach (string shape in new[] { "head", "body" })
+        {
+            Transform t = avatarImage.transform.Find(shape);
+            if (t != null)
+            {
+                t.gameObject.SetActive(sprite == null);
+            }
+        }
+    }
+
     private Color AvatarColor(int index)
     {
         if (avatarColors == null || avatarColors.Length == 0)
@@ -238,6 +280,8 @@ public class ProfileScreenController : MonoBehaviour
             return;
         }
         selectedAvatar = db.AvatarIndex;
+        selectedCustom = db.UseCustomAvatar && AvatarLibrary.HasCustom;
+        SetPickStatus(string.Empty, false);
         if (nameInput != null) nameInput.text = DisplayName(db.PlayerNameOrId);
         RefreshAvatarChoices();
         editPanel.SetActive(true);
@@ -251,7 +295,55 @@ public class ProfileScreenController : MonoBehaviour
     private void SelectAvatar(int index)
     {
         selectedAvatar = index;
+        selectedCustom = false;
         RefreshAvatarChoices();
+    }
+
+    /// <summary>The round slot with the player's own picture: uses that picture, or opens the file window when there is none yet.</summary>
+    private void SelectCustom()
+    {
+        if (!AvatarLibrary.HasCustom)
+        {
+            PickPicture();
+            return;
+        }
+        selectedCustom = true;
+        RefreshAvatarChoices();
+    }
+
+    /// <summary>Opens the computer's file window, and makes the chosen picture the player's own avatar picture (used once Save is pressed).</summary>
+    private void PickPicture()
+    {
+        if (!FilePicker.IsAvailable)
+        {
+            SetPickStatus("Choosing your own picture works in the Windows game.", true);
+            return;
+        }
+        string path = FilePicker.PickImage("Choose a picture for your avatar");
+        if (string.IsNullOrEmpty(path))
+        {
+            return;   // cancelled
+        }
+        string error;
+        if (AvatarLibrary.ImportCustom(path, out error))
+        {
+            selectedCustom = true;
+            SetPickStatus("Picture added. Press Save to use it.", false);
+            RefreshAvatarChoices();
+        }
+        else
+        {
+            SetPickStatus(error, true);
+        }
+    }
+
+    private void SetPickStatus(string text, bool problem)
+    {
+        if (pickPictureStatus != null)
+        {
+            pickPictureStatus.text = text;
+            pickPictureStatus.color = problem ? new Color32(163, 45, 45, 255) : new Color32(93, 160, 42, 255);
+        }
     }
 
     private void RefreshAvatarChoices()
@@ -262,10 +354,44 @@ public class ProfileScreenController : MonoBehaviour
         }
         for (int i = 0; i < avatarChoices.Length; i++)
         {
-            if (avatarChoices[i] != null) avatarChoices[i].color = AvatarColor(i);
+            if (avatarChoices[i] != null)
+            {
+                Sprite picture = i < AvatarLibrary.Count ? AvatarLibrary.Get(i) : null;
+                if (picture != null)
+                {
+                    avatarChoices[i].sprite = picture;
+                    avatarChoices[i].color = Color.white;
+                }
+                else
+                {
+                    avatarChoices[i].color = AvatarColor(i);
+                }
+            }
             if (avatarChoiceRings != null && i < avatarChoiceRings.Length && avatarChoiceRings[i] != null)
             {
-                avatarChoiceRings[i].SetActive(i == selectedAvatar);
+                avatarChoiceRings[i].SetActive(!selectedCustom && i == selectedAvatar);
+            }
+        }
+        if (customChoice != null)
+        {
+            Sprite own = AvatarLibrary.LoadCustom();
+            Transform plus = customChoice.transform.Find("plus");
+            if (own != null)
+            {
+                customChoice.sprite = own;
+                customChoice.color = Color.white;
+            }
+            else
+            {
+                customChoice.color = new Color32(214, 206, 188, 255);
+            }
+            if (plus != null)
+            {
+                plus.gameObject.SetActive(own == null);
+            }
+            if (customChoiceRing != null)
+            {
+                customChoiceRing.SetActive(selectedCustom);
             }
         }
     }
@@ -281,6 +407,7 @@ public class ProfileScreenController : MonoBehaviour
                 db.PlayerNameOrId = newName;
             }
             db.AvatarIndex = selectedAvatar;
+            db.UseCustomAvatar = selectedCustom;
         }
         CloseEdit();
         Refresh();

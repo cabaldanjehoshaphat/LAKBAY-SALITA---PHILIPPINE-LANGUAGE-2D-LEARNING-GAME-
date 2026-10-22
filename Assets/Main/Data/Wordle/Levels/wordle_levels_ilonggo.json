@@ -1,5 +1,5 @@
 {
- "purpose": "Wordle levels for Lakbay Salita, Ilonggo only: 7 categories x 6 levels. Each level is one word (4-7 letters, growing with the level) with its English meaning and a dictionary clue. Loaded at runtime by WordleData through Resources/LevelDataRegistry.asset (Wordle Files, slot 1).",
+ "purpose": "Wordle levels for Lakbay Salita, Ilonggo only: 7 categories x 6 levels. Each level is one word (4-7 letters, growing with the level) with its English meaning and a short, child-friendly description. Loaded at runtime by WordleData through Resources/LevelDataRegistry.asset (Wordle Files, slot 1).",
  "status": "DRAFT - the words were picked automatically from the dictionary files (clean single-meaning entries first, one meaning per level) and still need a native-speaker review. Edit this file to change a word; keep each category's levels in order from shortest to longest word. Words must use letters A-Z only.",
  "name": "Ilonggo",
  "categories": [
@@ -9,32 +9,32 @@
     {
      "word": "PISO",
      "meaning": "chicken",
-     "clue": "Chicken, chick, chickling; to make a swift movement, etc."
+     "clue": "A very young chicken"
     },
     {
      "word": "ISDA",
      "meaning": "fish",
-     "clue": "Fish."
+     "clue": "An animal with fins that swims in rivers, lakes and the sea"
     },
     {
      "word": "KUTI",
      "meaning": "cat",
-     "clue": "Cat, puss, pussy, kitten, mouser; bustle, hustle; to bustle, hustle, be active (in performing the duties of a household)"
+     "clue": "A small pet that purrs and says meow"
     },
     {
      "word": "KABRA",
      "meaning": "goat",
-     "clue": "Goat; engine for throwing stones, catapult, battering ram; ghost; to batter down, force an entrance."
+     "clue": "A farm animal with horns that eats grass"
     },
     {
      "word": "BAGIS",
      "meaning": "shark",
-     "clue": "A shark; a greedy, artful fellow, a sharper, shark, cheat, crook."
+     "clue": "A big fish in the sea with sharp teeth"
     },
     {
      "word": "KARNERO",
      "meaning": "sheep",
-     "clue": "Sheep; mutton."
+     "clue": "A farm animal with thick wool"
     }
    ]
   },
@@ -44,32 +44,32 @@
     {
      "word": "ASIN",
      "meaning": "salt",
-     "clue": "Salt; to salt or season food."
+     "clue": "White grains that make food taste salty"
     },
     {
      "word": "AHOS",
      "meaning": "garlic",
-     "clue": "Garlic; leek; to tease, to stroke or caress a child against its will, to pat or fondle a child averse to such handling till it cries, gets angry or runs away."
+     "clue": "A small white bulb with a strong smell, used in cooking"
     },
     {
      "word": "AGWA",
      "meaning": "water",
-     "clue": "Water; perfume, scented water, scent."
+     "clue": "The clear liquid we drink every day"
     },
     {
      "word": "ITLOG",
      "meaning": "egg",
-     "clue": "An egg; to lay eggs."
+     "clue": "Laid by a hen; it has a shell, a white and a yolk"
     },
     {
      "word": "ASUKAR",
      "meaning": "sugar",
-     "clue": "Sugar; to make sugar including all the operations in the final stage of the process of sugar-milling, transferring the pulút."
+     "clue": "Sweet white grains we add to drinks and cakes"
     },
     {
      "word": "BOMBAY",
      "meaning": "onion",
-     "clue": "Onion; A man from Bombay, India; an Indian."
+     "clue": "A round vegetable with layers that can make you cry"
     }
    ]
   },
@@ -79,32 +79,32 @@
     {
      "word": "MATA",
      "meaning": "eye",
-     "clue": "The eye or sight; in some areas it also means a blood relation."
+     "clue": "The part of your face you use to see"
     },
     {
      "word": "DILA",
      "meaning": "tongue",
-     "clue": "The tongue; to lick with the tongue."
+     "clue": "It is inside your mouth and helps you taste and talk"
     },
     {
      "word": "PILO",
      "meaning": "hair",
-     "clue": "Hair, fibre, filament; double, twofold, duplicate, folded; to double, duplicate, fold."
+     "clue": "The strands that grow on top of your head"
     },
     {
      "word": "ONTO",
      "meaning": "tooth",
-     "clue": "Tooth."
+     "clue": "A hard white part in your mouth for biting and chewing"
     },
     {
      "word": "ILONG",
      "meaning": "nose",
-     "clue": "The nose."
+     "clue": "The part of your face you use to smell and breathe"
     },
     {
      "word": "TALINGA",
      "meaning": "ear",
-     "clue": "The ear; anything resembling an ear, as a small handle, etc."
+     "clue": "The part of your head you use to hear"
     }
    ]
   },
@@ -114,32 +114,32 @@
     {
      "word": "ILOY",
      "meaning": "mother",
-     "clue": "A mother; to be or become a mother."
+     "clue": "A woman who has a child; your mom"
     },
     {
      "word": "AMAY",
      "meaning": "father",
-     "clue": "A father; to call someone father."
+     "clue": "A man who has a child; your dad"
     },
     {
      "word": "BAYI",
      "meaning": "grandmother",
-     "clue": "Grandmother."
+     "clue": "The mother of your mother or father"
     },
     {
      "word": "BANA",
      "meaning": "husband",
-     "clue": "Husband, a married man, whose wife is alive; to take a husband, to join a man in wedlock; opinion, guess, surmise, thought; to think, guess, opine, surmise."
+     "clue": "A married man, the partner of a wife"
     },
     {
      "word": "BATA",
      "meaning": "child",
-     "clue": "A child, baby, boy, or girl; the same spelling also means uncle."
+     "clue": "A young boy or girl"
     },
     {
      "word": "UYONG",
      "meaning": "grandfather",
-     "clue": "Grandfather."
+     "clue": "The father of your mother or father"
     }
    ]
   },
@@ -149,32 +149,32 @@
     {
      "word": "ATOP",
      "meaning": "roof",
-     "clue": "Roof; to roof, roof in, cover with a roof, make a roof."
+     "clue": "The top of a house that keeps the rain out"
     },
     {
      "word": "YABI",
      "meaning": "key",
-     "clue": "Key; to lock with a key; to pout, etc."
+     "clue": "A small metal tool that opens a lock"
     },
     {
      "word": "KASA",
      "meaning": "house",
-     "clue": "House, abode, dwelling, domicile, residence, habitation; to wager, bet, stake, lay, lay a wager, make a bet, put one's money on."
+     "clue": "A building where a family lives"
     },
     {
      "word": "PLATO",
      "meaning": "plate",
-     "clue": "Plate; dish, mess, fare, food served."
+     "clue": "A flat round dish that we put food on"
     },
     {
      "word": "LAMESA",
      "meaning": "table",
-     "clue": "A table."
+     "clue": "Furniture where we put food and things"
     },
     {
      "word": "GAWANG",
      "meaning": "door",
-     "clue": "Door, gate, gateway, portal, exit, entrance; window, look-out."
+     "clue": "You open it to go in or out of a room"
     }
    ]
   },
@@ -184,32 +184,32 @@
     {
      "word": "ULAN",
      "meaning": "rain",
-     "clue": "Rain, a shower, or a downpour; to rain."
+     "clue": "Water that falls from the clouds"
     },
     {
      "word": "YELO",
      "meaning": "ice",
-     "clue": "Ice; to freeze, turn into ice."
+     "clue": "Water that has frozen hard and cold"
     },
     {
      "word": "DAGAT",
      "meaning": "sea",
-     "clue": "The sea, ocean, or salt water."
+     "clue": "A huge area of salty water"
     },
     {
      "word": "BUKID",
      "meaning": "mountain",
-     "clue": "A mountain."
+     "clue": "A very high hill"
     },
     {
      "word": "HALON",
      "meaning": "shadow",
-     "clue": "Shadow."
+     "clue": "A dark shape made when something blocks the light"
     },
     {
      "word": "BITOON",
      "meaning": "star",
-     "clue": "A star or planet."
+     "clue": "A tiny bright light in the night sky"
     }
    ]
   },
@@ -219,32 +219,32 @@
     {
      "word": "DUHA",
      "meaning": "two",
-     "clue": "The number two; a pair or couple."
+     "clue": "The number after one; a pair"
     },
     {
      "word": "TOLO",
      "meaning": "three",
-     "clue": "Three."
+     "clue": "The number after two"
     },
     {
      "word": "PITO",
      "meaning": "seven",
-     "clue": "The number seven."
+     "clue": "The number after six"
     },
     {
      "word": "APAT",
      "meaning": "four",
-     "clue": "The number four."
+     "clue": "The number after three"
     },
     {
      "word": "SINKO",
      "meaning": "five",
-     "clue": "Five."
+     "clue": "The number after four; the fingers of one hand"
     },
     {
      "word": "IKADUHA",
      "meaning": "second",
-     "clue": "Second."
+     "clue": "Coming right after the first"
     }
    ]
   }

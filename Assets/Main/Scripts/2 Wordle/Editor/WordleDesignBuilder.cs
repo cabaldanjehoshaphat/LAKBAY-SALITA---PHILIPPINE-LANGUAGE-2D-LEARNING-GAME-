@@ -356,7 +356,7 @@ public static class WordleDesignBuilder
 
         Image clueCard = LibraryUiKit.Box(board.transform, "clue_card", Cream, true);
         LibraryUiKit.Place(clueCard.rectTransform, 380, 164, 1160, 124);
-        TextMeshProUGUI clueLabel = Lab(clueCard.transform, "Clue", 32, InkSoft, false, TextAlignmentOptions.TopLeft, 28, 10, 900, 40);
+        TextMeshProUGUI clueLabel = Lab(clueCard.transform, string.Empty, 32, InkSoft, false, TextAlignmentOptions.TopLeft, 28, 10, 900, 40);
         TextMeshProUGUI clueText = Lab(clueCard.transform, verifier != null ? verifier.Definition : string.Empty, 40, Ink, false,
             TextAlignmentOptions.MidlineLeft, 28, 50, 900, 66);
         clueText.enableWordWrapping = true;

@@ -133,6 +133,7 @@ public class CrosswordGameController : MonoBehaviour
         categoryLanguage = language;
         categoryIndex = category;
         categorySize = size;
+        ResumeStore.Record(ResumeStore.GameCrossword, language, category, size);   // the Continue card of the Main menu opens this puzzle again
         languageName = CrosswordCategoryData.LanguageNames[Mathf.Clamp(language, 0, 2)];
     }
 
@@ -598,6 +599,7 @@ public class CrosswordGameController : MonoBehaviour
                 level = categorySize + 1;
                 // gold chip on the start screen and the "N of 3 solved" tags
                 CrosswordProgressStore.MarkSolved(categoryLanguage, categoryIndex, categorySize);
+                ResumeStore.MarkFinished(ResumeStore.GameCrossword, categoryLanguage, categoryIndex, categorySize);
             }
             var answers = new List<string>();
             foreach (CrosswordWordEntry entry in input.Entries)

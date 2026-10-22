@@ -88,6 +88,10 @@ public class WordSearchGameController : MonoBehaviour
     private int hintsUsed;
     private int foundCount;
 
+    // the description card (built in code between the timer and the "Found" chip): shows what the last found or tapped word means
+    private TMP_Text descriptionTitle;
+    private TMP_Text descriptionBody;
+
     private void Awake()
     {
         Hook(pauseButton, OpenPause);
@@ -119,7 +123,9 @@ public class WordSearchGameController : MonoBehaviour
         {
             board.SelectionReleased += OnSelectionReleased;
         }
+        BuildDescriptionCard();
         StartPuzzle();
+        MakeRowsTappable();
     }
 
     private void OnDestroy()
@@ -156,6 +162,7 @@ public class WordSearchGameController : MonoBehaviour
             return;
         }
 
+        ResumeStore.Record(ResumeStore.GameWordSearch, language, WordSearchSession.Category, WordSearchSession.Puzzle);   // the Continue card of the Main menu opens this puzzle again
         int seed = (language * 100 + WordSearchSession.Category * 10 + WordSearchSession.Puzzle) * 7919 + 13;
         grid = WordSearchGenerator.Generate(def.words, seed);
         if (grid == null)
@@ -261,6 +268,7 @@ public class WordSearchGameController : MonoBehaviour
                 foundCount++;
                 board.MarkFound(p.row, p.col, p.dRow, p.dCol, p.word.Length, board.FoundColor(p.colorIndex));
                 RefreshList();
+                ShowDescription(p);
                 if (foundCount >= grid.placements.Count)
                 {
                     StartCoroutine(ShowResultAfterDelay());
@@ -281,6 +289,84 @@ public class WordSearchGameController : MonoBehaviour
     }
 
     // ------------------------------------------------------------------ word list
+
+    // ------------------------------------------------------------------ description card
+
+    /// <summary>Builds the description card in the free space of the top bar, between the timer and the "Found" chip.</summary>
+    private void BuildDescriptionCard()
+    {
+        if (descriptionTitle != null || foundLabel == null || foundLabel.transform.parent == null || foundLabel.transform.parent.parent == null)
+        {
+            return;
+        }
+        Transform parent = foundLabel.transform.parent.parent;
+        Image card = LibraryUiKit.Box(parent, "description_card", new Color32(253, 248, 238, 255), true);
+        LibraryUiKit.Place(card.rectTransform, 800, 30, 680, 116);
+        descriptionTitle = LibraryUiKit.Label(card.transform, string.Empty, 32, textColor, FontStyles.Bold, TextAlignmentOptions.MidlineLeft);
+        LibraryUiKit.Place(descriptionTitle.rectTransform, 24, 4, 632, 40);
+        descriptionBody = LibraryUiKit.Label(card.transform, string.Empty, 28, new Color32(107, 82, 55, 255), FontStyles.Normal, TextAlignmentOptions.TopLeft, true);
+        LibraryUiKit.Place(descriptionBody.rectTransform, 24, 44, 632, 66);
+        descriptionBody.enableAutoSizing = true;
+        descriptionBody.fontSizeMin = 20f;
+        descriptionBody.fontSizeMax = 28f;
+        foreach (TMP_Text t in new[] { descriptionTitle, descriptionBody })
+        {
+            if (foundLabel.fontSharedMaterial != null) t.fontSharedMaterial = foundLabel.fontSharedMaterial;
+        }
+        ShowDescription(null);
+    }
+
+    /// <summary>Lets the player tap a word in the list to read what it means.</summary>
+    private void MakeRowsTappable()
+    {
+        if (rowRoots == null)
+        {
+            return;
+        }
+        for (int i = 0; i < rowRoots.Length; i++)
+        {
+            if (rowRoots[i] == null)
+            {
+                continue;
+            }
+            int index = i;
+            Image rowImage = rowRoots[i].GetComponent<Image>();
+            if (rowImage == null)
+            {
+                continue;
+            }
+            rowImage.raycastTarget = true;
+            Button rowButton = rowRoots[i].GetComponent<Button>();
+            if (rowButton == null)
+            {
+                rowButton = rowRoots[i].AddComponent<Button>();
+                rowButton.targetGraphic = rowImage;
+                rowButton.transition = Selectable.Transition.None;
+            }
+            rowButton.onClick.RemoveAllListeners();
+            rowButton.onClick.AddListener(delegate
+            {
+                if (index < listOrder.Count) ShowDescription(listOrder[index]);
+            });
+        }
+    }
+
+    /// <summary>Shows the word and its description in the card (null: the hint to tap a word).</summary>
+    private void ShowDescription(WordSearchPlacement p)
+    {
+        if (descriptionTitle == null || descriptionBody == null)
+        {
+            return;
+        }
+        if (p == null)
+        {
+            descriptionTitle.text = "What does it mean?";
+            descriptionBody.text = "Tap a word in the list, or find one in the grid.";
+            return;
+        }
+        descriptionTitle.text = p.word;
+        descriptionBody.text = string.IsNullOrEmpty(p.description) ? p.meaning : p.description;
+    }
 
     private void RefreshList()
     {
@@ -444,6 +530,7 @@ public class WordSearchGameController : MonoBehaviour
         }
         int language = Mathf.Clamp(WordSearchSession.Language, 0, 2);
         WordSearchProgressStore.MarkSolved(language, WordSearchSession.Category, WordSearchSession.Puzzle);
+        ResumeStore.MarkFinished(ResumeStore.GameWordSearch, language, WordSearchSession.Category, WordSearchSession.Puzzle);
         if (PlayerDatabase.Instance != null)
         {
             PlayerDatabase.Instance.RecordWordSearchWin(language, words);

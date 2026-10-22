@@ -1,5 +1,5 @@
 {
- "purpose": "Word Search puzzles for Lakbay Salita, Cebuano only: 7 categories x 3 puzzles (A, B, C) of 7-8 native words, each with its English meaning. Words are 3-8 letters so they fit the 10x10 grid. Loaded at runtime by WordSearchData through Resources/LevelDataRegistry.asset (Word Search Files, slot 0).",
+ "purpose": "Word Search puzzles for Lakbay Salita, Cebuano only: 7 categories x 3 puzzles (A, B, C) of 7-8 native words, each with its English meaning and a short, child-friendly description (shown in the description card of the game). Words are 3-8 letters so they fit the 10x10 grid. Loaded at runtime by WordSearchData through Resources/LevelDataRegistry.asset (Word Search Files, slot 0).",
  "status": "DRAFT - the words were picked automatically from the dictionary files and still need a native-speaker review (spelling, dialect, loanwords such as the Spanish-style numbers). Edit this file to change a word; keep each puzzle at 7-8 words.",
  "name": "Cebuano",
  "categories": [
@@ -11,35 +11,43 @@
      "words": [
       {
        "word": "IRO",
-       "meaning": "dog"
+       "meaning": "dog",
+       "description": "A friendly pet that barks and guards the house"
       },
       {
        "word": "MANOK",
-       "meaning": "chicken"
+       "meaning": "chicken",
+       "description": "A farm bird that lays eggs and says cluck"
       },
       {
        "word": "LANGGAM",
-       "meaning": "bird"
+       "meaning": "bird",
+       "description": "An animal with feathers and wings that can fly"
       },
       {
        "word": "ISDA",
-       "meaning": "fish"
+       "meaning": "fish",
+       "description": "An animal with fins that swims in rivers, lakes and the sea"
       },
       {
        "word": "ITIK",
-       "meaning": "duck"
+       "meaning": "duck",
+       "description": "A bird that can swim and fly and says quack"
       },
       {
        "word": "BITIN",
-       "meaning": "snake"
+       "meaning": "snake",
+       "description": "A long animal with no legs that slides on the ground"
       },
       {
        "word": "BAKI",
-       "meaning": "frog"
+       "meaning": "frog",
+       "description": "A small green animal that jumps and lives near water"
       },
       {
        "word": "KABAYO",
-       "meaning": "horse"
+       "meaning": "horse",
+       "description": "A big animal that can be ridden and runs fast"
       }
      ]
     },
@@ -48,35 +56,43 @@
      "words": [
       {
        "word": "IRO",
-       "meaning": "dog"
+       "meaning": "dog",
+       "description": "A friendly pet that barks and guards the house"
       },
       {
        "word": "IRING",
-       "meaning": "cat"
+       "meaning": "cat",
+       "description": "A small pet that purrs and says meow"
       },
       {
        "word": "LANGGAM",
-       "meaning": "bird"
+       "meaning": "bird",
+       "description": "An animal with feathers and wings that can fly"
       },
       {
        "word": "AMU",
-       "meaning": "monkey"
+       "meaning": "monkey",
+       "description": "A clever animal that climbs trees and loves bananas"
       },
       {
        "word": "BAKA",
-       "meaning": "cow"
+       "meaning": "cow",
+       "description": "A big farm animal that gives us milk"
       },
       {
        "word": "KANDING",
-       "meaning": "goat"
+       "meaning": "goat",
+       "description": "A farm animal with horns that eats grass"
       },
       {
        "word": "KASAG",
-       "meaning": "crab"
+       "meaning": "crab",
+       "description": "A sea animal with a hard shell and two big claws"
       },
       {
        "word": "BAO",
-       "meaning": "turtle"
+       "meaning": "turtle",
+       "description": "A slow animal that carries a hard shell on its back"
       }
      ]
     },
@@ -85,31 +101,38 @@
      "words": [
       {
        "word": "IRING",
-       "meaning": "cat"
+       "meaning": "cat",
+       "description": "A small pet that purrs and says meow"
       },
       {
        "word": "MANOK",
-       "meaning": "chicken"
+       "meaning": "chicken",
+       "description": "A farm bird that lays eggs and says cluck"
       },
       {
        "word": "USA",
-       "meaning": "deer"
+       "meaning": "deer",
+       "description": "A gentle forest animal; the males have antlers"
       },
       {
        "word": "IHO",
-       "meaning": "shark"
+       "meaning": "shark",
+       "description": "A big fish in the sea with sharp teeth"
       },
       {
        "word": "UMANG",
-       "meaning": "snail"
+       "meaning": "snail",
+       "description": "A slow animal with a shell on its back"
       },
       {
        "word": "BALAGTUK",
-       "meaning": "rat"
+       "meaning": "rat",
+       "description": "A small gray animal with a long tail that nibbles food"
       },
       {
        "word": "ILAGA",
-       "meaning": "mouse"
+       "meaning": "mouse",
+       "description": "A tiny animal with whiskers that squeaks"
       }
      ]
     }
@@ -123,35 +146,43 @@
      "words": [
       {
        "word": "ASIN",
-       "meaning": "salt"
+       "meaning": "salt",
+       "description": "White grains that make food taste salty"
       },
       {
        "word": "AHOS",
-       "meaning": "garlic"
+       "meaning": "garlic",
+       "description": "A small white bulb with a strong smell, used in cooking"
       },
       {
        "word": "TUBIG",
-       "meaning": "water"
+       "meaning": "water",
+       "description": "The clear liquid we drink every day"
       },
       {
        "word": "ITLOG",
-       "meaning": "egg"
+       "meaning": "egg",
+       "description": "Laid by a hen; it has a shell, a white and a yolk"
       },
       {
        "word": "ASUKAL",
-       "meaning": "sugar"
+       "meaning": "sugar",
+       "description": "Sweet white grains we add to drinks and cakes"
       },
       {
        "word": "SIBUYAS",
-       "meaning": "onion"
+       "meaning": "onion",
+       "description": "A round vegetable with layers that can make you cry"
       },
       {
        "word": "SABAW",
-       "meaning": "soup"
+       "meaning": "soup",
+       "description": "A warm liquid food that we eat with a spoon"
       },
       {
        "word": "SAGING",
-       "meaning": "banana"
+       "meaning": "banana",
+       "description": "A long yellow fruit with a peel"
       }
      ]
     },
@@ -160,35 +191,43 @@
      "words": [
       {
        "word": "ASIN",
-       "meaning": "salt"
+       "meaning": "salt",
+       "description": "White grains that make food taste salty"
       },
       {
        "word": "PAN",
-       "meaning": "bread"
+       "meaning": "bread",
+       "description": "Baked from flour; we eat it for breakfast"
       },
       {
        "word": "TUBIG",
-       "meaning": "water"
+       "meaning": "water",
+       "description": "The clear liquid we drink every day"
       },
       {
        "word": "LETSE",
-       "meaning": "milk"
+       "meaning": "milk",
+       "description": "A white drink that comes from cows"
       },
       {
        "word": "PALAY",
-       "meaning": "rice"
+       "meaning": "rice",
+       "description": "Small white grains that are our main food"
       },
       {
        "word": "KARNE",
-       "meaning": "meat"
+       "meaning": "meat",
+       "description": "Food that comes from animals, like pork or beef"
       },
       {
        "word": "TSA",
-       "meaning": "tea"
+       "meaning": "tea",
+       "description": "A hot drink made with dried leaves and water"
       },
       {
        "word": "MANGGA",
-       "meaning": "mango"
+       "meaning": "mango",
+       "description": "A sweet yellow fruit with a big seed"
       }
      ]
     },
@@ -197,31 +236,38 @@
      "words": [
       {
        "word": "PAN",
-       "meaning": "bread"
+       "meaning": "bread",
+       "description": "Baked from flour; we eat it for breakfast"
       },
       {
        "word": "AHOS",
-       "meaning": "garlic"
+       "meaning": "garlic",
+       "description": "A small white bulb with a strong smell, used in cooking"
       },
       {
        "word": "GATA",
-       "meaning": "coconut"
+       "meaning": "coconut",
+       "description": "A big brown fruit with sweet water inside"
       },
       {
        "word": "BIR",
-       "meaning": "beer"
+       "meaning": "beer",
+       "description": "A fizzy golden drink for grown-ups"
       },
       {
        "word": "KIK",
-       "meaning": "cake"
+       "meaning": "cake",
+       "description": "A soft sweet treat for birthdays"
       },
       {
        "word": "DULSE",
-       "meaning": "candy"
+       "meaning": "candy",
+       "description": "A small sweet treat that melts in your mouth"
       },
       {
        "word": "LUGAW",
-       "meaning": "porridge"
+       "meaning": "porridge",
+       "description": "Soft rice cooked in water, eaten warm"
       }
      ]
     }
@@ -235,35 +281,43 @@
      "words": [
       {
        "word": "ULO",
-       "meaning": "head"
+       "meaning": "head",
+       "description": "The top part of your body with your face on it"
       },
       {
        "word": "MATA",
-       "meaning": "eye"
+       "meaning": "eye",
+       "description": "The part of your face you use to see"
       },
       {
        "word": "DUNGGAN",
-       "meaning": "ear"
+       "meaning": "ear",
+       "description": "The part of your head you use to hear"
       },
       {
        "word": "ILONG",
-       "meaning": "nose"
+       "meaning": "nose",
+       "description": "The part of your face you use to smell and breathe"
       },
       {
        "word": "BABA",
-       "meaning": "mouth"
+       "meaning": "mouth",
+       "description": "The part of your face you use to eat and talk"
       },
       {
        "word": "DILA",
-       "meaning": "tongue"
+       "meaning": "tongue",
+       "description": "It is inside your mouth and helps you taste and talk"
       },
       {
        "word": "NGIPON",
-       "meaning": "tooth"
+       "meaning": "tooth",
+       "description": "A hard white part in your mouth for biting and chewing"
       },
       {
        "word": "LIUG",
-       "meaning": "neck"
+       "meaning": "neck",
+       "description": "The part that joins your head to your body"
       }
      ]
     },
@@ -272,35 +326,43 @@
      "words": [
       {
        "word": "ULO",
-       "meaning": "head"
+       "meaning": "head",
+       "description": "The top part of your body with your face on it"
       },
       {
        "word": "BUHOK",
-       "meaning": "hair"
+       "meaning": "hair",
+       "description": "The strands that grow on top of your head"
       },
       {
        "word": "DUNGGAN",
-       "meaning": "ear"
+       "meaning": "ear",
+       "description": "The part of your head you use to hear"
       },
       {
        "word": "KAMOT",
-       "meaning": "hand"
+       "meaning": "hand",
+       "description": "The part at the end of your arm with five fingers"
       },
       {
        "word": "TIIL",
-       "meaning": "foot"
+       "meaning": "foot",
+       "description": "The part at the end of your leg that you stand on"
       },
       {
        "word": "BRASO",
-       "meaning": "arm"
+       "meaning": "arm",
+       "description": "The part of your body between your shoulder and your hand"
       },
       {
        "word": "TUDLO",
-       "meaning": "finger"
+       "meaning": "finger",
+       "description": "One of the five parts at the end of your hand"
       },
       {
        "word": "TIYAN",
-       "meaning": "belly"
+       "meaning": "belly",
+       "description": "The soft round part on the front of your body"
       }
      ]
     },
@@ -309,31 +371,38 @@
      "words": [
       {
        "word": "BUHOK",
-       "meaning": "hair"
+       "meaning": "hair",
+       "description": "The strands that grow on top of your head"
       },
       {
        "word": "MATA",
-       "meaning": "eye"
+       "meaning": "eye",
+       "description": "The part of your face you use to see"
       },
       {
        "word": "SAMPOT",
-       "meaning": "back"
+       "meaning": "back",
+       "description": "The part of your body behind you, opposite your belly"
       },
       {
        "word": "DUGO",
-       "meaning": "blood"
+       "meaning": "blood",
+       "description": "The red liquid that flows inside your body"
       },
       {
        "word": "BUKOG",
-       "meaning": "bone"
+       "meaning": "bone",
+       "description": "A hard white part inside your body that holds you up"
       },
       {
        "word": "LUKON",
-       "meaning": "knee"
+       "meaning": "knee",
+       "description": "The joint in the middle of your leg that bends"
       },
       {
        "word": "SIKO",
-       "meaning": "elbow"
+       "meaning": "elbow",
+       "description": "The joint in the middle of your arm that bends"
       }
      ]
     }
@@ -347,35 +416,43 @@
      "words": [
       {
        "word": "NANAY",
-       "meaning": "mother"
+       "meaning": "mother",
+       "description": "A woman who has a child; your mom"
       },
       {
        "word": "ANAK",
-       "meaning": "child"
+       "meaning": "child",
+       "description": "A young boy or girl"
       },
       {
        "word": "BIBI",
-       "meaning": "baby"
+       "meaning": "baby",
+       "description": "A very young child who cannot walk or talk yet"
       },
       {
        "word": "LOLA",
-       "meaning": "grandmother"
+       "meaning": "grandmother",
+       "description": "The mother of your mother or father"
       },
       {
        "word": "LOLO",
-       "meaning": "grandfather"
+       "meaning": "grandfather",
+       "description": "The father of your mother or father"
       },
       {
        "word": "TITO",
-       "meaning": "uncle"
+       "meaning": "uncle",
+       "description": "The brother of your mother or father"
       },
       {
        "word": "ANTI",
-       "meaning": "aunt"
+       "meaning": "aunt",
+       "description": "The sister of your mother or father"
       },
       {
        "word": "BANA",
-       "meaning": "husband"
+       "meaning": "husband",
+       "description": "A married man, the partner of a wife"
       }
      ]
     },
@@ -384,35 +461,43 @@
      "words": [
       {
        "word": "NANAY",
-       "meaning": "mother"
+       "meaning": "mother",
+       "description": "A woman who has a child; your mom"
       },
       {
        "word": "ITAY",
-       "meaning": "father"
+       "meaning": "father",
+       "description": "A man who has a child; your dad"
       },
       {
        "word": "BIBI",
-       "meaning": "baby"
+       "meaning": "baby",
+       "description": "A very young child who cannot walk or talk yet"
       },
       {
        "word": "WASA",
-       "meaning": "wife"
+       "meaning": "wife",
+       "description": "A married woman, the partner of a husband"
       },
       {
        "word": "DONG",
-       "meaning": "boy"
+       "meaning": "boy",
+       "description": "A young male child"
       },
       {
        "word": "DAY",
-       "meaning": "girl"
+       "meaning": "girl",
+       "description": "A young female child"
       },
       {
        "word": "AMIGA",
-       "meaning": "friend"
+       "meaning": "friend",
+       "description": "Someone you like and enjoy playing with"
       },
       {
        "word": "IGAGAW",
-       "meaning": "cousin"
+       "meaning": "cousin",
+       "description": "The child of your aunt or uncle"
       }
      ]
     },
@@ -421,31 +506,38 @@
      "words": [
       {
        "word": "ITAY",
-       "meaning": "father"
+       "meaning": "father",
+       "description": "A man who has a child; your dad"
       },
       {
        "word": "ANAK",
-       "meaning": "child"
+       "meaning": "child",
+       "description": "A young boy or girl"
       },
       {
        "word": "APO",
-       "meaning": "grandchild"
+       "meaning": "grandchild",
+       "description": "The child of your son or daughter"
       },
       {
        "word": "KALUHA",
-       "meaning": "twin"
+       "meaning": "twin",
+       "description": "One of two babies born together to the same mother"
       },
       {
        "word": "BYUDA",
-       "meaning": "widow"
+       "meaning": "widow",
+       "description": "A woman whose husband has died"
       },
       {
        "word": "KANAIT",
-       "meaning": "neighbor"
+       "meaning": "neighbor",
+       "description": "A person who lives next door"
       },
       {
        "word": "GURO",
-       "meaning": "teacher"
+       "meaning": "teacher",
+       "description": "A person who helps students learn at school"
       }
      ]
     }
@@ -459,35 +551,43 @@
      "words": [
       {
        "word": "BALAY",
-       "meaning": "house"
+       "meaning": "house",
+       "description": "A building where a family lives"
       },
       {
        "word": "LUKOB",
-       "meaning": "door"
+       "meaning": "door",
+       "description": "You open it to go in or out of a room"
       },
       {
        "word": "BENTANA",
-       "meaning": "window"
+       "meaning": "window",
+       "description": "An opening in a wall that lets in light and air"
       },
       {
        "word": "KAMA",
-       "meaning": "bed"
+       "meaning": "bed",
+       "description": "The place where you sleep at night"
       },
       {
        "word": "TALAD",
-       "meaning": "table"
+       "meaning": "table",
+       "description": "Furniture where we put food and things"
       },
       {
        "word": "SILYA",
-       "meaning": "chair"
+       "meaning": "chair",
+       "description": "Furniture that you sit on"
       },
       {
        "word": "ILAW",
-       "meaning": "light"
+       "meaning": "light",
+       "description": "Brightness that helps you see in the dark"
       },
       {
        "word": "SILHIG",
-       "meaning": "broom"
+       "meaning": "broom",
+       "description": "A tool with bristles for sweeping the floor"
       }
      ]
     },
@@ -496,35 +596,43 @@
      "words": [
       {
        "word": "BALAY",
-       "meaning": "house"
+       "meaning": "house",
+       "description": "A building where a family lives"
       },
       {
        "word": "ATUP",
-       "meaning": "roof"
+       "meaning": "roof",
+       "description": "The top of a house that keeps the rain out"
       },
       {
        "word": "BENTANA",
-       "meaning": "window"
+       "meaning": "window",
+       "description": "An opening in a wall that lets in light and air"
       },
       {
        "word": "PLATO",
-       "meaning": "plate"
+       "meaning": "plate",
+       "description": "A flat round dish that we put food on"
       },
       {
        "word": "LAWAG",
-       "meaning": "spoon"
+       "meaning": "spoon",
+       "description": "A tool for eating soup and ice cream"
       },
       {
        "word": "TASA",
-       "meaning": "cup"
+       "meaning": "cup",
+       "description": "A small container with a handle for a hot drink"
       },
       {
        "word": "BASO",
-       "meaning": "glass"
+       "meaning": "glass",
+       "description": "A clear cup that you drink water from"
       },
       {
        "word": "YAWI",
-       "meaning": "key"
+       "meaning": "key",
+       "description": "A small metal tool that opens a lock"
       }
      ]
     },
@@ -533,31 +641,38 @@
      "words": [
       {
        "word": "ATUP",
-       "meaning": "roof"
+       "meaning": "roof",
+       "description": "The top of a house that keeps the rain out"
       },
       {
        "word": "LUKOB",
-       "meaning": "door"
+       "meaning": "door",
+       "description": "You open it to go in or out of a room"
       },
       {
        "word": "BANIG",
-       "meaning": "mat"
+       "meaning": "mat",
+       "description": "A woven sheet you can sit or sleep on"
       },
       {
        "word": "BAKS",
-       "meaning": "box"
+       "meaning": "box",
+       "description": "A square container with a lid"
       },
       {
        "word": "ABUHAN",
-       "meaning": "kitchen"
+       "meaning": "kitchen",
+       "description": "The room in a house where food is cooked"
       },
       {
        "word": "INKLUSU",
-       "meaning": "wall"
+       "meaning": "wall",
+       "description": "The side of a room that holds up the roof"
       },
       {
        "word": "PLUR",
-       "meaning": "floor"
+       "meaning": "floor",
+       "description": "The part of a room that you walk on"
       }
      ]
     }
@@ -571,35 +686,43 @@
      "words": [
       {
        "word": "ADLAW",
-       "meaning": "sun"
+       "meaning": "sun",
+       "description": "The bright star that gives us light and warmth in the day"
       },
       {
        "word": "LANGIT",
-       "meaning": "sky"
+       "meaning": "sky",
+       "description": "What you see above you; it is blue in the day"
       },
       {
        "word": "GABON",
-       "meaning": "cloud"
+       "meaning": "cloud",
+       "description": "A fluffy white shape floating in the sky"
       },
       {
        "word": "ULAN",
-       "meaning": "rain"
+       "meaning": "rain",
+       "description": "Water that falls from the clouds"
       },
       {
        "word": "AMIHAN",
-       "meaning": "wind"
+       "meaning": "wind",
+       "description": "Moving air that you can feel but not see"
       },
       {
        "word": "DAGAT",
-       "meaning": "sea"
+       "meaning": "sea",
+       "description": "A huge area of salty water"
       },
       {
        "word": "SUBA",
-       "meaning": "river"
+       "meaning": "river",
+       "description": "A long stream of water that flows to the sea"
       },
       {
        "word": "BUKID",
-       "meaning": "mountain"
+       "meaning": "mountain",
+       "description": "A very high hill"
       }
      ]
     },
@@ -608,35 +731,43 @@
      "words": [
       {
        "word": "ADLAW",
-       "meaning": "sun"
+       "meaning": "sun",
+       "description": "The bright star that gives us light and warmth in the day"
       },
       {
        "word": "BITUON",
-       "meaning": "star"
+       "meaning": "star",
+       "description": "A tiny bright light in the night sky"
       },
       {
        "word": "GABON",
-       "meaning": "cloud"
+       "meaning": "cloud",
+       "description": "A fluffy white shape floating in the sky"
       },
       {
        "word": "ISLA",
-       "meaning": "island"
+       "meaning": "island",
+       "description": "Land that has water all around it"
       },
       {
        "word": "PAGBATO",
-       "meaning": "stone"
+       "meaning": "stone",
+       "description": "A small hard piece of rock"
       },
       {
        "word": "BAS",
-       "meaning": "sand"
+       "meaning": "sand",
+       "description": "Tiny grains that you find on the beach"
       },
       {
        "word": "PAGLAPOK",
-       "meaning": "soil"
+       "meaning": "soil",
+       "description": "The earth where plants grow"
       },
       {
        "word": "KAYO",
-       "meaning": "fire"
+       "meaning": "fire",
+       "description": "Hot, bright flames that burn"
       }
      ]
     },
@@ -645,31 +776,38 @@
      "words": [
       {
        "word": "BITUON",
-       "meaning": "star"
+       "meaning": "star",
+       "description": "A tiny bright light in the night sky"
       },
       {
        "word": "LANGIT",
-       "meaning": "sky"
+       "meaning": "sky",
+       "description": "What you see above you; it is blue in the day"
       },
       {
        "word": "BAHA",
-       "meaning": "flood"
+       "meaning": "flood",
+       "description": "Too much water covering dry land"
       },
       {
        "word": "BALOD",
-       "meaning": "wave"
+       "meaning": "wave",
+       "description": "Water that rises and falls on the sea"
       },
       {
        "word": "LITI",
-       "meaning": "lightning"
+       "meaning": "lightning",
+       "description": "A bright flash in the sky during a storm"
       },
       {
        "word": "BANGAW",
-       "meaning": "rainbow"
+       "meaning": "rainbow",
+       "description": "A colorful arc in the sky after the rain"
       },
       {
        "word": "BAGYU",
-       "meaning": "typhoon"
+       "meaning": "typhoon",
+       "description": "A very strong storm with heavy rain and wind"
       }
      ]
     }
@@ -683,35 +821,43 @@
      "words": [
       {
        "word": "UNO",
-       "meaning": "one"
+       "meaning": "one",
+       "description": "The smallest counting number"
       },
       {
        "word": "TRES",
-       "meaning": "three"
+       "meaning": "three",
+       "description": "The number after two"
       },
       {
        "word": "UPAT",
-       "meaning": "four"
+       "meaning": "four",
+       "description": "The number after three"
       },
       {
        "word": "LIMA",
-       "meaning": "five"
+       "meaning": "five",
+       "description": "The number after four; the fingers of one hand"
       },
       {
        "word": "SEIS",
-       "meaning": "six"
+       "meaning": "six",
+       "description": "The number after five"
       },
       {
        "word": "PITA",
-       "meaning": "seven"
+       "meaning": "seven",
+       "description": "The number after six"
       },
       {
        "word": "OTSO",
-       "meaning": "eight"
+       "meaning": "eight",
+       "description": "The number after seven"
       },
       {
        "word": "NUEBE",
-       "meaning": "nine"
+       "meaning": "nine",
+       "description": "The number after eight"
       }
      ]
     },
@@ -720,35 +866,43 @@
      "words": [
       {
        "word": "UNO",
-       "meaning": "one"
+       "meaning": "one",
+       "description": "The smallest counting number"
       },
       {
        "word": "DOS",
-       "meaning": "two"
+       "meaning": "two",
+       "description": "The number after one; a pair"
       },
       {
        "word": "UPAT",
-       "meaning": "four"
+       "meaning": "four",
+       "description": "The number after three"
       },
       {
        "word": "DYES",
-       "meaning": "ten"
+       "meaning": "ten",
+       "description": "The number after nine; all your fingers together"
       },
       {
        "word": "UNA",
-       "meaning": "first"
+       "meaning": "first",
+       "description": "Coming before all the others"
       },
       {
        "word": "IKADUBA",
-       "meaning": "second"
+       "meaning": "second",
+       "description": "Coming right after the first"
       },
       {
        "word": "IKATULO",
-       "meaning": "third"
+       "meaning": "third",
+       "description": "Coming right after the second"
       },
       {
        "word": "DULAR",
-       "meaning": "last"
+       "meaning": "last",
+       "description": "The one at the very end"
       }
      ]
     },
@@ -757,31 +911,38 @@
      "words": [
       {
        "word": "DOS",
-       "meaning": "two"
+       "meaning": "two",
+       "description": "The number after one; a pair"
       },
       {
        "word": "TRES",
-       "meaning": "three"
+       "meaning": "three",
+       "description": "The number after two"
       },
       {
        "word": "MEDYA",
-       "meaning": "half"
+       "meaning": "half",
+       "description": "One of two equal parts"
       },
       {
        "word": "SERO",
-       "meaning": "zero"
+       "meaning": "zero",
+       "description": "Nothing at all; no amount"
       },
       {
        "word": "GATOS",
-       "meaning": "hundred"
+       "meaning": "hundred",
+       "description": "The number made of ten tens"
       },
       {
        "word": "MIL",
-       "meaning": "thousand"
+       "meaning": "thousand",
+       "description": "The number made of ten hundreds"
       },
       {
        "word": "MILYAN",
-       "meaning": "million"
+       "meaning": "million",
+       "description": "The number made of a thousand thousands"
       }
      ]
     }

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// <summary>
 /// WordleGameController
 /// Runs the redesigned Wordle screen on top of the existing WordleKeyboardTyper / WordleWordVerifier / WordleTimer:
-///  - shows the language, the clue (definition from the puzzle's JSON) and an optional hint (first letter and length),
+///  - shows the language, the description of the word (the "clue" field of the puzzle's JSON, no "Clue" heading) and an optional hint (first letter and length),
 ///  - drives the on-screen keyboard (the physical keyboard keeps working) and colours its keys green / yellow / gray,
 ///  - rejects words that are not in the language's dictionary (the row shakes, no try is used),
 ///  - shows the tries left, and turns the timer orange in the last 10 seconds,
@@ -134,6 +134,7 @@ public class WordleGameController : MonoBehaviour
         categoryLanguage = language;
         categoryIndex = category;
         categoryLevel = level;
+        ResumeStore.Record(ResumeStore.GameWordle, language, category, level);   // the Continue card of the Main menu opens this level again
         languageName = WordleData.LanguageNames[Mathf.Clamp(language, 0, 2)];
     }
 
@@ -186,6 +187,7 @@ public class WordleGameController : MonoBehaviour
         }
         if (languageLabel != null) languageLabel.text = languageName;
         if (clueText != null && verifier != null) clueText.text = verifier.Definition;
+        RefreshClueCard();
         if (categoryMode && pauseNewWordButton != null)
         {
             TMP_Text pauseNewLabel = pauseNewWordButton.GetComponentInChildren<TMP_Text>();
@@ -568,9 +570,28 @@ public class WordleGameController : MonoBehaviour
         hintsLeft--;
         // wording: the letter first, then the column it belongs in (columns count from 1, left to right)
         hintTexts.Add("letter " + word[position] + " is in column " + (position + 1));
-        if (clueLabel != null) clueLabel.text = "Clue · " + string.Join(" · ", hintTexts.ToArray());
+        RefreshClueCard();
         RefreshHintLabel();
         ShowToast("Hint - Letter " + word[position] + " is in column " + (position + 1));
+    }
+
+    /// <summary>
+    /// The description card has no "Clue" heading: the description is centred in the card, and a line with the letters that hints gave
+    /// ("Hint · letter T is in column 1") appears above it only after a hint was used.
+    /// </summary>
+    private void RefreshClueCard()
+    {
+        bool hasHints = hintTexts.Count > 0;
+        if (clueLabel != null)
+        {
+            clueLabel.text = hasHints ? "Hint · " + string.Join(" · ", hintTexts.ToArray()) : string.Empty;
+        }
+        if (clueText != null)
+        {
+            RectTransform rect = clueText.rectTransform;
+            rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, hasHints ? -50f : -19f);
+            rect.sizeDelta = new Vector2(rect.sizeDelta.x, hasHints ? 66f : 86f);
+        }
     }
 
     private void RefreshHintLabel()
@@ -612,6 +633,7 @@ public class WordleGameController : MonoBehaviour
         {
             // gold chip on the start screen and the "N of 6 solved" tags
             WordleProgressStore.MarkSolved(categoryLanguage, categoryIndex, categoryLevel);
+            ResumeStore.MarkFinished(ResumeStore.GameWordle, categoryLanguage, categoryIndex, categoryLevel);
         }
 
         if (resultTitle != null)

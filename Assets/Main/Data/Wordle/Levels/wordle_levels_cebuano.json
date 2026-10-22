@@ -1,5 +1,5 @@
 {
- "purpose": "Wordle levels for Lakbay Salita, Cebuano only: 7 categories x 6 levels. Each level is one word (4-7 letters, growing with the level) with its English meaning and a dictionary clue. Loaded at runtime by WordleData through Resources/LevelDataRegistry.asset (Wordle Files, slot 0).",
+ "purpose": "Wordle levels for Lakbay Salita, Cebuano only: 7 categories x 6 levels. Each level is one word (4-7 letters, growing with the level) with its English meaning and a short, child-friendly description. Loaded at runtime by WordleData through Resources/LevelDataRegistry.asset (Wordle Files, slot 0).",
  "status": "DRAFT - the words were picked automatically from the dictionary files (clean single-meaning entries first, one meaning per level) and still need a native-speaker review. Edit this file to change a word; keep each category's levels in order from shortest to longest word. Words must use letters A-Z only.",
  "name": "Cebuano",
  "categories": [
@@ -9,32 +9,32 @@
     {
      "word": "ISDA",
      "meaning": "fish",
-     "clue": "Fish, whether alive or as food."
+     "clue": "An animal with fins that swims in rivers, lakes and the sea"
     },
     {
      "word": "ITIK",
      "meaning": "duck",
-     "clue": "Duck."
+     "clue": "A bird that can swim and fly and says quack"
     },
     {
      "word": "BAKI",
      "meaning": "frog",
-     "clue": "Frog; toad."
+     "clue": "A small green animal that jumps and lives near water"
     },
     {
      "word": "MANOK",
      "meaning": "chicken",
-     "clue": "A chicken, rooster, or fowl."
+     "clue": "A farm bird that lays eggs and says cluck"
     },
     {
      "word": "KABAYO",
      "meaning": "horse",
-     "clue": "A horse."
+     "clue": "A big animal that can be ridden and runs fast"
     },
     {
      "word": "LANGGAM",
      "meaning": "bird",
-     "clue": "Bird; fowl; swallow."
+     "clue": "An animal with feathers and wings that can fly"
     }
    ]
   },
@@ -44,32 +44,32 @@
     {
      "word": "ASIN",
      "meaning": "salt",
-     "clue": "Salt, used to season and preserve food."
+     "clue": "White grains that make food taste salty"
     },
     {
      "word": "AHOS",
      "meaning": "garlic",
-     "clue": "Garlic."
+     "clue": "A small white bulb with a strong smell, used in cooking"
     },
     {
      "word": "TUBIG",
      "meaning": "water",
-     "clue": "Water, for drinking, washing, and cooking."
+     "clue": "The clear liquid we drink every day"
     },
     {
      "word": "ITLOG",
      "meaning": "egg",
-     "clue": "An egg, especially a chicken egg."
+     "clue": "Laid by a hen; it has a shell, a white and a yolk"
     },
     {
      "word": "ASUKAL",
      "meaning": "sugar",
-     "clue": "Sugar."
+     "clue": "Sweet white grains we add to drinks and cakes"
     },
     {
      "word": "SIBUYAS",
      "meaning": "onion",
-     "clue": "The onion."
+     "clue": "A round vegetable with layers that can make you cry"
     }
    ]
   },
@@ -79,32 +79,32 @@
     {
      "word": "MATA",
      "meaning": "eye",
-     "clue": "The eye; also means to wake up."
+     "clue": "The part of your face you use to see"
     },
     {
      "word": "BABA",
      "meaning": "mouth",
-     "clue": "Mouth."
+     "clue": "The part of your face you use to eat and talk"
     },
     {
      "word": "DILA",
      "meaning": "tongue",
-     "clue": "The tongue."
+     "clue": "It is inside your mouth and helps you taste and talk"
     },
     {
      "word": "BUHOK",
      "meaning": "hair",
-     "clue": "The hair on a person's head."
+     "clue": "The strands that grow on top of your head"
     },
     {
      "word": "ILONG",
      "meaning": "nose",
-     "clue": "The nose."
+     "clue": "The part of your face you use to smell and breathe"
     },
     {
      "word": "DUNGGAN",
      "meaning": "ear",
-     "clue": "Ear; ears."
+     "clue": "The part of your head you use to hear"
     }
    ]
   },
@@ -114,32 +114,32 @@
     {
      "word": "ITAY",
      "meaning": "father",
-     "clue": "Father."
+     "clue": "A man who has a child; your dad"
     },
     {
      "word": "ANAK",
      "meaning": "child",
-     "clue": "Child; offspring; son, daughter."
+     "clue": "A young boy or girl"
     },
     {
      "word": "LOLA",
      "meaning": "grandmother",
-     "clue": "Grandmother."
+     "clue": "The mother of your mother or father"
     },
     {
      "word": "BIBI",
      "meaning": "baby",
-     "clue": "Baby; nickname for a girl; v. nickname a child 'baby'; kind of lucine clam; small duck with colored feathers; v. raise ducks."
+     "clue": "A very young child who cannot walk or talk yet"
     },
     {
      "word": "NANAY",
      "meaning": "mother",
-     "clue": "Mother; mama; mommy."
+     "clue": "A woman who has a child; your mom"
     },
     {
      "word": "AMIGA",
      "meaning": "friend",
-     "clue": "Friend; girlfriend."
+     "clue": "Someone you like and enjoy playing with"
     }
    ]
   },
@@ -149,32 +149,32 @@
     {
      "word": "KAMA",
      "meaning": "bed",
-     "clue": "Bed."
+     "clue": "The place where you sleep at night"
     },
     {
      "word": "ILAW",
      "meaning": "light",
-     "clue": "Light."
+     "clue": "Brightness that helps you see in the dark"
     },
     {
      "word": "BALAY",
      "meaning": "house",
-     "clue": "A house or home where a family lives."
+     "clue": "A building where a family lives"
     },
     {
      "word": "LUKOB",
      "meaning": "door",
-     "clue": "Door."
+     "clue": "You open it to go in or out of a room"
     },
     {
      "word": "TALAD",
      "meaning": "table",
-     "clue": "Table."
+     "clue": "Furniture where we put food and things"
     },
     {
      "word": "BENTANA",
      "meaning": "window",
-     "clue": "Window."
+     "clue": "An opening in a wall that lets in light and air"
     }
    ]
   },
@@ -184,32 +184,32 @@
     {
      "word": "ULAN",
      "meaning": "rain",
-     "clue": "Rain; rainwater; rain."
+     "clue": "Water that falls from the clouds"
     },
     {
      "word": "SUBA",
      "meaning": "river",
-     "clue": "River; shore."
+     "clue": "A long stream of water that flows to the sea"
     },
     {
      "word": "GABON",
      "meaning": "cloud",
-     "clue": "Cloud."
+     "clue": "A fluffy white shape floating in the sky"
     },
     {
      "word": "DAGAT",
      "meaning": "sea",
-     "clue": "The sea or ocean."
+     "clue": "A huge area of salty water"
     },
     {
      "word": "BITUON",
      "meaning": "star",
-     "clue": "Star; start."
+     "clue": "A tiny bright light in the night sky"
     },
     {
      "word": "AMIHAN",
      "meaning": "wind",
-     "clue": "Wind."
+     "clue": "Moving air that you can feel but not see"
     }
    ]
   },
@@ -219,32 +219,32 @@
     {
      "word": "LIMA",
      "meaning": "five",
-     "clue": "The number five."
+     "clue": "The number after four; the fingers of one hand"
     },
     {
      "word": "TRES",
      "meaning": "three",
-     "clue": "Three."
+     "clue": "The number after two"
     },
     {
      "word": "SEIS",
      "meaning": "six",
-     "clue": "Six."
+     "clue": "The number after five"
     },
     {
      "word": "PITA",
      "meaning": "seven",
-     "clue": "Seven."
+     "clue": "The number after six"
     },
     {
      "word": "UPAT",
      "meaning": "four",
-     "clue": "The number four."
+     "clue": "The number after three"
     },
     {
      "word": "OTSO",
      "meaning": "eight",
-     "clue": "Eight."
+     "clue": "The number after seven"
     }
    ]
   }

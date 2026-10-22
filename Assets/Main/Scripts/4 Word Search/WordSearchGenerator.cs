@@ -6,6 +6,7 @@ public class WordSearchPlacement
 {
     public string word;
     public string meaning;
+    public string description;
     public int row;
     public int col;
     public int dRow;
@@ -84,7 +85,7 @@ public static class WordSearchGenerator
                 {
                     grid.letters[r + dr * i, c + dc * i] = text[i];
                 }
-                grid.placements.Add(new WordSearchPlacement { word = text, meaning = w.meaning, row = r, col = c, dRow = dr, dCol = dc });
+                grid.placements.Add(new WordSearchPlacement { word = text, meaning = w.meaning, description = w.description, row = r, col = c, dRow = dr, dCol = dc });
                 placed = true;
             }
             if (!placed)

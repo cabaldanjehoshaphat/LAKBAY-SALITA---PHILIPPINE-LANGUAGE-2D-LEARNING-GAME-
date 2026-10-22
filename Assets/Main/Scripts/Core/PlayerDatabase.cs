@@ -18,7 +18,7 @@ using UnityEngine;
 /// To add a new game's progress later: add a field to PlayerData, then add a property
 /// here following the same pattern as WordleProgress/CrosswordProgress/WordSearchProgress.
 ///
-/// Added for the redesigned Profile screen: avatar, join date, solved counts per language, best crossword level and the
+/// Added for the redesigned Profile screen: avatar (a built-in picture index, or a picture of the player's own, see AvatarLibrary), join date, solved counts per language, best crossword level and the
 /// list of learned words. Wordle and Crossword call RecordWordleWin / RecordCrosswordWin when a puzzle is won.
 /// ResetAll() starts a fresh profile (Library favorites are not touched). Word Search calls RecordWordSearchWin when a puzzle is finished.
 /// </summary>
@@ -92,6 +92,13 @@ public class PlayerDatabase : MonoBehaviour
     {
         get => data.avatarIndex;
         set { data.avatarIndex = Mathf.Max(0, value); Save(); }
+    }
+
+    /// <summary>True when the profile picture is the one the player chose from their computer (see AvatarLibrary).</summary>
+    public bool UseCustomAvatar
+    {
+        get => data.useCustomAvatar;
+        set { data.useCustomAvatar = value; Save(); }
     }
 
     /// <summary>Day the profile was created (today if it is not known).</summary>
@@ -201,6 +208,8 @@ public class PlayerDatabase : MonoBehaviour
     {
         data = new PlayerData();
         data.joinedDate = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+        AvatarLibrary.DeleteCustom();
+        ResumeStore.Clear();
         StreakTracker.Reset();
         WordSearchProgressStore.Reset();
         WordleProgressStore.Reset();
