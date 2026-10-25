@@ -1,0 +1,46 @@
+<!doctype html>
+<!--
+  callback.html
+  Purpose: the page that Supabase sends the "Log in using Gmail" pop-up to after the player has chosen a Gmail account (browser version of Lakbay Salita).
+  The login tokens are in the address of this page (after the # sign). The page hands them back to the game that opened the pop-up with
+  window.postMessage (the game listens in Assets/Plugins/WebGL/LakbayAuth.jslib) and then closes itself. It stores nothing and sends nothing anywhere else.
+  It must be published as a static page (GitHub Pages, branch gh-pages) at the address in CloudSave.WebCallbackUrl, and that address must be in
+  Supabase: Authentication > URL Configuration > Redirect URLs. See Documentation/Supabase/Google_Sign_In_Setup.md.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lakbay Salita</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fdf8ee; color: #3b2a1a; text-align: center; padding: 60px 20px; }
+    h1 { margin: 0 0 12px; }
+    p { color: #6b5237; }
+  </style>
+</head>
+<body>
+  <h1>Lakbay Salita</h1>
+  <h2 id="m">Finishing your sign in...</h2>
+  <p id="s"></p>
+  <script>
+    // "query&fragment" of this address: the tokens (or an error) from Supabase
+    var data = (location.search || '').replace(/^\?/, '') + '&' + (location.hash || '').replace(/^#/, '');
+    var m = document.getElementById('m');
+    var s = document.getElementById('s');
+    if (window.opener) {
+      try {
+        window.opener.postMessage({ type: 'lakbay-auth', hash: data }, '*');
+        var bad = /(^|&)error=/.test(data);
+        m.textContent = bad ? 'Sign in did not finish.' : 'You are signed in.';
+        s.textContent = bad ? 'This window closes by itself. Go back to the game to see why.' : 'This window closes by itself. You can go back to the game.';
+        setTimeout(function () { window.close(); }, 900);
+      } catch (e) {
+        m.textContent = 'Please go back to the game and try again.';
+      }
+    } else {
+      m.textContent = 'Please go back to the game.';
+      s.textContent = 'This page is only used by the game after you log in with Gmail.';
+    }
+  </script>
+</body>
+</html>
