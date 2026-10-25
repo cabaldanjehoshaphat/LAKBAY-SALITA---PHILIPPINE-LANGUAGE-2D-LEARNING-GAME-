@@ -115,6 +115,13 @@ public class ProfileScreenController : MonoBehaviour
 
         if (editPanel != null) editPanel.SetActive(false);
         if (resetPanel != null) resetPanel.SetActive(false);
+#if UNITY_WEBGL && !UNITY_EDITOR
+        // the browser version can not open files from the computer: only the built-in avatars are offered
+        if (pickPictureButton != null) pickPictureButton.gameObject.SetActive(false);
+        if (customChoice != null) customChoice.gameObject.SetActive(false);
+        if (customChoiceRing != null) customChoiceRing.SetActive(false);
+        if (pickPictureStatus != null) pickPictureStatus.gameObject.SetActive(false);
+#endif
     }
 
     private static void Hook(Button button, UnityEngine.Events.UnityAction action)

@@ -18,6 +18,8 @@ using UnityEngine;
 /// copied) and PlayerDatabase copies an older player_data.json from persistentDataPath. Changes are kept in memory and written to disk by Save()
 /// at once, and by a small background runner every half second and when the game closes, so a slider that changes every frame does not
 /// write the file every frame. Files are written to a temporary file first and then moved over the old one, so a crash can not leave half a file.
+/// In the WebGL (browser) build there is no folder to write to: ReadFile / WriteFile / FileExists then keep the same two "files" in the browser's
+/// own storage (PlayerPrefs, which the browser keeps between visits), so the progress is saved on the player's own computer, in that browser.
 /// </summary>
 public static class SaveStore
 {
@@ -60,6 +62,49 @@ public static class SaveStore
             return _folder;
         }
     }
+
+    // ------------------------------------------------------------------ the saved "files" (real files, or browser storage in WebGL)
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+    private const string WebPrefix = "lakbay.file.";
+
+    /// <summary>True when a saved file with this name exists.</summary>
+    public static bool FileExists(string fileName)
+    {
+        return PlayerPrefs.HasKey(WebPrefix + fileName);
+    }
+
+    /// <summary>The text of a saved file (empty when there is none).</summary>
+    public static string ReadFile(string fileName)
+    {
+        return PlayerPrefs.GetString(WebPrefix + fileName, string.Empty);
+    }
+
+    /// <summary>Saves a text file under this name.</summary>
+    public static void WriteFile(string fileName, string text)
+    {
+        PlayerPrefs.SetString(WebPrefix + fileName, text);
+        PlayerPrefs.Save();
+    }
+#else
+    /// <summary>True when a saved file with this name exists in the save folder.</summary>
+    public static bool FileExists(string fileName)
+    {
+        return File.Exists(Path.Combine(Folder, fileName));
+    }
+
+    /// <summary>The text of a saved file in the save folder.</summary>
+    public static string ReadFile(string fileName)
+    {
+        return File.ReadAllText(Path.Combine(Folder, fileName));
+    }
+
+    /// <summary>Saves a text file in the save folder (written to a temporary file first, then moved over the old one).</summary>
+    public static void WriteFile(string fileName, string text)
+    {
+        WriteAtomic(Path.Combine(Folder, fileName), text);
+    }
+#endif
 
     /// <summary>The full path of the profile file (player_data.json).</summary>
     public static string PlayerDataPath
@@ -114,12 +159,12 @@ public static class SaveStore
             return;
         }
         _map = new Dictionary<string, string>();
-        string path = Path.Combine(Folder, FileName);
+        string path = FileName;
         try
         {
-            if (File.Exists(path))
+            if (FileExists(FileName))
             {
-                FileData data = JsonUtility.FromJson<FileData>(File.ReadAllText(path));
+                FileData data = JsonUtility.FromJson<FileData>(ReadFile(FileName));
                 if (data != null && data.entries != null)
                 {
                     foreach (Entry e in data.entries)
@@ -261,9 +306,10 @@ public static class SaveStore
         data.entries.Sort(delegate (Entry a, Entry b) { return string.CompareOrdinal(a.key, b.key); });
         try
         {
-            WriteAtomic(Path.Combine(Folder, FileName), JsonUtility.ToJson(data, true));
+            WriteFile(FileName, JsonUtility.ToJson(data, true));
             _dirty = false;
             _lastWrite = Time.realtimeSinceStartup;
+            CloudSave.NotifyChanged();   // when signed in, the progress is uploaded a few seconds later
         }
         catch (Exception ex)
         {

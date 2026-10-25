@@ -17,6 +17,12 @@ public class ExitButton : MonoBehaviour
 
     private void Awake()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        // a web page can not close itself, so the Exit button is not shown in the browser version
+        if (openButton != null) openButton.gameObject.SetActive(false);
+        if (panel != null) panel.SetActive(false);
+        return;
+#endif
         if (openButton != null) openButton.onClick.AddListener(Open);
         if (confirmButton != null) confirmButton.onClick.AddListener(Quit);
         if (cancelButton != null) cancelButton.onClick.AddListener(Close);

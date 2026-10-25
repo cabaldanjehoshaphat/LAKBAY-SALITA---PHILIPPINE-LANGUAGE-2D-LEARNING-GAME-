@@ -25,3 +25,6 @@ UserSettings/
 
 # Save files of the editor (the built game keeps its own in Lakbay-Salita_Data/SaveData)
 /SaveData/
+
+# Local builds (the browser build and its zip are made by Tools > Build)
+/Builds/

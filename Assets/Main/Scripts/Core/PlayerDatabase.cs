@@ -20,6 +20,7 @@ using UnityEngine;
 ///
 /// Added for the redesigned Profile screen: avatar (a built-in picture index, or a picture of the player's own, see AvatarLibrary), join date, solved counts per language, best crossword level and the
 /// list of learned words. Wordle and Crossword call RecordWordleWin / RecordCrosswordWin when a puzzle is won.
+/// With an online account (CloudSave) ExportData / ImportData let the profile be uploaded, merged and restored on another device.
 /// ResetAll() starts a fresh profile (Library favorites are not touched). Word Search calls RecordWordSearchWin when a puzzle is finished.
 /// </summary>
 public class PlayerDatabase : MonoBehaviour
@@ -46,6 +47,7 @@ public class PlayerDatabase : MonoBehaviour
     public PlayerData Data => data;
 
     /// <summary>player_data.json, in the save folder of SaveStore (Lakbay-Salita_Data/SaveData in a built game).</summary>
+    private const string PlayerFile = "player_data.json";
     private string SavePath => SaveStore.PlayerDataPath;
 
     /// <summary>The place of player_data.json in older versions of the game (the Windows user folder); copied once into the save folder.</summary>
@@ -206,6 +208,16 @@ public class PlayerDatabase : MonoBehaviour
     /// <summary>Starts a fresh profile: name, avatar, solved counts, learned words and the day streak are cleared. Library favorites stay.</summary>
     public void ResetAll()
     {
+        CloudSave.SignOutQuiet();   // otherwise the next sync would bring the online progress back; the online copy is kept
+        ClearLocalProgress(false);
+    }
+
+    /// <summary>
+    /// Clears the progress on this device (what ResetAll clears). allSynced = true also clears the library favorites and every other synced value;
+    /// CloudSave uses that when a different account logs in or the account logs out, so two accounts never mix on one device.
+    /// </summary>
+    public void ClearLocalProgress(bool allSynced)
+    {
         data = new PlayerData();
         data.joinedDate = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         AvatarLibrary.DeleteCustom();
@@ -215,26 +227,32 @@ public class PlayerDatabase : MonoBehaviour
         WordleProgressStore.Reset();
         CrosswordProgressStore.Reset();
         PhraseProgressStore.Reset();
+        if (allSynced)
+        {
+            CloudMerge.ClearSyncedKeys();
+        }
         Save();
     }
 
     /// <summary>Loads player_data.json from disk, or starts fresh defaults if none exists yet.</summary>
     public void Load()
     {
-        if (!File.Exists(SavePath) && File.Exists(LegacyPath))
+#if !UNITY_WEBGL
+        if (!SaveStore.FileExists(PlayerFile) && File.Exists(LegacyPath))
         {
             try
             {
-                SaveStore.WriteAtomic(SavePath, File.ReadAllText(LegacyPath));   // take over the profile of an older version
+                SaveStore.WriteFile(PlayerFile, File.ReadAllText(LegacyPath));   // take over the profile of an older version
             }
             catch (System.Exception ex)
             {
                 Debug.LogWarning("PlayerDatabase: could not copy the old profile (" + ex.Message + ")");
             }
         }
-        if (File.Exists(SavePath))
+#endif
+        if (SaveStore.FileExists(PlayerFile))
         {
-            string json = File.ReadAllText(SavePath);
+            string json = SaveStore.ReadFile(PlayerFile);
             data = JsonUtility.FromJson<PlayerData>(json);
         }
         else
@@ -254,10 +272,32 @@ public class PlayerDatabase : MonoBehaviour
         }
     }
 
+    /// <summary>A copy of the whole profile (used by CloudSave to upload and merge it).</summary>
+    public PlayerData ExportData()
+    {
+        return JsonUtility.FromJson<PlayerData>(JsonUtility.ToJson(data));
+    }
+
+    /// <summary>Replaces the whole profile with a merged copy from CloudSave and saves it.</summary>
+    public void ImportData(PlayerData merged)
+    {
+        if (merged == null)
+        {
+            return;
+        }
+        data = merged;
+        if (data.wordleByLanguage == null || data.wordleByLanguage.Length != 3) data.wordleByLanguage = new int[3];
+        if (data.crosswordByLanguage == null || data.crosswordByLanguage.Length != 3) data.crosswordByLanguage = new int[3];
+        if (data.wordSearchByLanguage == null || data.wordSearchByLanguage.Length != 3) data.wordSearchByLanguage = new int[3];
+        if (data.learnedWords == null) data.learnedWords = new List<string>();
+        Save();
+    }
+
     /// <summary>Writes the current PlayerData to disk as JSON.</summary>
     public void Save()
     {
         string json = JsonUtility.ToJson(data, true);
-        SaveStore.WriteAtomic(SavePath, json);
+        SaveStore.WriteFile(PlayerFile, json);
+        CloudSave.NotifyChanged();   // when signed in, the progress is uploaded a few seconds later
     }
 }

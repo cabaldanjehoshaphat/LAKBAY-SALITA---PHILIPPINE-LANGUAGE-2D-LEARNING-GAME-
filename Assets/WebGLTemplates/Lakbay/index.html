@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--
+  Web page of the browser version of Lakbay Salita (Unity WebGL template "Lakbay", chosen in Player Settings > WebGL > Resolution and Presentation,
+  set by Tools > Build > Prepare WebGL settings). The game canvas fills the whole browser window (or the itch.io frame); the game itself keeps
+  the picture 16:9 and draws dark bars around it (ScreenFit), so the page needs no fixed size. A small loading bar shows while the game downloads.
+-->
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
+    <title>{{{ PRODUCT_NAME }}}</title>
+    <style>
+      html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #101a32; }
+      #unity-container { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+      #unity-canvas { display: block; width: 100%; height: 100%; background: #101a32; }
+      #unity-loading { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; font-family: Arial, sans-serif; color: #fdf8ee; }
+      #unity-loading h1 { margin: 0 0 6px 0; font-size: 34px; letter-spacing: 3px; }
+      #unity-loading p { margin: 0 0 18px 0; font-size: 18px; color: #c9d4ee; }
+      #unity-bar { width: 280px; height: 14px; border-radius: 7px; background: #26365f; overflow: hidden; margin: 0 auto; }
+      #unity-bar-full { width: 0%; height: 100%; background: #e8b923; }
+      #unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none; font-family: Arial, sans-serif; }
+    </style>
+  </head>
+  <body>
+    <div id="unity-container">
+      <canvas id="unity-canvas" tabindex="-1"></canvas>
+      <div id="unity-loading">
+        <h1>LAKBAY SALITA</h1>
+        <p>Journey through words</p>
+        <div id="unity-bar"><div id="unity-bar-full"></div></div>
+      </div>
+      <div id="unity-warning"></div>
+    </div>
+    <script>
+      var canvas = document.querySelector("#unity-canvas");
+      var loading = document.querySelector("#unity-loading");
+      var barFull = document.querySelector("#unity-bar-full");
+      var warningBanner = document.querySelector("#unity-warning");
+
+      // a short message on top of the game, or a permanent red one for errors
+      function unityShowBanner(msg, type) {
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; color: white; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
+
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/{{{ LOADER_FILENAME }}}";
+      var config = {
+        dataUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
+        frameworkUrl: buildUrl + "/{{{ FRAMEWORK_FILENAME }}}",
+#if USE_WASM
+        codeUrl: buildUrl + "/{{{ CODE_FILENAME }}}",
+#endif
+#if MEMORY_FILENAME
+        memoryUrl: buildUrl + "/{{{ MEMORY_FILENAME }}}",
+#endif
+#if SYMBOLS_FILENAME
+        symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
+#endif
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
+        productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
+        productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
+        showBanner: unityShowBanner,
+      };
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = function() {
+        createUnityInstance(canvas, config, function(progress) {
+          barFull.style.width = (100 * progress) + "%";
+        }).then(function(unityInstance) {
+          loading.style.display = "none";
+        }).catch(function(message) {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+    </script>
+  </body>
+</html>

@@ -84,7 +84,14 @@ public static class AvatarLibrary
 
     public static bool HasCustom
     {
-        get { return File.Exists(CustomPath); }
+        get
+        {
+#if UNITY_WEBGL && !UNITY_EDITOR
+            return false;   // the browser build can not open files from the computer
+#else
+            return File.Exists(CustomPath);
+#endif
+        }
     }
 
     /// <summary>The saved picture of the player as a sprite, or null when there is none.</summary>
@@ -124,6 +131,10 @@ public static class AvatarLibrary
     public static bool ImportCustom(string sourcePath, out string error)
     {
         error = null;
+#if UNITY_WEBGL && !UNITY_EDITOR
+        error = "Choosing your own picture works in the Windows game.";
+        return false;
+#endif
         if (string.IsNullOrEmpty(sourcePath) || !File.Exists(sourcePath))
         {
             error = "That file could not be found.";

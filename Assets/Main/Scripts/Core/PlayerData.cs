@@ -16,7 +16,7 @@ using System.Collections.Generic;
 [Serializable]
 public class PlayerData
 {
-    public string playerNameOrId = "jeho";
+    public string playerNameOrId = "Player";
 
     public int wordleProgress = 0;
     public int crosswordProgress = 0;

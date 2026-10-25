@@ -395,8 +395,8 @@ public static class ProfileDesignBuilder
         Button editProfileButton = MakeButton(editImg);
 
         Image resetLink = LibraryUiKit.Box(card.transform, "reset_link", new Color(0f, 0f, 0f, 0f), false);
-        LibraryUiKit.Place(resetLink.rectTransform, 80, 742, 420, 56);
-        Lab(resetLink.transform, "Reset progress", 30, new Color32(163, 45, 45, 255), false, TextAlignmentOptions.Center, 0, 0, 420, 56);
+        LibraryUiKit.Place(resetLink.rectTransform, 80, 790, 420, 44);
+        Lab(resetLink.transform, "Reset progress", 30, new Color32(163, 45, 45, 255), false, TextAlignmentOptions.Center, 0, 0, 420, 44);
         Button resetLinkButton = MakeButton(resetLink);
 
         // ---- game rows: one compact row per game with a total and a progress bar for each language, side by side
@@ -564,7 +564,7 @@ public static class ProfileDesignBuilder
         Image warnDot = LibraryUiKit.Icon(warnCircle.transform, "dot", HdCircle(), new Color32(163, 45, 45, 255));
         LibraryUiKit.Place(warnDot.rectTransform, 54, 82, 12, 12);
         Lab(resetCard.transform, "Reset all progress?", 44, Ink, true, TextAlignmentOptions.Center, 0, 100, 600, 60);
-        TextMeshProUGUI resetBody = Lab(resetCard.transform, "This clears your name, avatar, solved counts, learned phrases and streak. It can't be undone. Library favorites stay.", 32, InkSoft, false,
+        TextMeshProUGUI resetBody = Lab(resetCard.transform, "This clears your name, avatar, solved counts, learned phrases and streak on this device, and signs you out. Library favorites stay. Your online copy is kept: sign in again to get it back.", 32, InkSoft, false,
             TextAlignmentOptions.Top, 48, 176, 504, 150);
         resetBody.enableWordWrapping = true;
         Image keepOuter = LibraryUiKit.Box(resetCard.transform, "keep_button", Ink, true);
@@ -623,6 +623,7 @@ public static class ProfileDesignBuilder
         controllerRect.SetAsLastSibling();
 
         EditorUtility.SetDirty(canvasGo);
-        return "built profile screen";
+        string account = AccountPanelBuilder.AddToOpenScene();   // the email account window (button on the profile card + dialog)
+        return "built profile screen | " + account;
     }
 }

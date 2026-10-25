@@ -17,6 +17,7 @@ using UnityEngine.SceneManagement;
 ///  3. Picture shape: every screen was designed for 16:9. In any other window shape (4:3 for example) all cameras draw into the biggest 16:9
 ///     rectangle that fits and the rest of the window is filled with a dark colour (bars on top and bottom, or left and right), so buttons and
 ///     cards never overlap or fall out of the picture.
+/// In the WebGL (browser) build the window sizes do not apply; the Fullscreen / Windowed choice uses the browser's fullscreen.
 /// The limits are the constants below. ClampSize and FitRect are public so the numbers can be checked without a window.
 /// </summary>
 public class ScreenFit : MonoBehaviour
@@ -104,6 +105,9 @@ public class ScreenFit : MonoBehaviour
     {
         SaveStore.SetInt(FullscreenKey, fullscreen ? 1 : 0);
         SaveStore.Save();
+#if UNITY_WEBGL && !UNITY_EDITOR
+        Screen.fullScreen = fullscreen;   // the browser only allows this from a click, which is where this is called from
+#endif
         if (_instance != null)
         {
             _instance.ApplyDisplay();

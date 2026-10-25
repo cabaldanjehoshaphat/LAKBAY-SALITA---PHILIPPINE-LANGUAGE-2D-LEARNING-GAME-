@@ -9,7 +9,7 @@ using UnityEngine.UI;
 ///  - Sound effects: an On / Off switch (SoundEffects.SetMuted), the button sounds of the whole game.
 ///  - Music volume: a slider from 0 to 100 % (BackgroundMusic.SetVolume). Dragging it to 0 turns the music off, anything above turns it
 ///    back on, so there is no separate music switch.
-///  - Display: a Windowed / Fullscreen choice (ScreenFit.SetFullscreen).
+///  - Display: a Windowed / Fullscreen choice (ScreenFit.SetFullscreen; in the browser version the window size chips are hidden).
 ///  - Window size: the three standard sizes 800 x 600, 1024 x 768 and 1920 x 1080 (ScreenFit.SetResolution). Choosing a size switches to
 ///    Windowed mode at that size. A size that is bigger than the player's screen is dimmed and can not be chosen.
 /// It lives in its own scene, "5 Options" (Assets/Main/Scenes/1 Menu): the gear chip of the Main menu opens that scene (SceneNavigator.
@@ -77,7 +77,35 @@ public class SettingsPanel : MonoBehaviour
             }
         }
         if (panel != null && Application.isPlaying && hideOnStart) panel.SetActive(false);
+#if UNITY_WEBGL && !UNITY_EDITOR
+        HideWindowSizeRows();
+#endif
     }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+    /// <summary>The browser version has no window sizes (the page decides), so the "Window size" chips and their texts are hidden.</summary>
+    private void HideWindowSizeRows()
+    {
+        if (sizeButtons != null)
+        {
+            foreach (Button b in sizeButtons)
+            {
+                if (b != null) b.gameObject.SetActive(false);
+            }
+        }
+        if (panel == null)
+        {
+            return;
+        }
+        foreach (TMP_Text t in panel.GetComponentsInChildren<TMP_Text>(true))
+        {
+            if (t.text.StartsWith("Window size") || t.text.StartsWith("Sizes bigger"))
+            {
+                t.gameObject.SetActive(false);
+            }
+        }
+    }
+#endif
 
     private void Start()
     {
