@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// WordSearchStartController
 /// Runs the Word Search start screen (scene "WordSearch - Start"): the language chosen on the hub and one card per category (Animals,
-/// Food and drink, Body, Family and people, Home and things, Nature and weather, Numbers) with three level chips (Level 1, 2 and 3). A solved
+/// Food and drink, Body, Family and people, Home and things, Nature and weather, Numbers) with three puzzle chips 1, 2 and 3. A solved
 /// puzzle's chip is gold and each card says how many of its puzzles are solved. The "Random puzzle" button (top right, like Wordle's "Random word") starts a random
 /// puzzle that is not solved yet. Tapping a chip stores language, category and puzzle in WordSearchSession and opens the play scene. The
 /// Classic / Meaning buttons were removed from the scene (the game plays in Classic mode); the optional mode buttons in this script stay

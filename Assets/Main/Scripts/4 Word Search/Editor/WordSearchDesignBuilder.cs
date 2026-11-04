@@ -340,10 +340,8 @@ public static class WordSearchDesignBuilder
             for (int p = 0; p < 3; p++)
             {
                 TextMeshProUGUI chipLabel;
-                // the three puzzles of a category are Level 1 to Level 3: a small "Level" above a big number
-                Image chip = Pill(card.transform, "chip_" + (p + 1), "<size=48%>Level</size>\n<size=84%>" + (p + 1) + "</size>", 28 + p * 126, 282, 112, 72, Sand, Ink, 44, true, out chipLabel);
-                chipLabel.lineSpacing = -18f;
-                chipLabel.enableWordWrapping = false;
+                // the three puzzles of a category are the chips 1, 2 and 3
+                Image chip = Pill(card.transform, "chip_" + (p + 1), (p + 1).ToString(), 28 + p * 126, 282, 112, 72, Sand, Ink, 44, true, out chipLabel);
                 Button chipButton = MakeButton(chip);
                 chipButtons.Add(chipButton);
                 chipImages.Add(chip);
@@ -353,7 +351,7 @@ public static class WordSearchDesignBuilder
         Image info = LibraryUiKit.Box(ui, "info_card", Navy, true);
         LibraryUiKit.Place(info.rectTransform, 60 + 3 * 460, 216 + 420, 420, 380);
         Lab(info.transform, "Pick a topic", 52, Yellow, true, TextAlignmentOptions.TopLeft, 28, 36, 364, 70);
-        TextMeshProUGUI infoText = Lab(info.transform, "Then tap Level 1, 2 or 3. Gold chips are solved levels.", 30, Color.white, false,
+        TextMeshProUGUI infoText = Lab(info.transform, "Then tap puzzle 1, 2 or 3. Gold chips are solved puzzles.", 30, Color.white, false,
             TextAlignmentOptions.TopLeft, 28, 118, 364, 130);
         infoText.enableWordWrapping = true;
         infoText.overflowMode = TextOverflowModes.Overflow;
