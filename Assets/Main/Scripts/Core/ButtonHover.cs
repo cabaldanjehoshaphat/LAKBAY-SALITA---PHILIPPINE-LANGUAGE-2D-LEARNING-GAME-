@@ -10,8 +10,8 @@ using UnityEngine.UI;
 /// white glow, and it goes back to normal when the mouse leaves. It creates itself before the first scene loads (RuntimeInitializeOnLoadMethod),
 /// survives scene loads and needs nothing placed in any scene, like SoundEffects. Like SoundEffects it asks the EventSystem what is under the
 /// pointer, so buttons that a screen creates while it runs (Library rows, tabs, cards) get the effect without any setup.
-/// It only works in these scenes (HoverScenes): the Main menu, the Profile, the Play screen (language hub), the Library and the three Phrasebook
-/// scenes. The glow is a separate white image behind the button's text and icons, with the same sprite as the button, so no colour of the button
+/// It only works in these scenes (HoverScenes): the Main menu, the Profile, the Play screen (language hub), the Library, the three Phrasebook
+/// scenes and the start screens of Wordle, Crossword and Word Search (topic cards, level arrows, Learn, Play, Random). The glow is a separate white image behind the button's text and icons, with the same sprite as the button, so no colour of the button
 /// is ever changed (screens that colour their own buttons, like the language tabs, keep working). Size and look are the constants below.
 /// </summary>
 public class ButtonHover : MonoBehaviour
@@ -22,7 +22,7 @@ public class ButtonHover : MonoBehaviour
     private const string GlowName = "HoverGlow";
 
     /// <summary>Scenes (part of the scene name) that get the hover effect.</summary>
-    private static readonly string[] HoverScenes = { "Main_menu", "Profile", "Language_Selection", "Library", "Phrasebook" };
+    private static readonly string[] HoverScenes = { "Main_menu", "Profile", "Language_Selection", "Library", "Phrasebook", "Wordle - Start", "Crossword - Start", "WordSearch - Start" };
 
     private static ButtonHover _instance;
     private readonly List<RaycastResult> _hits = new List<RaycastResult>();
