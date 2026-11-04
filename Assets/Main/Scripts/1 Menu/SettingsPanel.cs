@@ -16,6 +16,10 @@ using UnityEngine.UI;
 /// LoadOptionsMenu), and Done, the back arrow and Esc return to the scene named in Return Scene ("1 Main_menu"). The scene is built by
 /// SettingsPanelBuilder (Tools > Settings); the references are assigned there. The script also works as a window inside another scene:
 /// leave Return Scene empty and the panel is hidden at start, opened by the Open Button and closed by Done or Esc.
+/// In the browser (WebGL) version the Windowed / Fullscreen choice is only a pick until Done is pressed: the chips show the pick, and Done
+/// applies it (the browser only allows full screen from a click, and a switch back to a window used to happen at once, before Done). The pick
+/// is applied when the mouse goes down on Done, so the browser accepts the full screen request from that same click. The back arrow and Esc
+/// leave without applying it.
 /// </summary>
 public class SettingsPanel : MonoBehaviour
 {
@@ -62,7 +66,18 @@ public class SettingsPanel : MonoBehaviour
     private void Awake()
     {
         if (openButton != null) openButton.onClick.AddListener(Toggle);
-        if (closeButton != null) closeButton.onClick.AddListener(Close);
+        if (closeButton != null) closeButton.onClick.AddListener(Done);
+#if UNITY_WEBGL && !UNITY_EDITOR
+        if (closeButton != null)
+        {
+            // apply the display pick on the press itself (pointer down) so the browser treats the full screen request as part of the click
+            var trigger = closeButton.GetComponent<UnityEngine.EventSystems.EventTrigger>();
+            if (trigger == null) trigger = closeButton.gameObject.AddComponent<UnityEngine.EventSystems.EventTrigger>();
+            var down = new UnityEngine.EventSystems.EventTrigger.Entry { eventID = UnityEngine.EventSystems.EventTriggerType.PointerDown };
+            down.callback.AddListener(delegate { ApplyDisplayPick(); });
+            trigger.triggers.Add(down);
+        }
+#endif
         if (backButton != null) backButton.onClick.AddListener(Close);
         if (sfxButton != null) sfxButton.onClick.AddListener(ToggleSfx);
         if (volumeSlider != null) volumeSlider.onValueChanged.AddListener(OnVolume);
@@ -135,6 +150,13 @@ public class SettingsPanel : MonoBehaviour
         if (panel != null) panel.SetActive(true);
     }
 
+    /// <summary>Done: applies the Windowed / Fullscreen pick (browser version), then leaves like Close.</summary>
+    public void Done()
+    {
+        ApplyDisplayPick();
+        Close();
+    }
+
     /// <summary>Leaves the Options scene (back to Return Scene), or hides the window when there is no Return Scene.</summary>
     public void Close()
     {
@@ -158,9 +180,28 @@ public class SettingsPanel : MonoBehaviour
         RefreshDisplay();
     }
 
+    /// <summary>The Windowed / Fullscreen pick that has not been applied yet (browser version only); null when there is none.</summary>
+    private bool? _pickedFullscreen;
+
+    /// <summary>Applies the pick made with the chips (browser version); does nothing when nothing was picked or it is already applied.</summary>
+    private void ApplyDisplayPick()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        if (_pickedFullscreen.HasValue)
+        {
+            bool pick = _pickedFullscreen.Value;
+            _pickedFullscreen = null;
+            ScreenFit.SetFullscreen(pick);
+        }
+#endif
+    }
+
     private void RefreshDisplay()
     {
         bool fullscreen = ScreenFit.Fullscreen;
+#if UNITY_WEBGL && !UNITY_EDITOR
+        fullscreen = _pickedFullscreen.HasValue ? _pickedFullscreen.Value : Screen.fullScreen;   // the pick, else what the browser shows now
+#endif
         SetChip(windowedButton, windowedImage, windowedLabel, !fullscreen, true);
         SetChip(fullscreenButton, fullscreenImage, fullscreenLabel, fullscreen, true);
         if (sizeButtons == null)
@@ -185,7 +226,11 @@ public class SettingsPanel : MonoBehaviour
 
     private void SetFullscreen(bool fullscreen)
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        _pickedFullscreen = fullscreen;   // only a pick: Done applies it
+#else
         ScreenFit.SetFullscreen(fullscreen);
+#endif
         RefreshDisplay();
     }
 

@@ -10,7 +10,7 @@ using UnityEngine.UI;
 /// say it in the language. The tile bank holds the words of the phrase plus one wrong word taken from another phrase, in random order.
 /// Tapping a tile puts it in the next empty slot; tapping a filled slot takes the word back; Clear empties every slot. Check compares the
 /// sentence with the phrase: a right sentence marks the phrase as learned (PhraseProgressStore) and opens the result card, a wrong one costs one
-/// of 4 tries. Hint puts the next correct word in place (2 per sentence). The result card has Next sentence (the next phrase, then the next
+/// of 4 tries (the tries are no longer shown in the top bar; the result card still lists them). Hint puts the next correct word in place (2 per sentence). The result card has Next sentence (the next phrase, then the next
 /// topic), See in Phrasebook (the phrase card) and Back to topics. The top-left back button and Esc return to the topics screen. Tiles and
 /// slots are copies of the hidden "tile_template" and "slot_template" objects in the scene; references are assigned there by PhrasebookSceneBuilder.
 /// </summary>

@@ -390,17 +390,6 @@ public static class PhrasebookSceneBuilder
         LibraryUiKit.Place(topicChip.rectTransform, 434, 48, 440, 88);
         TextMeshProUGUI topicLabel = AutoLabel(topicChip.transform, "Greetings", 34, 22, Ink, true, 0, 6, 440, 44);
         TextMeshProUGUI progressLabel = Lab(topicChip.transform, "Sentence 1 of 5", 26, InkSoft, false, TextAlignmentOptions.Center, 0, 50, 440, 34);
-        Image triesChip = LibraryUiKit.Box(ui, "tries_chip", Cream, true);
-        LibraryUiKit.Place(triesChip.rectTransform, 1500, 48, 380, 88);
-        Lab(triesChip.transform, "Tries", 36, InkSoft, false, TextAlignmentOptions.MidlineLeft, 30, 0, 150, 88);
-        var dots = new List<Image>();
-        for (int i = 0; i < 4; i++)
-        {
-            Image dot = LibraryUiKit.Icon(triesChip.transform, "try_" + (i + 1), LibraryUiKit.Circle, Green);
-            LibraryUiKit.Place(dot.rectTransform, 180 + i * 46, 28, 32, 32);
-            dots.Add(dot);
-        }
-
         // ---- prompt
         Image prompt = LibraryUiKit.Box(ui, "prompt_card", Cream, true);
         LibraryUiKit.Place(prompt.rectTransform, 330, 190, 1260, 210);
@@ -464,7 +453,6 @@ public static class PhrasebookSceneBuilder
         SetRef(so, "languageLabel", langLabel);
         SetRef(so, "topicLabel", topicLabel);
         SetRef(so, "progressLabel", progressLabel);
-        SetArray(so, "triesDots", dots);
         SetRef(so, "promptLabel", promptLabel);
         SetRef(so, "englishLabel", english);
         SetRef(so, "answerRow", answerRow);

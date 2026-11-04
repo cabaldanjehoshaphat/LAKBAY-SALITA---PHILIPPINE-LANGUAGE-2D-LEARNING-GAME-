@@ -198,7 +198,7 @@ public class LibraryController : MonoBehaviour
         _totalText = LibraryUiKit.Label(totalPill.transform, "", 26, LibraryUiKit.Ink, FontStyles.Normal, TextAlignmentOptions.Center);
         LibraryUiKit.Fill(_totalText.rectTransform);
 
-        _favButton = LibraryUiKit.Pill(_ui, "Favorites (0)", 1580, 34, 220, 58, new Color(1f, 1f, 1f, 0.6f), LibraryUiKit.Ink, 26, FontStyles.Bold);
+        _favButton = LibraryUiKit.Pill(_ui, "Favorites (0)", 1580, 34, 220, 58, new Color32(253, 248, 238, 255), LibraryUiKit.Ink, 26, FontStyles.Bold);
         _favText = _favButton.GetComponentInChildren<TextMeshProUGUI>();
         LibraryUiKit.MakeButton(_favButton, ToggleFavoritesView);
 
@@ -359,8 +359,9 @@ public class LibraryController : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             bool on = i == _lang && !_showFavorites;
-            _tabBg[i].color = on ? LibraryUiKit.Ink : new Color(1f, 1f, 1f, 0.6f);
-            _tabText[i].color = on ? Color.white : LibraryUiKit.Ink;
+            // the picked language is bright yellow (like the Phrasebook); the others are solid cream, never greyed out
+            _tabBg[i].color = on ? new Color32(255, 214, 64, 255) : new Color32(253, 248, 238, 255);
+            _tabText[i].color = LibraryUiKit.Ink;
         }
     }
 
@@ -368,7 +369,7 @@ public class LibraryController : MonoBehaviour
     {
         if (_data == null) return;
         _favText.text = _showFavorites ? "Back to words" : "Favorites (" + _data.Favorites().Count + ")";
-        _favButton.color = _showFavorites ? LibraryUiKit.Accent : new Color(1f, 1f, 1f, 0.6f);
+        _favButton.color = _showFavorites ? new Color32(255, 214, 64, 255) : new Color32(253, 248, 238, 255);
         RefreshTabs();
     }
 

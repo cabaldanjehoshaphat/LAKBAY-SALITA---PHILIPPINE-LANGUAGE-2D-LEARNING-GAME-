@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// Tagalog; the pick is remembered), and one card per everyday topic (Greetings,
 /// Thanks and sorry, About me, Food and market, Directions, Numbers and time, Help and safety). Each card shows how many of its phrases are
 /// learned ("2 of 5 learned", gold once one is learned), an example phrase, a Learn button (opens the phrase cards, PhraseCardsController) and a
-/// Build button (opens the Sentence builder on the first phrase not learned yet). "Random phrase" builds a random phrase that is not learned yet.
+/// Build button (opens the Sentence builder on the first phrase not learned yet). "Random phrase" builds a random phrase from any of the three languages (one that is not learned yet when there is one).
 /// The back button and Esc return to the main menu. References are assigned in the scene by PhrasebookSceneBuilder.
 /// </summary>
 public class PhraseTopicsController : MonoBehaviour
@@ -33,9 +33,9 @@ public class PhraseTopicsController : MonoBehaviour
     [Header("Colours")]
     [SerializeField] private Color learnedTagColor = new Color32(232, 185, 35, 255);
     [SerializeField] private Color openTagColor = new Color32(239, 231, 212, 255);
-    [SerializeField] private Color chipOnColor = new Color32(59, 42, 26, 255);
+    [SerializeField] private Color chipOnColor = new Color32(255, 214, 64, 255);   // the picked language: bright yellow
     [SerializeField] private Color chipOffColor = new Color32(253, 248, 238, 255);
-    [SerializeField] private Color chipOnTextColor = new Color32(253, 248, 238, 255);
+    [SerializeField] private Color chipOnTextColor = new Color32(59, 42, 26, 255);
     [SerializeField] private Color chipOffTextColor = new Color32(59, 42, 26, 255);
 
     private int language;
@@ -126,19 +126,25 @@ public class PhraseTopicsController : MonoBehaviour
         PhraseSession.OpenBuilder(language, topic, start);
     }
 
-    /// <summary>Builds a random phrase that is not learned yet (any phrase once everything is learned).</summary>
+    /// <summary>
+    /// Builds a random phrase from any of the three languages, not only the highlighted one. A phrase that is not learned yet is picked when there
+    /// is one (any phrase once everything is learned); the Sentence builder opens in the language of the phrase.
+    /// </summary>
     private void PlayRandom()
     {
         var open = new System.Collections.Generic.List<int[]>();
         var all = new System.Collections.Generic.List<int[]>();
-        for (int t = 0; t < PhraseData.TopicCount(language); t++)
+        for (int l = 0; l < 3; l++)
         {
-            for (int p = 0; p < PhraseData.PhraseCount(language, t); p++)
+            for (int t = 0; t < PhraseData.TopicCount(l); t++)
             {
-                all.Add(new[] { t, p });
-                if (!PhraseProgressStore.IsLearned(language, t, p))
+                for (int p = 0; p < PhraseData.PhraseCount(l, t); p++)
                 {
-                    open.Add(new[] { t, p });
+                    all.Add(new[] { l, t, p });
+                    if (!PhraseProgressStore.IsLearned(l, t, p))
+                    {
+                        open.Add(new[] { l, t, p });
+                    }
                 }
             }
         }
@@ -148,7 +154,7 @@ public class PhraseTopicsController : MonoBehaviour
             return;
         }
         int[] pick = pool[Random.Range(0, pool.Count)];
-        PhraseSession.OpenBuilder(language, pick[0], pick[1]);
+        PhraseSession.OpenBuilder(pick[0], pick[1], pick[2]);
     }
 
     /// <summary>Returns to the main menu.</summary>
