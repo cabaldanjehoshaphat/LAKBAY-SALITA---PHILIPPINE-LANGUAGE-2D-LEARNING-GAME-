@@ -110,9 +110,22 @@ public class CrosswordGameController : MonoBehaviour
     private bool paused;
     private bool resultShown;
     private float elapsed;
+    private float timeLimit;
+    private bool timedOut;
+    private Color timerStartColor = Color.black;
+    private static readonly Color TimerWarningColor = new Color32(232, 117, 26, 255);
+
+    /// <summary>What the timer shows: the time left in Timed mode, the time used in Normal mode.</summary>
+    private int ShownSeconds()
+    {
+        return timeLimit > 0f ? Mathf.CeilToInt(Mathf.Max(0f, timeLimit - elapsed)) : Mathf.FloorToInt(elapsed);
+    }
+
     private int hintsLeft;
     private int revealsLeft;
     private int hintsUsed;
+    private int checksUsed;
+    private int revealsUsed;
     private bool keypadOn;
     private Coroutine clearWrongRoutine;
     private CrosswordDirection currentTab = CrosswordDirection.Across;
@@ -265,9 +278,15 @@ public class CrosswordGameController : MonoBehaviour
         if (ready && !paused && !resultShown)
         {
             elapsed += Time.unscaledDeltaTime;
-            if (timerLabel != null)
+            if (timeLimit > 0f && elapsed >= timeLimit)
             {
-                timerLabel.text = FormatTime(Mathf.FloorToInt(elapsed));
+                elapsed = timeLimit;
+                ShowTimeUp();
+            }
+            else if (timerLabel != null)
+            {
+                timerLabel.text = FormatTime(ShownSeconds());
+                if (timeLimit > 0f) timerLabel.color = timeLimit - elapsed <= 10f ? TimerWarningColor : timerStartColor;
             }
         }
 
@@ -297,6 +316,12 @@ public class CrosswordGameController : MonoBehaviour
     {
         ready = true;
         elapsed = 0f;
+        timeLimit = categoryMode && input != null && TimerModes.IsTimed(ScoreRules.GameCrossword) ? TimerModes.CrosswordLimit(input.Entries.Count) : 0f;
+        if (timerLabel != null)
+        {
+            timerStartColor = timerLabel.color;
+            timerLabel.text = FormatTime(ShownSeconds());
+        }
         FitContent(acrossScroll);
         FitContent(downScroll);
     }
@@ -490,6 +515,7 @@ public class CrosswordGameController : MonoBehaviour
             return;
         }
         int wrong = input.CheckActiveWord();
+        checksUsed++;
         ShowToast(wrong == 0 ? "No wrong letters in this word" : (wrong == 1 ? "1 letter needs fixing" : wrong + " letters need fixing"));
         if (wrong > 0)
         {
@@ -520,6 +546,7 @@ public class CrosswordGameController : MonoBehaviour
         {
             revealsLeft--;
             hintsUsed++;
+            revealsUsed++;
             RefreshToolLabels();
         }
         else
@@ -547,7 +574,7 @@ public class CrosswordGameController : MonoBehaviour
         }
         paused = true;
         if (input != null) input.InputEnabled = false;
-        if (pauseTimeLabel != null) pauseTimeLabel.text = FormatTime(Mathf.FloorToInt(elapsed));
+        if (pauseTimeLabel != null) pauseTimeLabel.text = FormatTime(ShownSeconds());
         if (board != null)
         {
             board.alpha = 0f;
@@ -630,6 +657,58 @@ public class CrosswordGameController : MonoBehaviour
 
         BuildLearnedList();
         if (confettiRoot != null) confettiRoot.gameObject.SetActive(true);
+        if (resultPanel != null)
+        {
+            resultPanel.SetActive(true);
+            StartCoroutine(PopIn(resultCard));
+        }
+        if (categoryMode && input != null)
+        {
+            // the score, the personal best, the badges and (when logged in) the weekly rank; a Reveal has its own penalty, so it is not also counted as a hint
+            int seconds = Mathf.FloorToInt(elapsed);
+            int words = input.Entries.Count;
+            int hints = hintsUsed - revealsUsed;
+            ScoreResultPanel.Report(new PuzzleResult
+            {
+                Game = ScoreRules.GameCrossword, Language = categoryLanguage, Category = categoryIndex, Level = categorySize, Seconds = seconds, Hints = hints,
+                Checks = checksUsed, Reveals = revealsUsed, Words = words
+            }, ScoreRules.Crossword(words, seconds, hints, checksUsed, revealsUsed), resultPanel);
+        }
+    }
+
+    /// <summary>Timed mode ran out: the puzzle stops, the answers are shown, and nothing is saved. The Next button becomes Try again.</summary>
+    private void ShowTimeUp()
+    {
+        if (resultShown)
+        {
+            return;
+        }
+        resultShown = true;
+        timedOut = true;
+        if (input != null) input.InputEnabled = false;
+        if (timerLabel != null) timerLabel.text = FormatTime(0);
+        if (resultTitle != null) resultTitle.text = "Time's up";
+        if (statTime != null) statTime.text = FormatTime(Mathf.FloorToInt(timeLimit));
+        if (statHints != null) statHints.text = hintsUsed.ToString();
+        if (statStreak != null)
+        {
+            int streak = Mathf.Max(1, StreakTracker.GetStreak());
+            statStreak.text = streak == 1 ? "1 day" : streak + " days";
+        }
+        if (resultNextButton != null)
+        {
+            TMP_Text nextLabel = resultNextButton.GetComponentInChildren<TMP_Text>();
+            if (nextLabel != null) nextLabel.text = "Try again";
+        }
+        BuildLearnedList();
+        if (resultCard != null)
+        {
+            foreach (TMP_Text label in resultCard.GetComponentsInChildren<TMP_Text>(true))
+            {
+                if (label.text == "Words you learned") label.text = "The answers";
+            }
+        }
+        if (confettiRoot != null) confettiRoot.gameObject.SetActive(false);
         if (resultPanel != null)
         {
             resultPanel.SetActive(true);
@@ -775,6 +854,11 @@ public class CrosswordGameController : MonoBehaviour
     /// <summary>Loads another level of the same language (never the one being played).</summary>
     public void NextPuzzle()
     {
+        if (timedOut)
+        {
+            SceneManager.LoadScene(gameObject.scene.name);
+            return;
+        }
         if (categoryMode)
         {
             NextInCategory();

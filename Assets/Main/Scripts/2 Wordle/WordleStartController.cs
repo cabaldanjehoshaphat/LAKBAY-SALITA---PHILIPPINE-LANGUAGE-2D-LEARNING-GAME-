@@ -43,6 +43,7 @@ public class WordleStartController : MonoBehaviour
     private void Awake()
     {
         if (backButton != null) backButton.onClick.AddListener(BackToGames);
+        TimerModes.AttachChips(ScoreRules.GameWordle, languageLabel);
         if (randomButton != null) randomButton.onClick.AddListener(PlayRandom);
 
         int count = playButtons != null ? playButtons.Length : 0;
@@ -144,6 +145,8 @@ public class WordleStartController : MonoBehaviour
         if (levelLabels != null && category < levelLabels.Length && levelLabels[category] != null)
         {
             string status = IsSolved(category, level) ? "Solved" : "Not solved yet";
+            PuzzleRecord best = Application.isPlaying ? ResultsStore.Best(ScoreRules.GameWordle, WordleSession.Language, category, level) : null;
+            if (best != null) status = "Solved · Best " + best.Score;
             levelLabels[category].text = "Level " + (level + 1) + "\n<size=54%>" + status + "</size>";
         }
         if (previousButtons != null && category < previousButtons.Length && previousButtons[category] != null)

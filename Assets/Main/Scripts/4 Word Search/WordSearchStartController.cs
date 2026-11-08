@@ -50,6 +50,7 @@ public class WordSearchStartController : MonoBehaviour
     private void Awake()
     {
         if (backButton != null) backButton.onClick.AddListener(BackToGames);
+        TimerModes.AttachChips(ScoreRules.GameWordSearch, languageLabel);
         if (randomButton != null) randomButton.onClick.AddListener(PlayRandom);
         if (classicButton != null) classicButton.onClick.AddListener(delegate { SetMode(WordSearchMode.Classic); });
         if (meaningButton != null) meaningButton.onClick.AddListener(delegate { SetMode(WordSearchMode.Meaning); });
@@ -100,7 +101,13 @@ public class WordSearchStartController : MonoBehaviour
             int solved = Application.isPlaying ? WordSearchProgressStore.SolvedCount(language, c, puzzleCount) : 0;
             if (categoryProgress != null && c < categoryProgress.Length && categoryProgress[c] != null)
             {
-                categoryProgress[c].text = solved + " of " + puzzleCount + " solved";
+                int bestScore = 0;
+                for (int p = 0; Application.isPlaying && p < puzzleCount; p++)
+                {
+                    PuzzleRecord best = ResultsStore.Best(ScoreRules.GameWordSearch, language, c, p);
+                    if (best != null) bestScore = Mathf.Max(bestScore, best.Score);
+                }
+                categoryProgress[c].text = solved + " of " + puzzleCount + " solved" + (bestScore > 0 ? " · Best " + bestScore : string.Empty);
             }
             for (int p = 0; p < ChipsPerCategory; p++)
             {

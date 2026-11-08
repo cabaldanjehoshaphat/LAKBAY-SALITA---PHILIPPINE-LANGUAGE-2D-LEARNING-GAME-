@@ -227,6 +227,9 @@ public class PlayerDatabase : MonoBehaviour
         WordleProgressStore.Reset();
         CrosswordProgressStore.Reset();
         PhraseProgressStore.Reset();
+        ResultsStore.Reset();
+        AchievementTracker.Reset();
+        SurvivalRecords.Reset();
         if (allSynced)
         {
             CloudMerge.ClearSyncedKeys();

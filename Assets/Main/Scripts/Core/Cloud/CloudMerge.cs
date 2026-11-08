@@ -28,6 +28,8 @@ public class CloudSaveBlob
 ///  - the day streak: the best streak is the larger one; the current streak and last play day come from the side that played last;
 ///  - small choices (Phrasebook language, Crossword keypad, Word Search mode): this device's value, or the online one when this device has none;
 ///  - the "Continue" puzzle (resume.*): this device's when it has one, otherwise the online one;
+///  - puzzle scores (records.v1): for each puzzle and week the higher score; Survival records (survival.v1): the larger value of each number;
+///  - earned badges (achievements.earned.v1): everything from both;
 ///  - the profile: name and avatar come from the online copy when signing in for the first time on this device or when the online copy was changed on
 ///    another device after this device's last sync, otherwise from this device; solved counts and best Crossword level are the larger ones, learned words
 ///    are the union, the join date is the earlier one.
@@ -46,7 +48,7 @@ public static class CloudMerge
 
     private static readonly string[] UnionPipe =
     {
-        "wordle.solved.v1", "crossword.solved.v1", "wordsearch.solved.v1", "phrasebook.learned.v1", "library.favorites.v1"
+        "wordle.solved.v1", "crossword.solved.v1", "wordsearch.solved.v1", "phrasebook.learned.v1", "library.favorites.v1", AchievementTracker.SaveKey
     };
     private const string RecentKey = "library.recent.v1";
     private static readonly string[] StreakKeys = { "streak_count", "streak_last_play", "streak_best" };
@@ -58,6 +60,8 @@ public static class CloudMerge
     {
         foreach (string k in UnionPipe) yield return k;
         yield return RecentKey;
+        yield return ResultsStore.SaveKey;
+        yield return SurvivalRecords.SaveKey;
         foreach (string k in StreakKeys) yield return k;
         foreach (string k in SmallChoices) yield return k;
         foreach (string k in ResumeKeys) yield return k;
@@ -154,6 +158,10 @@ public static class CloudMerge
         }
         string recent = Union(Get(local, RecentKey), Get(remote, RecentKey), '\n');
         if (recent.Length > 0) merged[RecentKey] = recent;
+        string records = ResultsStore.MergeText(Get(local, ResultsStore.SaveKey), Get(remote, ResultsStore.SaveKey));
+        if (records.Length > 0) merged[ResultsStore.SaveKey] = records;
+        string survival = SurvivalRecords.MergeText(Get(local, SurvivalRecords.SaveKey), Get(remote, SurvivalRecords.SaveKey));
+        if (survival.Length > 0) merged[SurvivalRecords.SaveKey] = survival;
 
         // the day streak: the best one is kept; the current one comes from the side that played last
         int best = Math.Max(ToInt(Get(local, "streak_best")), ToInt(Get(remote, "streak_best")));
@@ -256,6 +264,51 @@ public static class CloudMerge
         if (PlayerDatabase.Instance != null)
         {
             PlayerDatabase.Instance.ImportData(merged.Player);
+        }
+    }
+
+    // ------------------------------------------------------------------ copies (guest progress and backups, see GuestProgress)
+
+    [Serializable]
+    private class Copy
+    {
+        public CloudSaveBlob save;
+        public PlayerData player;
+    }
+
+    /// <summary>A copy of this device's progress as text.</summary>
+    public static string CaptureJson()
+    {
+        PlayerDatabase db = PlayerDatabase.Instance;
+        return JsonUtility.ToJson(new Copy { save = ToBlob(LocalSave()), player = db != null ? db.ExportData() : new PlayerData() });
+    }
+
+    private static PlayerData WithoutPicture(PlayerData player)
+    {
+        if (player != null)
+        {
+            player.useCustomAvatar = player.useCustomAvatar && AvatarLibrary.HasCustom;
+        }
+        return player;
+    }
+
+    /// <summary>Puts a copy back on this device, replacing the synced progress.</summary>
+    public static void ApplyJson(string json)
+    {
+        Copy copy = JsonUtility.FromJson<Copy>(json);
+        if (copy != null)
+        {
+            ApplyLocally(new Result { Save = copy.save, Player = WithoutPicture(copy.player) });
+        }
+    }
+
+    /// <summary>Combines a copy with this device's progress, using the same rules as the online copy.</summary>
+    public static void MergeJson(string json)
+    {
+        Copy copy = JsonUtility.FromJson<Copy>(json);
+        if (copy != null)
+        {
+            ApplyLocally(Merge(copy.save, WithoutPicture(copy.player), null, string.Empty));   // no last sync: the name and avatar of the copy are used
         }
     }
 

@@ -52,6 +52,8 @@ public class CloudSave : MonoBehaviour
     private const string HashKey = "account.hash";
     /// <summary>The account whose progress is on this device. It survives a logout (ClearSession keeps it) so another account never mixes with it.</summary>
     private const string OwnerKey = "account.owner";
+    /// <summary>Set when a logout could not upload everything: the progress on this device still needs its owner (see GuestProgress).</summary>
+    private const string UnsavedKey = "account.unsaved";
     private const float DelaySeconds = 8f;
     private const float RetrySeconds = 60f;
 
@@ -490,11 +492,15 @@ public class CloudSave : MonoBehaviour
         {
             PlayerDatabase.Instance.ClearLocalProgress(true);
             SaveStore.DeleteKey(OwnerKey);
+            SaveStore.DeleteKey(UnsavedKey);
             SaveStore.Save();
+            GuestProgress.RestoreSetAside();   // guest progress that the player chose not to add comes back
             SetStatus(clearDevice ? "Your online progress was deleted and this device was cleared." : "Signed out. Log in again to get your progress back.");
         }
         else
         {
+            SaveStore.SetInt(UnsavedKey, 1);
+            SaveStore.Save();
             SetStatus("Signed out. Some progress could not be saved online, so it stays on this device.");
         }
         _signingOut = false;
@@ -512,6 +518,11 @@ public class CloudSave : MonoBehaviour
         {
             return;
         }
+        if (SaveStore.GetInt(UnsavedKey, 0) != 0)
+        {
+            GuestProgress.BackupFor(owner);   // it never reached the server: keep it for its owner instead of losing it
+            SaveStore.DeleteKey(UnsavedKey);
+        }
         if (SignedIn)
         {
             ClearSession();   // the old login must not upload the cleared progress
@@ -522,6 +533,64 @@ public class CloudSave : MonoBehaviour
         }
         SaveStore.DeleteKey(OwnerKey);
         SaveStore.Save();
+    }
+
+    /// <summary>Guest progress on this device: asks the player whether to add it to the account. The answer is remembered, so a failed sync does not ask again.</summary>
+    private IEnumerator AskAboutGuestProgress(string userId)
+    {
+        if (!string.IsNullOrEmpty(SaveStore.GetString(OwnerKey, string.Empty)) || !GuestProgress.HasAnything())
+        {
+            yield break;
+        }
+        int puzzles, words, streak;
+        GuestProgress.Stats(out puzzles, out words, out streak);
+        bool answered = false, add = true;
+        SetStatus("You have guest progress on this computer.");
+        TrophyOverlay.AskAboutGuestProgress(puzzles, words, streak, delegate (bool choice) { add = choice; answered = true; });
+        while (!answered)
+        {
+            yield return null;
+        }
+        if (!add)
+        {
+            GuestProgress.SetAside();
+        }
+        SaveStore.SetString(OwnerKey, userId);
+        SaveStore.Save();
+    }
+
+    /// <summary>One authenticated call to the online service (used by LeaderboardService). done(statusCode, body); statusCode 0 means no connection, 401 not signed in.</summary>
+    public static void CallApi(string method, string path, string body, Action<long, string> done)
+    {
+        if (_instance == null || !SignedIn)
+        {
+            if (done != null) done(401, string.Empty);
+            return;
+        }
+        Run(_instance.ApiRoutine(method, path, body, done));
+    }
+
+    /// <summary>One call that needs no login, for what guests may read (the public leaderboard). done(statusCode, body); statusCode 0 means no connection.</summary>
+    public static void CallPublicApi(string method, string path, string body, Action<long, string> done)
+    {
+        if (_instance == null)
+        {
+            if (done != null) done(0, string.Empty);
+            return;
+        }
+        Run(_instance.Send(method, path, body, null, null, done));
+    }
+
+    private IEnumerator ApiRoutine(string method, string path, string body, Action<long, string> done)
+    {
+        bool tokenOk = false;
+        yield return EnsureToken(delegate (bool ok) { tokenOk = ok; });
+        if (!tokenOk)
+        {
+            if (done != null) done(SignedIn ? 0 : 401, string.Empty);
+            yield break;
+        }
+        yield return Send(method, path, body, SaveStore.GetString(AccessKey, string.Empty), null, done);
     }
 
     /// <summary>Signs out without a message (used when the profile is reset: the online copy is kept, so signing in again brings it back).</summary>
@@ -741,6 +810,10 @@ public class CloudSave : MonoBehaviour
         string access = SaveStore.GetString(AccessKey, string.Empty);
         string userId = SaveStore.GetString(UserKey, string.Empty);
 
+        // guest progress joins the account only if the player says so; progress kept for this account after a failed logout comes back
+        yield return AskAboutGuestProgress(userId);
+        GuestProgress.MergeBackupFor(userId);
+
         // 1. the online row of this player (row level security returns only the player's own row)
         long code = 0;
         string text = null;
@@ -818,6 +891,7 @@ public class CloudSave : MonoBehaviour
         }
         SaveStore.SetString(LastSyncKey, string.Empty);
         SaveStore.SetString(HashKey, string.Empty);
+        LeaderboardService.DeleteMyData();   // the scores and the public card go too (nothing happens if the boards are not set up)
         Finish(done, true, "Your online progress was deleted.");
     }
 

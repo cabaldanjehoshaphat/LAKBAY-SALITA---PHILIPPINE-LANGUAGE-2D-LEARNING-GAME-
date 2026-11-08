@@ -635,6 +635,12 @@ public class WordleGameController : MonoBehaviour
             WordleProgressStore.MarkSolved(categoryLanguage, categoryIndex, categoryLevel);
             ResumeStore.MarkFinished(ResumeStore.GameWordle, categoryLanguage, categoryIndex, categoryLevel);
         }
+        int triesUsed = typer != null ? typer.CurrentRow + 1 : 1;
+        int triesLeft = generator != null ? Mathf.Max(0, generator.rows - triesUsed) : 0;
+        int secondsLeft = timer != null ? Mathf.FloorToInt(timer.RemainingSeconds) : 0;
+        int secondsUsed = timer != null ? Mathf.RoundToInt(timer.ElapsedSeconds) : 0;
+        bool normalClock = timer != null && timer.IsStopwatch;
+        if (normalClock) secondsLeft = Mathf.Max(0, TimerModes.WordleScoreSeconds - secondsUsed);   // the same bonus as a player on the 5:00 countdown
 
         if (resultTitle != null)
         {
@@ -689,6 +695,15 @@ public class WordleGameController : MonoBehaviour
         {
             resultPanel.SetActive(true);
             StartCoroutine(PopIn(resultCard));
+        }
+        if (kind == ResultKind.Win && categoryMode)
+        {
+            // the score, the personal best, the badges and (when logged in) the weekly rank
+            ScoreResultPanel.Report(new PuzzleResult
+            {
+                Game = ScoreRules.GameWordle, Language = categoryLanguage, Category = categoryIndex, Level = categoryLevel, Seconds = secondsUsed, SecondsLeft = secondsLeft,
+                TriesLeft = triesLeft, Hints = hintTexts.Count, FirstTry = triesUsed == 1 && hintTexts.Count == 0
+            }, ScoreRules.Wordle(triesLeft, secondsLeft, hintTexts.Count, normalClock ? secondsUsed : -1), resultPanel);
         }
     }
 

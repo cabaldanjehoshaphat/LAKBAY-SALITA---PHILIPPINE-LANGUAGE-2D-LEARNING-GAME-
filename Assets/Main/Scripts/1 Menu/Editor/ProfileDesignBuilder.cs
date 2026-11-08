@@ -564,7 +564,7 @@ public static class ProfileDesignBuilder
         Image warnDot = LibraryUiKit.Icon(warnCircle.transform, "dot", HdCircle(), new Color32(163, 45, 45, 255));
         LibraryUiKit.Place(warnDot.rectTransform, 54, 82, 12, 12);
         Lab(resetCard.transform, "Reset all progress?", 44, Ink, true, TextAlignmentOptions.Center, 0, 100, 600, 60);
-        TextMeshProUGUI resetBody = Lab(resetCard.transform, "This clears your name, avatar, solved counts, learned phrases and streak on this device, and signs you out. Library favorites stay. Your online copy is kept: sign in again to get it back.", 32, InkSoft, false,
+        TextMeshProUGUI resetBody = Lab(resetCard.transform, "This clears your name, avatar, solved counts, scores, badges, learned phrases and streak on this device, and signs you out. Library favorites stay. Your online copy is kept: sign in again to get it back.", 32, InkSoft, false,
             TextAlignmentOptions.Top, 48, 176, 504, 150);
         resetBody.enableWordWrapping = true;
         Image keepOuter = LibraryUiKit.Box(resetCard.transform, "keep_button", Ink, true);
@@ -624,6 +624,7 @@ public static class ProfileDesignBuilder
 
         EditorUtility.SetDirty(canvasGo);
         string account = AccountPanelBuilder.AddToOpenScene();   // the email account window (button on the profile card + dialog)
-        return "built profile screen | " + account;
+        string trophies = TrophyBuilder.AddToOpenProfile();   // the badges card and the rank chip
+        return "built profile screen | " + account + " | " + trophies;
     }
 }

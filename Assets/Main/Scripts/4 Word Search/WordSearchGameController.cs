@@ -84,6 +84,17 @@ public class WordSearchGameController : MonoBehaviour
     private bool paused;
     private bool resultShown;
     private float elapsed;
+    private float timeLimit;
+    private bool timedOut;
+    private Color timerStartColor = Color.black;
+    private static readonly Color TimerWarningColor = new Color32(232, 117, 26, 255);
+
+    /// <summary>What the timer shows: the time left in Timed mode, the time used in Normal mode.</summary>
+    private int ShownSeconds()
+    {
+        return timeLimit > 0f ? Mathf.CeilToInt(Mathf.Max(0f, timeLimit - elapsed)) : Mathf.FloorToInt(elapsed);
+    }
+
     private int hintsLeft;
     private int hintsUsed;
     private int foundCount;
@@ -191,6 +202,12 @@ public class WordSearchGameController : MonoBehaviour
         hintsLeft = hintsPerPuzzle;
         hintsUsed = 0;
         elapsed = 0f;
+        timeLimit = Application.isPlaying && TimerModes.IsTimed(ScoreRules.GameWordSearch) ? TimerModes.WordSearchLimit(grid.placements.Count) : 0f;
+        if (timerLabel != null)
+        {
+            timerStartColor = timerLabel.color;
+            timerLabel.text = FormatTime(ShownSeconds());
+        }
         ready = true;
         RefreshHintLabel();
         RefreshList();
@@ -206,9 +223,15 @@ public class WordSearchGameController : MonoBehaviour
         if (ready && !paused && !resultShown)
         {
             elapsed += Time.unscaledDeltaTime;
-            if (timerLabel != null)
+            if (timeLimit > 0f && elapsed >= timeLimit)
             {
-                timerLabel.text = FormatTime(Mathf.FloorToInt(elapsed));
+                elapsed = timeLimit;
+                ShowTimeUp();
+            }
+            else if (timerLabel != null)
+            {
+                timerLabel.text = FormatTime(ShownSeconds());
+                if (timeLimit > 0f) timerLabel.color = timeLimit - elapsed <= 10f ? TimerWarningColor : timerStartColor;
             }
         }
 
@@ -486,7 +509,7 @@ public class WordSearchGameController : MonoBehaviour
         }
         paused = true;
         if (board != null) board.InputEnabled = false;
-        if (pauseTimeLabel != null) pauseTimeLabel.text = FormatTime(Mathf.FloorToInt(elapsed));
+        if (pauseTimeLabel != null) pauseTimeLabel.text = FormatTime(ShownSeconds());
         if (boardGroup != null)
         {
             boardGroup.alpha = 0f;
@@ -550,6 +573,54 @@ public class WordSearchGameController : MonoBehaviour
 
         BuildLearnedList(language);
         if (confettiRoot != null) confettiRoot.gameObject.SetActive(true);
+        if (resultPanel != null)
+        {
+            resultPanel.SetActive(true);
+            StartCoroutine(PopIn(resultCard));
+        }
+        // the score, the personal best, the badges and (when logged in) the weekly rank
+        int seconds = Mathf.FloorToInt(elapsed);
+        bool meaning = WordSearchSession.Mode == WordSearchMode.Meaning;
+        ScoreResultPanel.Report(new PuzzleResult
+        {
+            Game = ScoreRules.GameWordSearch, Language = language, Category = WordSearchSession.Category, Level = WordSearchSession.Puzzle, Seconds = seconds, Hints = hintsUsed,
+            Words = words.Count, Meaning = meaning
+        }, ScoreRules.WordSearch(words.Count, seconds, hintsUsed, meaning), resultPanel);
+    }
+
+    /// <summary>Timed mode ran out: the puzzle stops, the answers are shown, and nothing is saved. The Next button becomes Try again.</summary>
+    private void ShowTimeUp()
+    {
+        if (resultShown)
+        {
+            return;
+        }
+        resultShown = true;
+        timedOut = true;
+        if (board != null) board.InputEnabled = false;
+        if (timerLabel != null) timerLabel.text = FormatTime(0);
+        if (resultTitle != null) resultTitle.text = "Time's up";
+        if (statTime != null) statTime.text = FormatTime(Mathf.FloorToInt(timeLimit));
+        if (statHints != null) statHints.text = hintsUsed.ToString();
+        if (statStreak != null)
+        {
+            int streak = Mathf.Max(1, StreakTracker.GetStreak());
+            statStreak.text = streak == 1 ? "1 day" : streak + " days";
+        }
+        if (resultNextButton != null)
+        {
+            TMP_Text nextLabel = resultNextButton.GetComponentInChildren<TMP_Text>();
+            if (nextLabel != null) nextLabel.text = "Try again";
+        }
+        BuildLearnedList(Mathf.Clamp(WordSearchSession.Language, 0, 2));
+        if (resultCard != null)
+        {
+            foreach (TMP_Text label in resultCard.GetComponentsInChildren<TMP_Text>(true))
+            {
+                if (label.text == "Words you found") label.text = "The words";
+            }
+        }
+        if (confettiRoot != null) confettiRoot.gameObject.SetActive(false);
         if (resultPanel != null)
         {
             resultPanel.SetActive(true);
@@ -670,6 +741,11 @@ public class WordSearchGameController : MonoBehaviour
     /// <summary>Plays the puzzle after this one (next letter, then the next category); after the last one it returns to the start screen.</summary>
     public void NextPuzzle()
     {
+        if (timedOut)
+        {
+            SceneManager.LoadScene(WordSearchSession.PlayScene);
+            return;
+        }
         int nextCategory, nextPuzzle;
         if (WordSearchSession.TryGetNext(WordSearchSession.Language, WordSearchSession.Category, WordSearchSession.Puzzle, out nextCategory, out nextPuzzle))
         {

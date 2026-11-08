@@ -43,6 +43,7 @@ public class CrosswordStartController : MonoBehaviour
     private void Awake()
     {
         if (backButton != null) backButton.onClick.AddListener(BackToGames);
+        TimerModes.AttachChips(ScoreRules.GameCrossword, languageLabel);
         if (randomButton != null) randomButton.onClick.AddListener(PlayRandom);
 
         int count = playButtons != null ? playButtons.Length : 0;
@@ -147,6 +148,8 @@ public class CrosswordStartController : MonoBehaviour
             string sizeName = def != null ? def.size : (size == 0 ? "Small" : (size == 1 ? "Medium" : "Large"));
             int words = def != null ? def.words.Count : 0;
             string status = IsSolved(category, size) ? "Solved" : (words + " words");
+            PuzzleRecord best = Application.isPlaying ? ResultsStore.Best(ScoreRules.GameCrossword, language, category, size) : null;
+            if (best != null) status = "Best " + best.Score + " · " + ResultsStore.Clock(best.Fastest);
             sizeLabels[category].text = sizeName + "\n<size=54%>" + status + "</size>";
         }
         if (previousButtons != null && category < previousButtons.Length && previousButtons[category] != null)

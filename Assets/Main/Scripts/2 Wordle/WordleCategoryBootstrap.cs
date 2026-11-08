@@ -49,6 +49,7 @@ public class WordleCategoryBootstrap : MonoBehaviour
         if (verifier != null) verifier.SetTarget(def.word, def.meaning, def.clue);
         if (generator != null) generator.columns = Mathf.Max(1, def.word.Length);
         if (timer != null) timer.OverrideDuration(timerSeconds);
+        if (timer != null && !TimerModes.IsTimed(ScoreRules.GameWordle)) timer.UseStopwatch();
         if (controller != null) controller.ConfigureCategory(language, category, level);
 
         WordleCategoryDef categoryDef = WordleData.Category(language, category);

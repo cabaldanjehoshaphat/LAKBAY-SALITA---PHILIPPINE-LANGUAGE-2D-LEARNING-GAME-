@@ -15,6 +15,7 @@ using UnityEngine;
 // WordleKeyboardTyper reports the word solved (found automatically via the scene's
 // "WordleGenerator" GameObject — every puzzle scene uses that same name, so no
 // per-scene wiring is needed), freezing the display at whatever time was left.
+// UseStopwatch switches it to Normal mode (see TimerModes): it counts up and never expires.
 public class WordleTimer : MonoBehaviour
 {
     [Header("Duration Lookup (one entry per scene)")]
@@ -44,6 +45,17 @@ public class WordleTimer : MonoBehaviour
     private bool expiredRaised;
     private int overrideSeconds;
     private WordleKeyboardTyper typer;
+    private bool stopwatch;
+    private float stopwatchSeconds;
+
+    /// <summary>Normal mode: the display counts up and the time never runs out. Call it before Start, like OverrideDuration.</summary>
+    public void UseStopwatch()
+    {
+        stopwatch = true;
+    }
+
+    /// <summary>True in Normal mode.</summary>
+    public bool IsStopwatch => stopwatch;
 
     /// <summary>
     /// Sets the duration of the real countdown from code (used by the Wordle category play scene, which has one scene for every level),
@@ -73,10 +85,10 @@ public class WordleTimer : MonoBehaviour
     public float RemainingSeconds => Mathf.Max(0f, remainingSeconds);
 
     /// <summary>Seconds of the real countdown already used (0 during the lead-in).</summary>
-    public float ElapsedSeconds => phase == Phase.Delay ? 0f : Mathf.Max(0f, totalSeconds - Mathf.Max(0f, remainingSeconds));
+    public float ElapsedSeconds => phase == Phase.Delay ? 0f : stopwatch ? stopwatchSeconds : Mathf.Max(0f, totalSeconds - Mathf.Max(0f, remainingSeconds));
 
     /// <summary>The MM:SS text currently shown.</summary>
-    public string DisplayText => FormatTime(Mathf.CeilToInt(Mathf.Max(0f, remainingSeconds)));
+    public string DisplayText => stopwatch && phase != Phase.Delay ? FormatTime(Mathf.FloorToInt(stopwatchSeconds)) : FormatTime(Mathf.CeilToInt(Mathf.Max(0f, remainingSeconds)));
 
     /// <summary>Freezes the countdown (pause menu).</summary>
     public void Pause()
@@ -109,6 +121,13 @@ public class WordleTimer : MonoBehaviour
         if (phase == Phase.Expired || paused || (typer != null && typer.Finished))
         {
             // Word guessed correctly (or tries used up, or paused) — freeze the countdown right where it is.
+            return;
+        }
+
+        if (stopwatch && phase == Phase.Counting)
+        {
+            stopwatchSeconds += Time.deltaTime;
+            UpdateDisplay();
             return;
         }
 
@@ -177,6 +196,7 @@ public class WordleTimer : MonoBehaviour
     {
         float delaySeconds = settings != null ? settings.delaySeconds : 0f;
         expiredRaised = false;
+        stopwatchSeconds = 0f;
         if (delaySeconds > 0f)
         {
             phase = Phase.Delay;
@@ -243,6 +263,6 @@ public class WordleTimer : MonoBehaviour
             return;
         }
 
-        timerText.text = FormatTime(Mathf.CeilToInt(Mathf.Max(0f, remainingSeconds)));
+        timerText.text = DisplayText;
     }
 }

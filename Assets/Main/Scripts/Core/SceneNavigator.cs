@@ -25,12 +25,14 @@ public class SceneNavigator : MonoBehaviour
     private const string LanguageSelectionScene = "3 Language_Selection_Menu";
     private const string LibraryMenuScene = "4 Library_menu";
     private const string OptionsScene = "5 Options";
+    private const string TrophiesScene = "6 Trophies";
 
     public void LoadMainMenu() => SceneManager.LoadScene(MainMenuScene);
     public void LoadProfileIcon() => SceneManager.LoadScene(ProfileIconScene);
     public void LoadLanguageSelectionMenu() => SceneManager.LoadScene(LanguageSelectionScene);
     public void LoadLibraryMenu() => SceneManager.LoadScene(LibraryMenuScene);
     public void LoadOptionsMenu() => SceneManager.LoadScene(OptionsScene);
+    public void LoadTrophies() => TrophyRoomController.Open(0, MainMenuScene);
 
     // Wired to the Language Selection scene's wordle_button. Remembers the checked language and opens the
     // Wordle start screen (scene "Wordle - Start": pick a category and a level). If that scene is not in
