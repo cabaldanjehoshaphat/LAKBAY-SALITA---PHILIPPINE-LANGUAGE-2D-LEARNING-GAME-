@@ -6,7 +6,7 @@
 -- How it protects players
 --   * Row Level Security is on for every table and no table can be read directly. The game can only call the functions below, and only when signed in,
 --     except get_public_board, the view-only board for guests.
---   * A board shows only players who chose "Show me on leaderboards" (off by default), and only their nickname, built-in avatar number, puzzle count and points.
+--   * A board shows only players whose card has show_on_board on (the game turns it on for every logged-in player), and only their nickname, built-in avatar number, puzzle count and points.
 --     The Gmail address is never exposed.
 --   * The game never sends a finished score. It sends what happened (time, tries, hints) and score_of works the score out with the same rules as ScoreRules.cs,
 --     and refuses impossible values. This blocks impossible results, but a skilled cheater could still send believable ones.
@@ -189,7 +189,7 @@ begin
 end
 $$;
 
--- the same board for guests, view-only: the top 50 players who chose to be shown, and nothing that identifies anyone beyond the nickname and avatar
+-- the same board for guests, view-only: the top 50 players on the board, and nothing that identifies anyone beyond the nickname and avatar
 create or replace function public.get_public_board(p_scope text, p_game text, p_language int)
 returns table (rank bigint, nickname text, avatar int, puzzles bigint, points bigint, is_me boolean)
 language plpgsql security definer set search_path = public stable as $$

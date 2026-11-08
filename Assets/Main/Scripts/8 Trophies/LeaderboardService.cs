@@ -7,6 +7,7 @@ using UnityEngine;
 /// The game's connection to the online leaderboards in Supabase, through the database functions of Documentation/Supabase/Leaderboard_Setup.sql. Every call goes
 /// through CloudSave.CallApi and needs a login, except GetPublicBoard, the view-only board for guests. The game never sends a finished score: it sends what happened (time, tries, hints) and the server works
 /// out the score itself. SubmitAll is safe to repeat, because each puzzle only keeps its best result; that is also what uploads results earned offline.
+/// SubmitAll also publishes the player's name and avatar, so every logged-in player appears on the boards automatically.
 /// When the SQL file has not been run yet, the calls answer BoardState.NotSetUp and the screens say so.
 /// </summary>
 public static class LeaderboardService
@@ -102,8 +103,16 @@ public static class LeaderboardService
         }
     }
 
-    /// <summary>Uploads every saved result of this player.</summary>
+    /// <summary>Publishes the player's name and avatar, then uploads every saved result. A name the server refuses only keeps the player off the board; the results are still sent.</summary>
     public static void SubmitAll(Action<BoardState> done)
+    {
+        PlayerDatabase db = PlayerDatabase.Instance;
+        string name = db != null ? db.PlayerNameOrId : "Player";
+        int avatar = db != null ? db.AvatarIndex : 0;
+        SetMyCard(name, avatar, true, delegate (BoardState state, string refused) { UploadResults(done); });
+    }
+
+    private static void UploadResults(Action<BoardState> done)
     {
         var rows = new List<UploadRow>();
         foreach (PuzzleRecord r in ResultsStore.ForUpload())

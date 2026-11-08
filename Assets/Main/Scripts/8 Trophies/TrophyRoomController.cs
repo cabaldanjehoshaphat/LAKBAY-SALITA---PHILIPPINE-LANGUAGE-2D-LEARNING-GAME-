@@ -12,7 +12,8 @@ using UnityEngine.UI;
 ///  - Leaderboard: the online boards (This week, All time), filtered by game and language, with a podium for the top three and the player's own row always shown.
 ///    It needs the database functions of Documentation/Supabase/Leaderboard_Setup.sql; without them the screen explains what is missing. A logged-in player's results
 ///    are sent and can appear on the board. A guest sees the same board view-only: nothing is sent, and a "Log in" button leads to the Profile screen.
-///    Appearing on a board is the player's choice ("Show me on leaderboards", off by default). Only the name and a built-in avatar are shown.
+///    Every logged-in player appears automatically, because LeaderboardService publishes the name and avatar whenever results are sent. Only the name and a built-in
+///    avatar are shown.
 ///    While the rows are on the screen they are asked for again every 30 seconds and redrawn only if something changed, keeping the player's place in the list.
 ///  - My records: works offline. Points this week against the best week, the last six weeks by the Monday each week starts, the best score and fastest time of each
 ///    game, and a "Beat your best" suggestion.
@@ -68,7 +69,6 @@ public class TrophyRoomController : MonoBehaviour
     private bool _offline;
     private LeaderboardService.PlayerCard _card;
     private RectTransform _left, _right;
-    private TextMeshProUGUI _noticeLabel;
 
     // automatic refresh: while the online rows are on the screen they are asked for again every 30 seconds, and redrawn only if something changed
     private const float AutoRefreshSeconds = 30f;
@@ -281,7 +281,6 @@ public class TrophyRoomController : MonoBehaviour
 
         _left = Card(root, "podium_card", 80, 370, 620, 660, Cream).rectTransform;
         _right = Card(root, "list_card", 740, 370, 1100, 660, Cream).rectTransform;
-        _noticeLabel = Text(root, "", 24, InkSoft, false, TextAlignmentOptions.MidlineRight, 600, 268, 1240, 64);
         LoadBoard();
     }
 
@@ -370,13 +369,12 @@ public class TrophyRoomController : MonoBehaviour
                     return;
                 }
                 _card = card;
-                BuildShowMeSwitch();
                 FetchRows(request);
             });
         });
     }
 
-    /// <summary>A guest only reads the public board: no results are sent and there is no "Show me" switch. Survival has no public board.</summary>
+    /// <summary>A guest only reads the public board: no results are sent. Survival has no public board.</summary>
     private void LoadGuestBoard(int request)
     {
         _card = null;
@@ -497,42 +495,6 @@ public class TrophyRoomController : MonoBehaviour
         CheckWeeklyTop10(rows);
     }
 
-    private void BuildShowMeSwitch()
-    {
-        Transform root = tabRoots[0];
-        Transform old = root.Find("show_me");
-        if (old != null) Destroy(old.gameObject);
-        bool on = _card != null && _card.show_on_board;
-        Image back = Card(root, "show_me", 1330, 268, 510, 64, Cream);
-        Text(back.transform, "Show me on leaderboards", 25, Ink, false, TextAlignmentOptions.MidlineLeft, 26, 0, 340, 64);
-        Chip(back.transform, on ? "On" : "Off", 390, 8, 108, 48, on, Green, 25, delegate { ToggleShowMe(!on); });
-        if (_noticeLabel != null)
-        {
-            LibraryUiKit.Place(_noticeLabel.rectTransform, 590, 268, 720, 64);
-        }
-    }
-
-    private void ToggleShowMe(bool show)
-    {
-        PlayerDatabase db = PlayerDatabase.Instance;
-        string name = db != null ? db.PlayerNameOrId : "Player";
-        int avatar = db != null ? db.AvatarIndex : 0;
-        LeaderboardService.SetMyCard(name, avatar, show, delegate (LeaderboardService.BoardState state, string refused)
-        {
-            if (!string.IsNullOrEmpty(refused))
-            {
-                if (_noticeLabel != null) _noticeLabel.text = refused;
-                return;
-            }
-            if (state != LeaderboardService.BoardState.Ok)
-            {
-                Fail(state);
-                return;
-            }
-            BuildLeaderboard();
-        });
-    }
-
     private void ShowRows(LeaderboardService.BoardRow[] rows, bool survival)
     {
         _boardShowing = true;
@@ -551,7 +513,10 @@ public class TrophyRoomController : MonoBehaviour
             if (row.rank > 3) others.Add(row);
         }
         BuildPodium(rows, survival);
-        Text(_left, survival ? "Ranked by the best run" : "Points = best score of each puzzle", 23, InkSoft, false, TextAlignmentOptions.Center, 0, 608, 620, 40);
+        if (survival)
+        {
+            Text(_left, "Ranked by the best run", 23, InkSoft, false, TextAlignmentOptions.Center, 0, 608, 620, 40);
+        }
 
         Text(_right, "Rank", 24, InkSoft, false, TextAlignmentOptions.MidlineLeft, 52, 18, 100, 36);
         Text(_right, "Player", 24, InkSoft, false, TextAlignmentOptions.MidlineLeft, 162, 18, 300, 36);
@@ -563,7 +528,7 @@ public class TrophyRoomController : MonoBehaviour
         if (rows.Length == 0)
         {
             bool guest = !CloudSave.SignedIn;
-            TextMeshProUGUI none = Text(_right, guest ? "No one is on this board yet.\nLog in and play a puzzle to be the first." : "No one is on this board yet.\nTurn on \"Show me on leaderboards\" and play a puzzle to be the first.", 30, InkSoft, false, TextAlignmentOptions.Center, 100, 200, 900, 150);
+            TextMeshProUGUI none = Text(_right, guest ? "No one is on this board yet.\nLog in and play a puzzle to be the first." : "No one is on this board yet.\nPlay a puzzle to be the first.", 30, InkSoft, false, TextAlignmentOptions.Center, 100, 200, 900, 150);
             none.enableWordWrapping = true;
             if (guest)
             {
@@ -601,9 +566,9 @@ public class TrophyRoomController : MonoBehaviour
         else
         {
             bool shown = _card != null && _card.show_on_board;
-            Text(_right, shown ? "Play a puzzle to get on this board." : "You are hidden. Turn on \"Show me on leaderboards\" to appear.", 27, InkSoft, false, TextAlignmentOptions.Center, 40, 524, 1020, 60);
+            Text(_right, shown ? "Play a puzzle to get on this board." : "Your name can not be shown. Please change it on the Profile screen.", 27, InkSoft, false, TextAlignmentOptions.Center, 40, 524, 1020, 60);
         }
-        Text(_right, "Only names and avatars are shown, never your Gmail address. Updates every 30 seconds.", 22, InkSoft, false, TextAlignmentOptions.Center, 40, 604, 1020, 36);
+        Text(_right, "Only names and avatars are shown.", 22, InkSoft, false, TextAlignmentOptions.Center, 40, 604, 1020, 36);
     }
 
     private static void BuildRow(Transform parent, LeaderboardService.BoardRow row, float y, bool me)
